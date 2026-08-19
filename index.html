@@ -1,0 +1,2710 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asia 2026–27 · El Gran Viaje</title>
+<meta name="description" content="Bali, Tailandia y Japón — 38 días, 3 países. Itinerario, mapa, diario y recuerdos del viaje.">
+<meta name="theme-color" content="#1a1410">
+
+<!-- Compartir bonito (Open Graph / Twitter) -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="El Gran Viaje · Bali · Tailandia & Japón">
+<meta property="og:description" content="38 días, 3 países. Sigue el viaje: destinos, mapa, diario y recuerdos.">
+<meta property="og:image" content="https://raw.githubusercontent.com/martin130204/viaje-asia/main/canguu.jpg">
+<meta property="og:url" content="https://martin130204.github.io/viaje-asia/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="El Gran Viaje · Bali · Tailandia & Japón">
+<meta name="twitter:description" content="38 días, 3 países. Sigue el viaje: destinos, mapa, diario y recuerdos.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/martin130204/viaje-asia/main/canguu.jpg">
+
+<!-- Íconos / PWA -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛩️</text></svg>">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- HERO -->
+
+<!-- PERFIL MODAL -->
+<div id="profile-modal" onclick="closeProfile(event)">
+  <div class="profile-box" onclick="event.stopPropagation()">
+    <div class="profile-header">
+      <button id="profile-close" onclick="closeProfile()">✕</button>
+      <div class="avatar-wrap" onclick="document.getElementById('avatar-input').click()">
+        <div id="avatar-display">
+          <div class="avatar-placeholder">?</div>
+        </div>
+        <div class="avatar-edit">+</div>
+      </div>
+      <input type="file" id="avatar-input" accept="image/*">
+      <div class="profile-name-display" id="profile-name-display">Tu perfil</div>
+      <div id="profile-username-display" style="font-size:.78rem;color:rgba(255,255,255,.45);letter-spacing:.08em;margin-top:.15rem;position:relative;"></div>
+      <div id="profile-role-display"></div>
+    </div>
+    <div class="profile-body">
+      <div class="profile-field">
+        <label>Nombre de usuario <span style="font-size:.6rem;opacity:.5">(@usuario — para iniciar sesión)</span></label>
+        <div style="position:relative;">
+          <span style="position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:rgba(0,0,0,.35);font-size:.9rem;pointer-events:none;">@</span>
+          <input type="text" id="pf-username" placeholder="tunombre" maxlength="20" style="padding-left:1.8rem;" oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9._]/g,'')">
+        </div>
+        <span id="pf-username-msg" style="font-size:.7rem;margin-top:.1rem;min-height:.9rem;display:block;"></span>
+      </div>
+      <div class="profile-field">
+        <label>Nombre para mostrar</label>
+        <input type="text" id="pf-name" placeholder="¿Cómo te llaman?" maxlength="30">
+      </div>
+      <div class="profile-field">
+        <label>Frase del viaje</label>
+        <textarea id="pf-bio" placeholder="Una frase que te represente en el viaje..." rows="2" maxlength="100"></textarea>
+      </div>
+      <button class="profile-save" onclick="saveProfile()">Guardar perfil</button>
+      <div class="profile-saved-msg" id="pf-saved"></div>
+
+      <div id="pf-leave-section" style="display:none;margin-top:.8rem;">
+        <button onclick="doLeaveGroup()" style="width:100%;padding:.6rem;background:transparent;color:rgba(200,80,42,.65);border:1px solid rgba(200,80,42,.25);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.82rem;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='rgba(200,80,42,.07)'" onmouseout="this.style.background='transparent'">Abandonar el grupo viajero</button>
+        <div id="pf-leave-msg" style="text-align:center;font-size:.75rem;min-height:.9rem;margin-top:.3rem;"></div>
+      </div>
+
+      <div class="members-section">
+        <div class="members-title">Grupo viajero</div>
+        <div class="members-list" id="members-list">
+          <div style="font-size:.8rem;color:rgba(0,0,0,.35)">Cargando...</div>
+        </div>
+      </div>
+
+      <!-- Bandeja de entrada — solo editores -->
+      <div id="pf-inbox-section" style="display:none;margin-top:1.2rem;">
+        <div class="members-title" style="display:flex;align-items:center;justify-content:space-between;">
+          Mensajes recibidos
+          <span id="pf-inbox-badge" style="display:none;background:var(--ember);color:#fff;border-radius:10px;font-size:.65rem;padding:.1rem .45rem;font-weight:700;"></span>
+        </div>
+        <div id="pf-inbox-list" style="display:flex;flex-direction:column;gap:.5rem;margin-top:.6rem;">
+          <div style="font-size:.8rem;color:rgba(0,0,0,.35);">Sin conversaciones aún</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN OVERLAY -->
+<div id="login-overlay">
+  <div class="login-box">
+    <div class="login-logo">Bali · Tailandia<br><em>&amp; Japón</em></div>
+
+    <!-- Tabs -->
+    <div class="login-tabs">
+      <button class="login-tab active" id="tab-login" onclick="switchTab('login')">Iniciar sesión</button>
+      <button class="login-tab" id="tab-register" onclick="switchTab('register')">Crear cuenta</button>
+    </div>
+
+    <div class="login-error" id="login-error"></div>
+    <div class="login-success" id="login-success"></div>
+
+    <!-- LOGIN FORM -->
+    <div id="form-login">
+      <div class="login-field">
+        <label>Usuario o correo electrónico</label>
+        <input type="text" id="login-email" placeholder="@tunombre o tu@correo.com" autocomplete="username">
+      </div>
+      <div class="login-field">
+        <label>Contraseña</label>
+        <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="login-btn" id="login-submit" onclick="doLogin()">Entrar al viaje →</button>
+    </div>
+
+    <!-- REGISTER FORM -->
+    <div id="form-register" style="display:none">
+      <div class="login-field">
+        <label>Nombre de usuario <span style="font-size:.6rem;opacity:.6">(@usuario — para ingresar)</span></label>
+        <div style="position:relative;">
+          <span style="position:absolute;left:.85rem;top:50%;transform:translateY(-50%);color:rgba(0,0,0,.35);font-size:.95rem;pointer-events:none;">@</span>
+          <input type="text" id="reg-username" placeholder="tunombre" autocomplete="username" style="padding-left:1.8rem;" maxlength="20" oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9._]/g,'')">
+        </div>
+        <span id="username-check-msg" style="font-size:.7rem;margin-top:.2rem;min-height:.9rem;display:block;"></span>
+      </div>
+      <div class="login-field">
+        <label>Correo electrónico</label>
+        <input type="email" id="reg-email" placeholder="tu@correo.com" autocomplete="email">
+      </div>
+      <div class="login-field">
+        <label>Contraseña <span style="font-size:.6rem;opacity:.6">(mín. 6 caracteres)</span></label>
+        <input type="password" id="reg-pass" placeholder="••••••••" autocomplete="new-password">
+      </div>
+      <div class="login-field">
+        <label>Código de invitación <span style="font-size:.6rem;opacity:.6">(opcional — para unirte al grupo viajero)</span></label>
+        <input type="text" id="reg-code" placeholder="Déjalo vacío si no tienes código">
+      </div>
+      <button class="login-btn" id="reg-submit" onclick="doRegister()">Crear cuenta →</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL MENSAJES PRIVADOS -->
+<div id="msg-modal" onclick="closeMsgModal(event)" style="position:fixed;inset:0;z-index:9998;background:rgba(26,20,16,.88);display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);">
+  <div onclick="event.stopPropagation()" style="background:#fff;border-radius:20px;width:90%;max-width:480px;max-height:85vh;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,.4);overflow:hidden;">
+    <!-- Header -->
+    <div style="background:var(--ink);padding:1.2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div id="msg-modal-name" style="font-family:'Playfair Display',serif;font-size:1.05rem;color:#fff;"></div>
+        <div id="msg-modal-username" style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.1rem;"></div>
+      </div>
+      <button onclick="closeMsgModal()" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:1.2rem;cursor:pointer;">✕</button>
+    </div>
+    <!-- Messages list -->
+    <div id="msg-list" style="flex:1;overflow-y:auto;padding:1rem 1.2rem;display:flex;flex-direction:column;gap:.6rem;min-height:200px;max-height:340px;background:var(--sand);">
+      <div style="text-align:center;color:rgba(0,0,0,.3);font-size:.8rem;padding:2rem 0;">Cargando mensajes...</div>
+    </div>
+    <!-- Input -->
+    <div style="padding:.9rem 1.2rem;border-top:1px solid var(--warm);display:flex;gap:.6rem;background:#fff;">
+      <input type="text" id="msg-input" placeholder="Escribe un mensaje..." maxlength="500"
+        style="flex:1;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--ink);background:var(--sand);border:1.5px solid transparent;border-radius:10px;padding:.55rem .9rem;outline:none;transition:border-color .2s;"
+        onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='transparent'"
+        onkeydown="if(event.key==='Enter')sendPrivateMsg()">
+      <button onclick="sendPrivateMsg()" style="background:var(--ink);color:var(--gold);border:none;border-radius:10px;padding:.55rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;" onmouseover="this.style.background='var(--ember)'" onmouseout="this.style.background='var(--ink)'">Enviar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CENTRO DE MENSAJES -->
+<div id="msgcenter-modal" onclick="closeMsgCenter(event)" style="position:fixed;inset:0;z-index:9997;background:rgba(26,20,16,.88);display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);">
+  <div onclick="event.stopPropagation()" style="background:#fff;border-radius:20px;width:90%;max-width:460px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,.4);overflow:hidden;">
+    <div style="background:var(--ink);padding:1.1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
+      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;">Mensajes</div>
+      <button onclick="closeMsgCenter()" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:1.2rem;cursor:pointer;">✕</button>
+    </div>
+    <div style="overflow-y:auto;flex:1;">
+      <!-- Grupo viajero — para escribir -->
+      <div style="padding:.9rem 1.2rem .4rem;border-bottom:1px solid var(--warm);">
+        <div style="font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.35);margin-bottom:.6rem;font-weight:600;">Grupo viajero</div>
+        <div id="msgcenter-members" style="display:flex;flex-direction:column;gap:.4rem;">
+          <div style="font-size:.8rem;color:rgba(0,0,0,.3);">Cargando...</div>
+        </div>
+      </div>
+      <!-- Conversaciones activas -->
+      <div style="padding:.9rem 1.2rem;">
+        <div style="font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.35);margin-bottom:.6rem;font-weight:600;">Conversaciones</div>
+        <div id="msgcenter-convs" style="display:flex;flex-direction:column;gap:.4rem;">
+          <div style="font-size:.8rem;color:rgba(0,0,0,.3);">Sin conversaciones aún</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button id="lightbox-prev" onclick="lightboxNav(-1)">‹</button>
+  <img id="lightbox-img" src="" alt="">
+  <button id="lightbox-next" onclick="lightboxNav(1)">›</button>
+  <div id="lightbox-counter"></div>
+</div>
+
+<!-- MODAL EDITAR -->
+<div id="edit-modal" onclick="if(event.target===this)closeEditModal()" style="position:fixed;inset:0;z-index:9996;background:rgba(26,20,16,.88);display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:1rem;">
+  <div onclick="event.stopPropagation()" style="background:#fff;border-radius:20px;width:90%;max-width:540px;padding:2rem 2.2rem;box-shadow:0 24px 64px rgba(0,0,0,.4);position:relative;max-height:90vh;overflow-y:auto;">
+    <button onclick="closeEditModal()" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:rgba(0,0,0,.3);">&#10005;</button>
+    <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--ink);margin-bottom:1.4rem;">Editar entrada</div>
+    <input type="hidden" id="edit-id">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem;">
+      <div><label style="font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.4);display:block;margin-bottom:.3rem;">Fecha</label>
+        <input type="date" id="edit-date" style="width:100%;font-family:'DM Sans',sans-serif;font-size:.85rem;color:var(--ink);background:var(--sand);border:none;border-radius:10px;padding:.55rem .9rem;outline:none;box-sizing:border-box;"></div>
+      <div><label style="font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.4);display:block;margin-bottom:.3rem;">Destino</label>
+        <select id="edit-place" style="width:100%;font-family:'DM Sans',sans-serif;font-size:.85rem;color:var(--ink);background:var(--sand);border:none;border-radius:10px;padding:.55rem .9rem;outline:none;box-sizing:border-box;">
+          <option value="Canggu|bali">Canggu</option><option value="Ubud|bali">Ubud</option><option value="Nusa Penida|bali">Nusa Penida</option>
+          <option value="Bangkok|thai">Bangkok</option><option value="Chiang Mai|thai">Chiang Mai</option><option value="Chiang Rai|thai">Chiang Rai</option><option value="Phuket|thai">Phuket</option><option value="Phi Phi|thai">Phi Phi</option><option value="Krabi|thai">Krabi</option>
+          <option value="Osaka|japan">Osaka</option><option value="Kyoto|japan">Kyoto</option><option value="Nara|japan">Nara</option><option value="Tokyo|japan">Tokyo</option><option value="Nagano|japan">Nagano</option>
+        </select></div>
+    </div>
+    <div style="margin-bottom:.8rem;"><label style="font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.4);display:block;margin-bottom:.3rem;">Título</label>
+      <input type="text" id="edit-title" maxlength="80" style="width:100%;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--ink);background:var(--sand);border:none;border-radius:10px;padding:.55rem .9rem;outline:none;box-sizing:border-box;"></div>
+    <div style="margin-bottom:1.2rem;"><label style="font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.4);display:block;margin-bottom:.3rem;">Experiencia</label>
+      <textarea id="edit-text" rows="5" maxlength="2000" style="width:100%;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--ink);background:var(--sand);border:none;border-radius:10px;padding:.7rem .9rem;outline:none;resize:vertical;box-sizing:border-box;"></textarea></div>
+    <div id="edit-msg" style="font-size:.8rem;min-height:1rem;margin-bottom:.6rem;"></div>
+    <button id="edit-save-btn" onclick="saveEdit()" style="width:100%;padding:.8rem;background:var(--ink);color:var(--gold);border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;">Guardar cambios</button>
+  </div>
+</div>
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="orb orb-1"></div><div class="orb orb-2"></div><div class="orb orb-3"></div>
+  <div class="hero-strip"><div class="strip-bali"></div><div class="strip-thai"></div><div class="strip-japan"></div></div>
+  <p class="hero-eyebrow">Sudeste Asiático &amp; Japón · Diciembre 2026 – Febrero 2027</p>
+  <h1 class="hero-title">Bali · Tailandia<br><em>&amp; Japón</em></h1>
+  <p class="hero-sub">バリ島 · タイ · 日本</p>
+  <p class="hero-dates">26 Dic 2026 → 1 Feb 2027 · 38 días</p>
+  <div class="countdown-wrap">
+    <div class="cd-box"><div class="cd-num" id="cd-days">--</div><div class="cd-lbl">Días</div></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-box"><div class="cd-num" id="cd-hours">--</div><div class="cd-lbl">Horas</div></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-box"><div class="cd-num" id="cd-mins">--</div><div class="cd-lbl">Min</div></div>
+    <span class="cd-sep">:</span>
+    <div class="cd-box"><div class="cd-num" id="cd-secs">--</div><div class="cd-lbl">Seg</div></div>
+  </div>
+  <div id="cd-status">para el despegue</div>
+  <div class="hero-scroll"><span>Explorar</span><div class="scroll-line"></div></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Asia '26–27</div>
+  <div id="nav-av-btn" style="display:none;cursor:pointer;" onclick="openProfile()" title="Mi perfil"><div id="nav-av-wrap"><div style="width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--ink);font-weight:700;border:2px solid rgba(255,255,255,.3);" id="nav-av-inner">?</div></div></div>
+  <div id="nav-user" class="logged-out" onclick="handleNavUser()"><div class="user-dot"></div><span id="nav-user-text">Iniciar sesión</span></div>
+  <button id="nav-logout-btn" onclick="doLogout()" style="display:none;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);padding:.32rem .75rem;border-radius:20px;font-size:.72rem;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:all .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.6)'">Salir</button>
+  <button id="nav-upgrade-btn" style="display:none;background:rgba(212,168,83,.18);border:1px solid rgba(212,168,83,.5);color:var(--gold);padding:.38rem 1rem;border-radius:20px;font-size:.75rem;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;letter-spacing:.04em;transition:all .22s;" onclick="openUpgrade()" onmouseover="this.style.background='rgba(212,168,83,.35)'" onmouseout="this.style.background='rgba(212,168,83,.18)'">Unirme al grupo</button>
+  <!-- Botón mensajes nav -->
+  <div id="nav-msg-btn" style="display:none;position:relative;cursor:pointer;flex-shrink:0;" onclick="openMsgCenter()" title="Mensajes">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    <span id="nav-msg-badge" style="display:none;position:absolute;top:-.45rem;right:-.45rem;background:#e53e3e;color:#fff;border-radius:50%;min-width:1.05rem;height:1.05rem;font-size:.6rem;font-weight:700;align-items:center;justify-content:center;padding:0 .18rem;border:1.5px solid rgba(26,20,16,.96);font-family:'DM Sans',sans-serif;line-height:1;"></span>
+  </div>
+  <button class="nav-btn" onclick="goTo('resumen',this)">Resumen</button>
+  <button class="nav-btn" onclick="goTo('destinos',this)">Destinos</button>
+  <button class="nav-btn" onclick="goTo('diario',this)">Diario</button>
+  <button class="nav-btn" onclick="goTo('galeria',this)">Galería</button>
+    <button class="nav-btn" onclick="goTo('vuelos',this)">Vuelos</button>
+  <button class="nav-btn" onclick="goTo('mapa',this)">Mapa</button>
+  <button class="nav-btn" onclick="goTo('alojamientos',this)">Alojamientos</button>
+  <button class="nav-btn" onclick="goTo('preparacion',this)" id="nav-prep-btn" style="display:none;">Preparacion</button>
+</nav>
+
+<!-- MODAL UPGRADE A GRUPO VIAJERO -->
+<div id="upgrade-modal" onclick="closeUpgrade(event)" style="position:fixed;inset:0;z-index:9999;background:rgba(26,20,16,.92);display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);">
+  <div onclick="event.stopPropagation()" style="background:#fff;border-radius:24px;padding:2.5rem 2.8rem;width:90%;max-width:420px;box-shadow:0 24px 64px rgba(0,0,0,.5);position:relative;">
+    <button onclick="closeUpgrade()" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:rgba(0,0,0,.3);">✕</button>
+    <div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--ink);margin-bottom:.4rem;">Unirme al grupo</div>
+    <div style="font-size:.83rem;color:rgba(0,0,0,.45);margin-bottom:1.8rem;">Ingresa el código de invitación para acceder a todas las funciones del grupo viajero.</div>
+    <div id="upgrade-error" style="background:rgba(200,80,42,.1);border-left:3px solid var(--ember);border-radius:0 8px 8px 0;padding:.6rem .9rem;font-size:.82rem;color:var(--ember);margin-bottom:1rem;display:none;"></div>
+    <div id="upgrade-success" style="background:rgba(61,90,62,.1);border-left:3px solid var(--moss);border-radius:0 8px 8px 0;padding:.6rem .9rem;font-size:.82rem;color:var(--moss);margin-bottom:1rem;display:none;"></div>
+    <div style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem;">
+      <label style="font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,0,0,.4);">Código de invitación</label>
+      <input type="text" id="upgrade-code" placeholder="Código secreto del grupo" style="font-family:'DM Sans',sans-serif;font-size:.95rem;color:var(--ink);background:var(--sand);border:1.5px solid transparent;border-radius:10px;padding:.65rem 1rem;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='transparent'" onkeydown="if(event.key==='Enter')doUpgrade()">
+    </div>
+    <button id="upgrade-btn" onclick="doUpgrade()" style="width:100%;padding:.8rem;background:var(--ink);color:var(--gold);border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:background .2s,transform .15s;letter-spacing:.04em;">Unirme →</button>
+  </div>
+</div>
+
+<!-- FAB PUNTUACIONES -->
+<button id="fab-scores" onclick="openScores()">Ver puntuaciones</button>
+
+<!-- RESUMEN -->
+<div class="sw" id="resumen">
+  <p class="sec-label">Vista General</p>
+  <h2 class="sec-title">38 días.<br>3 países. Infinitas memorias.</h2>
+  <div class="stats-bar">
+    <div class="stat-seg seg-bali"><strong>10</strong>días · Bali</div>
+    <div class="stat-seg seg-thai"><strong>14</strong>días · Tailandia</div>
+    <div class="stat-seg seg-japan"><strong>14</strong>días · Japón</div>
+  </div>
+  <div class="sum-grid">
+    <div class="sum-card"><div class="sum-lbl lbl-ember">Vuelo de salida</div><div class="sum-name">26 Dic 2026</div><div class="sum-detail">SCL → Bali (con escala)</div></div>
+    <div class="sum-card"><div class="sum-lbl lbl-bali">Bali, Indonesia</div><div class="sum-name">28 Dic – 5 Ene</div><div class="sum-detail">Canggu · Ubud · Nusa Penida</div></div>
+    <div class="sum-card"><div class="sum-lbl lbl-thai">Tailandia</div><div class="sum-name">5 – 19 Enero</div><div class="sum-detail">Phuket · Krabi · Bangkok · Chiang Mai</div></div>
+    <div class="sum-card"><div class="sum-lbl lbl-japan">Japón</div><div class="sum-name">19 Ene – 1 Feb</div><div class="sum-detail">Osaka · Kyoto · Nara · Tokyo · Nagano</div></div>
+    <div class="sum-card"><div class="sum-lbl lbl-moss">Vuelta a casa</div><div class="sum-name">1 Feb 2027</div><div class="sum-detail">Vuelo → Santiago de Chile</div></div>
+  </div>
+</div>
+
+<!-- DESTINOS -->
+<div id="destinos">
+  <div class="selector-header">
+    <p class="sec-label">Explorar por país</p>
+    <h2 class="sec-title">Elige tu destino</h2>
+  </div>
+  <div class="country-cards">
+    <div class="c-card card-bali active" id="card-bali" onclick="showCountry('bali')">
+      <img class="bg-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/canguu.jpg" alt="Bali">
+      <div class="c-card-active-bar"></div>
+      <div class="c-card-body">
+        <div class="c-card-flag">🇮🇩</div>
+        <div class="c-card-name">Bali</div>
+        <div class="c-card-dates">28 Dic – 5 Ene · 8 noches</div>
+        <div class="c-card-zones">Canggu · Ubud · Nusa Penida</div>
+        <div class="c-card-btn">Ver destino →</div>
+      </div>
+    </div>
+    <div class="c-card card-thai" id="card-thai" onclick="showCountry('thai')">
+      <img class="bg-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/chiang_mai.jpg" alt="Tailandia">
+      <div class="c-card-active-bar"></div>
+      <div class="c-card-body">
+        <div class="c-card-flag">🇹🇭</div>
+        <div class="c-card-name">Tailandia</div>
+        <div class="c-card-dates">5 – 19 Ene · 14 noches</div>
+        <div class="c-card-zones">Phuket · Krabi · Bangkok · Chiang Mai</div>
+        <div class="c-card-btn">Ver destino →</div>
+      </div>
+    </div>
+    <div class="c-card card-japan" id="card-japan" onclick="showCountry('japan')">
+      <img class="bg-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/kyoto.jpg" alt="Japón">
+      <div class="c-card-active-bar"></div>
+      <div class="c-card-body">
+        <div class="c-card-flag">🇯🇵</div>
+        <div class="c-card-name">Japón</div>
+        <div class="c-card-dates">19 Ene – 1 Feb · 12 noches</div>
+        <div class="c-card-zones">Osaka · Kyoto · Nara · Tokyo · Nagano</div>
+        <div class="c-card-btn">Ver destino →</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="country-detail-area">
+
+    <!-- ══ BALI ══ -->
+    <div class="ccontent dest-bali visible" id="content-bali">
+      <div class="dest-hdr">
+        <div class="dest-country">🇮🇩 Bali, Indonesia</div>
+        <div class="dest-meta">
+          <div class="dest-meta-item"><strong>Llegada</strong>28 Diciembre 2026</div>
+          <div class="dest-meta-item"><strong>Salida</strong>5 Enero 2027</div>
+          <div class="dest-meta-item"><strong>Noches</strong>8 noches</div>
+          <div class="dest-meta-item"><strong>Zonas</strong>Canggu · Ubud · Nusa Penida</div>
+        </div>
+      </div>
+      
+      <div class="gallery-strip">
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/canguu_beach.jpg','Canggu Beach, Bali')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/canguu_beach.jpg" alt="Canggu Beach"><div class="g-label">Canggu Beach</div></div>
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/ubud.jpg','Tegallalang Rice Terraces, Ubud')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/ubud.jpg" alt="Ubud"><div class="g-label">Tegallalang · Ubud</div></div>
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/nusa_penida.jpg','Kelingking Beach, Nusa Penida')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/nusa_penida.jpg" alt="Nusa Penida"><div class="g-label">Kelingking Beach</div></div>
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/monkey_forest.jpg','Sacred Monkey Forest, Ubud')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/monkey_forest.jpg" alt="Monkey Forest"><div class="g-label">Monkey Forest</div></div>
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/nusa_penida.jpg','Angel Billabong, Nusa Penida')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/nusa_penida.jpg" alt="Angel Billabong"><div class="g-label">Angel's Billabong</div></div>
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/old_mans.jpg','Old Man\'s Canggu, Bali')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/old_mans.jpg" alt="Old Mans"><div class="g-label">Old Man's Canggu</div></div>
+      </div>
+      <div class="zones-grid">
+        <div class="zone-card">
+          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/canguu.jpg" alt="Canggu" onclick="openLb(this.src,'Canggu, Bali')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-body">
+            <div class="zone-name">Canggu</div><div class="zone-dates">28 – 29 Diciembre</div>
+            <ul class="zone-acts"><li>Clase de surf en Batu Bolong</li><li>Sunset en la playa</li><li>Old Man's Canggu</li><li>Atlas Night Club</li></ul>
+            <div class="rating-section"><div class="rating-label">Tu puntuación</div><div class="stars" id="stars-canggu" data-place="Canggu" data-country="Bali 🇮🇩"></div><div class="rating-saved" id="saved-canggu"></div></div>
+          </div>
+        </div>
+        <div class="zone-card">
+          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/ubud.jpg" alt="Ubud" onclick="openLb(this.src,'Tegallalang, Ubud')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-body">
+            <div class="zone-name">Ubud</div><div class="zone-dates">30 Dic – 1 Enero</div>
+            <ul class="zone-acts"><li>Sacred Monkey Forest</li><li>Tegallalang Rice Terraces</li><li>Tegenungan Waterfall</li><li>Pura Tirta Empul — templo del agua</li><li>Año Nuevo en Ubud</li><li>Cascada Kanto Lampo</li></ul>
+            <div class="rating-section"><div class="rating-label">Tu puntuación</div><div class="stars" id="stars-ubud" data-place="Ubud" data-country="Bali 🇮🇩"></div><div class="rating-saved" id="saved-ubud"></div></div>
+          </div>
+        </div>
+        <div class="zone-card">
+          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/nusa_penida.jpg" alt="Nusa Penida" onclick="openLb(this.src,'Kelingking Beach, Nusa Penida')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-body">
+            <div class="zone-name">Nusa Penida</div><div class="zone-dates">2 – 4 Enero</div>
+            <ul class="zone-acts"><li>Kelingking Beach</li><li>Broken Beach</li><li>Diamond Beach · Atuh Beach</li><li>Snorkel en Manta Point</li></ul>
+            <div class="rating-section"><div class="rating-label">Tu puntuación</div><div class="stars" id="stars-nusa" data-place="Nusa Penida" data-country="Bali 🇮🇩"></div><div class="rating-saved" id="saved-nusa"></div></div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- ══ TAILANDIA ══ -->
+    <div class="ccontent dest-thai" id="content-thai">
+      <div class="dest-hdr">
+        <div class="dest-country">🇹🇭 Tailandia</div>
+        <div class="dest-meta">
+          <div class="dest-meta-item"><strong>Llegada</strong>5 Enero 2027</div>
+          <div class="dest-meta-item"><strong>Salida</strong>19 Enero 2027</div>
+          <div class="dest-meta-item"><strong>Noches</strong>14 noches</div>
+          <div class="dest-meta-item"><strong>Ciudades</strong>Phuket · Krabi · Bangkok · Chiang Mai</div>
+        </div>
+      </div>
+      
+      <div class="gallery-strip">
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/bangkok.jpg','Grand Palace, Bangkok')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/bangkok.jpg" alt="Bangkok"><div class="g-label">Grand Palace · Bangkok</div></div>
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/chiang_mai.jpg','Doi Suthep, Chiang Mai')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/chiang_mai.jpg" alt="Chiang Mai"><div class="g-label">Doi Suthep · Chiang Mai</div></div>
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/phuket.jpg','Phuket')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/phuket.jpg" alt="Phuket"><div class="g-label">Phuket</div></div>
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/krabi.jpg','Phi Phi Island, Krabi')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/krabi.jpg" alt="Krabi"><div class="g-label">Phi Phi · Krabi</div></div>
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/wat_arun.jpg','Wat Arun, Bangkok')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/wat_arun.jpg" alt="Wat Arun"><div class="g-label">Wat Arun · Bangkok</div></div>
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/chiang_mai.jpg','Chiang Mai')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/chiang_mai.jpg" alt="Chiang Mai"><div class="g-label">Chiang Mai</div></div>
+      </div>
+      <div class="zones-grid">
+        <div class="zone-card">
+          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/phuket.jpg" alt="Phuket" onclick="openLb(this.src,'Phuket, Tailandia')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-body">
+            <div class="zone-name">Phuket</div><div class="zone-dates">5 – 9 Enero</div>
+            <ul class="zone-acts"><li>Hanuman World</li><li>Patong Beach</li><li>Bangla Road</li><li>Tour Phi Phi · Maya Bay</li></ul>
+            <div class="rating-section"><div class="rating-label">Tu puntuación</div><div class="stars" id="stars-phuket" data-place="Phuket" data-country="Tailandia 🇹🇭"></div><div class="rating-saved" id="saved-phuket"></div></div>
+          </div>
+        </div>
+        <div class="zone-card">
+          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/krabi.jpg" alt="Krabi" onclick="openLb(this.src,'Krabi, Tailandia')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-body">
+            <div class="zone-name">Krabi</div><div class="zone-dates">9 – 13 Enero</div>
+            <ul class="zone-acts"><li>Railay Beach en lancha</li><li>Tham Phra Nang</li><li>Tour Hong Island — laguna esmeralda</li><li>Four Islands Tour</li></ul>
+            <div class="rating-section"><div class="rating-label">Tu puntuación</div><div class="stars" id="stars-krabi" data-place="Krabi" data-country="Tailandia 🇹🇭"></div><div class="rating-saved" id="saved-krabi"></div></div>
+          </div>
+        </div>
+        <div class="zone-card">
+          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/bangkok.jpg" alt="Bangkok" onclick="openLb(this.src,'Grand Palace, Bangkok')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-body">
+            <div class="zone-name">Bangkok</div><div class="zone-dates">13 – 15 Enero</div>
+            <ul class="zone-acts"><li>Khao San Road</li><li>Grand Palace + Wat Phra Kaew</li><li>Wat Pho</li><li>Wat Arun + ferry Chao Phraya</li><li>Asiatique · Iconsiam</li></ul>
+            <div class="rating-section"><div class="rating-label">Tu puntuación</div><div class="stars" id="stars-bangkok" data-place="Bangkok" data-country="Tailandia 🇹🇭"></div><div class="rating-saved" id="saved-bangkok"></div></div>
+          </div>
+        </div>
+        <div class="zone-card">
+          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/chiang_mai.jpg" alt="Chiang Mai" onclick="openLb(this.src,'Chiang Mai, Tailandia')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-body">
+            <div class="zone-name">Chiang Mai</div><div class="zone-dates">15 – 19 Enero</div>
+            <ul class="zone-acts"><li>Wat Phra That Doi Suthep</li><li>Old City · Wat Chedi Luang</li><li>Night Bazaar</li><li>Elephant Nature Park</li><li>Daytrip Chiang Rai: Templo Blanco · Azul</li></ul>
+            <div class="rating-section"><div class="rating-label">Tu puntuación</div><div class="stars" id="stars-chiangmai" data-place="Chiang Mai" data-country="Tailandia 🇹🇭"></div><div class="rating-saved" id="saved-chiangmai"></div></div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+    <!-- ══ JAPÓN ══ -->
+    <div class="ccontent dest-japan" id="content-japan">
+      <div class="dest-hdr">
+        <div class="dest-country">🇯🇵 Japón</div>
+        <div class="dest-meta">
+          <div class="dest-meta-item"><strong>Llegada</strong>19 Enero 2027</div>
+          <div class="dest-meta-item"><strong>Salida</strong>31 Enero 2027</div>
+          <div class="dest-meta-item"><strong>Noches</strong>12 noches</div>
+          <div class="dest-meta-item"><strong>Ciudades</strong>Osaka · Kyoto · Nara · Tokyo · Nagano</div>
+        </div>
+      </div>
+      
+      <div class="gallery-strip">
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/osaka.jpg','Osaka · Japón')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/osaka.jpg" alt="Osaka"><div class="g-label">Osaka</div></div>
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/kyoto.jpg','Kyoto · Fushimi Inari')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/kyoto.jpg" alt="Kyoto"><div class="g-label">Fushimi Inari · Kyoto</div></div>
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/nara.jpg','Ciervos de Nara')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/nara.jpg" alt="Nara"><div class="g-label">Ciervos · Nara</div></div>
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/tokyo.jpg','Tokyo de noche')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/tokyo.jpg" alt="Tokyo"><div class="g-label">Tokyo</div></div>
+        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/nagano.jpg','Monos en onsen · Nagano')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/nagano.jpg" alt="Nagano"><div class="g-label">Monos onsen · Nagano</div></div>
+      </div>
+      <div class="zones-grid">
+        <div class="zone-card">
+          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/osaka.jpg" alt="Osaka" onclick="openLb(this.src,'Osaka, Japón')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-body">
+            <div class="zone-name">Osaka</div><div class="zone-dates">19 – 22 Enero</div>
+            <ul class="zone-acts"><li>Kuromon Market</li><li>Castillo de Osaka</li><li>Dotonbori + Shinsaibashi de noche</li><li>Universal Studios Japan</li><li>Den Den Town · Katsuo-ji</li></ul>
+            <div class="rating-section"><div class="rating-label">Tu puntuación</div><div class="stars" id="stars-osaka" data-place="Osaka" data-country="Japón 🇯🇵"></div><div class="rating-saved" id="saved-osaka"></div></div>
+          </div>
+        </div>
+        <div class="zone-card">
+          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/kyoto.jpg" alt="Kyoto" onclick="openLb(this.src,'Fushimi Inari, Kyoto')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-body">
+            <div class="zone-name">Kyoto</div><div class="zone-dates">22 – 25 Enero</div>
+            <ul class="zone-acts"><li>Higashiyama + Kiyomizu-dera</li><li>Fushimi Inari Taisha</li><li>Arashiyama · bambú · Tenryu-ji</li><li>Kinkaku-ji · Ryoan-ji</li></ul>
+            <div class="rating-section"><div class="rating-label">Tu puntuación</div><div class="stars" id="stars-kyoto" data-place="Kyoto" data-country="Japón 🇯🇵"></div><div class="rating-saved" id="saved-kyoto"></div></div>
+          </div>
+        </div>
+        <div class="zone-card">
+          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/nara.jpg" alt="Nara" onclick="openLb(this.src,'Ciervos de Nara')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-body">
+            <div class="zone-name">Nara</div><div class="zone-dates">Daytrip desde Kyoto</div>
+            <ul class="zone-acts"><li>Ciervos del Parque de Nara</li><li>Todai-ji · Gran Buda de bronce</li><li>Kasuga Taisha</li></ul>
+            <div class="rating-section"><div class="rating-label">Tu puntuación</div><div class="stars" id="stars-nara" data-place="Nara" data-country="Japón 🇯🇵"></div><div class="rating-saved" id="saved-nara"></div></div>
+          </div>
+        </div>
+        <div class="zone-card">
+          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/tokyo.jpg" alt="Tokyo" onclick="openLb(this.src,'Tokyo de noche')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-body">
+            <div class="zone-name">Tokyo</div><div class="zone-dates">25 Ene – 1 Feb</div>
+            <ul class="zone-acts"><li>Senso-ji + Nakamise</li><li>Akihabara</li><li>Meiji Jingu · Harajuku</li><li>Shibuya Crossing + Shibuya Sky</li><li>Tsukiji Market</li><li>Odaiba: teamLab · Gundam</li></ul>
+            <div class="rating-section"><div class="rating-label">Tu puntuación</div><div class="stars" id="stars-tokyo" data-place="Tokyo" data-country="Japón 🇯🇵"></div><div class="rating-saved" id="saved-tokyo"></div></div>
+          </div>
+        </div>
+        <div class="zone-card">
+          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/nagano.jpg" alt="Nagano" onclick="openLb(this.src,'Monos en onsen, Nagano')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-body">
+            <div class="zone-name">Nagano</div><div class="zone-dates">Daytrip desde Tokyo</div>
+            <ul class="zone-acts"><li>Monos de nieve · Jigokudani</li><li>Zenko-ji · templo milenario</li></ul>
+            <div class="rating-section"><div class="rating-label">Tu puntuación</div><div class="stars" id="stars-nagano" data-place="Nagano" data-country="Japón 🇯🇵"></div><div class="rating-saved" id="saved-nagano"></div></div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="sw" id="diario">
+  <p class="sec-label">Memorias en tiempo real</p>
+  <h2 class="sec-title">Diario<br>del viaje</h2>
+
+  <!-- FORM -->
+  <div class="diario-form">
+    <div class="diario-form-title">Nueva entrada</div>
+    <div class="diario-fields">
+      <div class="diario-field" id="de-author-field" style="display:none;">
+        <label>Tu nombre</label>
+        <input type="text" id="de-author" placeholder="¿Quién escribe?">
+      </div>
+      <div class="diario-field">
+        <label>Fecha</label>
+        <input type="date" id="de-date">
+      </div>
+      <div class="diario-field">
+        <label>Destino</label>
+        <select id="de-place">
+          <option value="">— Selecciona —</option>
+          <optgroup label="🇮🇩 Bali">
+            <option value="Canggu|bali">Canggu</option>
+            <option value="Ubud|bali">Ubud</option>
+            <option value="Nusa Penida|bali">Nusa Penida</option>
+            <option value="Sanur|bali">Sanur</option>
+          </optgroup>
+          <optgroup label="🇹🇭 Tailandia">
+            <option value="Bangkok|thai">Bangkok</option>
+            <option value="Chiang Mai|thai">Chiang Mai</option>
+            <option value="Chiang Rai|thai">Chiang Rai</option>
+            <option value="Phuket|thai">Phuket</option>
+            <option value="Phi Phi|thai">Phi Phi</option>
+            <option value="Krabi|thai">Krabi</option>
+          </optgroup>
+          <optgroup label="🇯🇵 Japón">
+            <option value="Osaka|japan">Osaka</option>
+            <option value="Kyoto|japan">Kyoto</option>
+            <option value="Nara|japan">Nara</option>
+            <option value="Tokyo|japan">Tokyo</option>
+            <option value="Nagano|japan">Nagano</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="diario-field">
+        <label>Título</label>
+        <input type="text" id="de-title" placeholder="Dale un nombre a este momento">
+      </div>
+      <div class="diario-field diario-field-full">
+        <label>Experiencia</label>
+        <textarea id="de-text" placeholder="Cuenta qué hiciste, cómo te sentiste, qué fue lo mejor..."></textarea>
+      </div>
+      <div class="diario-field diario-field-full">
+        <label>Fotos</label>
+        <label class="diario-photo-label" for="diario-photo-input">
+          Toca para agregar fotos (puedes elegir varias)
+        </label>
+        <input type="file" id="diario-photo-input" accept="image/*" multiple>
+        <div class="diario-photo-preview" id="de-preview"></div>
+      </div>
+    </div>
+    <button class="diario-submit" onclick="submitEntry()">Guardar entrada →</button>
+  </div>
+
+  <!-- SEARCH + FILTERS -->
+  <div style="margin-bottom:.8rem;"><input id="diario-search" type="text" placeholder="Buscar en el diario..." oninput="searchDiario(this.value)" style="width:100%;max-width:400px;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--ink);background:#fff;border:1.5px solid var(--warm);border-radius:12px;padding:.6rem 1rem;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--warm)'"></div>
+  <div class="diario-filter">
+    <button class="df-btn active" onclick="filterDiario('',this);renderDiario(_lastEntries)">Todas</button>
+    <button class="df-btn" data-filter="bali" onclick="filterDiario('bali',this);renderDiario(_lastEntries)">ID Bali</button>
+    <button class="df-btn" data-filter="thai" onclick="filterDiario('thai',this);renderDiario(_lastEntries)">TH Tailandia</button>
+    <button class="df-btn" data-filter="japan" onclick="filterDiario('japan',this);renderDiario(_lastEntries)">JP Japón</button>
+  </div>
+
+  <!-- ENTRIES -->
+  <div class="diario-grid" id="diario-grid"></div>
+</div>
+
+
+<footer>
+  <p>Asia '26–27 · <span>Bali · Tailandia · Japón</span> · 38 días · 3 países · infinitas memorias</p>
+</footer>
+
+<!-- PREPARACION Y MONEDA — solo visible para editores -->
+
+<!-- GALERIA -->
+<div class="sw" id="galeria">
+  <p class="sec-label">Recuerdos</p>
+  <h2 class="sec-title">Galería</h2>
+  <div class="diario-filter" style="margin-bottom:1.5rem;">
+    <button class="df-btn active" onclick="filterGallery('',this)">Todas</button>
+    <button class="df-btn" onclick="filterGallery('bali',this)">🇮🇩 Bali</button>
+    <button class="df-btn" onclick="filterGallery('thai',this)">🇹🇭 Tailandia</button>
+    <button class="df-btn" onclick="filterGallery('japan',this)">🇯🇵 Japón</button>
+  </div>
+  <div class="gal-grid" id="galeria-grid"></div>
+</div>
+
+<div class="sw" id="vuelos">
+  <p class="sec-label">Logística</p>
+  <h2 class="sec-title">Vuelos del viaje</h2>
+  <div class="flights-box">
+    <div class="flights-title">Ruta completa</div>
+    <div class="flight-row"><div class="flight-airports"><div><div class="ap-code">SCL</div><div class="ap-city">Santiago</div></div><div class="flight-mid"><div class="fl-line"></div><div class="fl-info">Vuelo largo · escala</div></div><div><div class="ap-code">DPS</div><div class="ap-city">Bali</div></div></div><div><div class="fl-badge">26 Dic → 28 Dic 2026</div></div></div>
+    <div class="flight-row"><div class="flight-airports"><div><div class="ap-code">DPS</div><div class="ap-city">Bali</div></div><div class="flight-mid"><div class="fl-line"></div><div class="fl-info">AirAsia · ~2h50</div></div><div><div class="ap-code">HKT</div><div class="ap-city">Phuket</div></div></div><div><div class="fl-badge">5 Ene · 14:25 → 17:15</div></div></div>
+    <div class="flight-row"><div class="flight-airports"><div><div class="ap-code">HKT</div><div class="ap-city">Phuket</div></div><div class="flight-mid"><div class="fl-line"></div><div class="fl-info">Ferry + minibus · ~2h</div></div><div><div class="ap-code">KBV</div><div class="ap-city">Krabi</div></div></div><div><div class="fl-badge">9 Ene</div></div></div>
+    <div class="flight-row"><div class="flight-airports"><div><div class="ap-code">KBV</div><div class="ap-city">Krabi</div></div><div class="flight-mid"><div class="fl-line"></div><div class="fl-info">AirAsia · ~1h15</div></div><div><div class="ap-code">BKK</div><div class="ap-city">Bangkok</div></div></div><div><div class="fl-badge">13 Ene</div></div></div>
+    <div class="flight-row"><div class="flight-airports"><div><div class="ap-code">BKK</div><div class="ap-city">Bangkok</div></div><div class="flight-mid"><div class="fl-line"></div><div class="fl-info">AirAsia · ~1h15</div></div><div><div class="ap-code">CNX</div><div class="ap-city">Chiang Mai</div></div></div><div><div class="fl-badge">15 Ene</div></div></div>
+    <div class="flight-row"><div class="flight-airports"><div><div class="ap-code">CNX</div><div class="ap-city">Chiang Mai</div></div><div class="flight-mid"><div class="fl-line"></div><div class="fl-info">· ~6h</div></div><div><div class="ap-code">KIX</div><div class="ap-city">Osaka</div></div></div><div><div class="fl-badge">19 Ene · 08:30 → 19:30</div></div></div>
+    <div class="flight-row"><div class="flight-airports"><div><div class="ap-code">NRT</div><div class="ap-city">Tokyo</div></div><div class="flight-mid"><div class="fl-line"></div><div class="fl-info">Vuelo de regreso</div></div><div><div class="ap-code">SCL</div><div class="ap-city">Santiago</div></div></div><div><div class="fl-badge">31 Ene / 1 Feb 2027</div></div></div>
+  </div>
+</div>
+
+
+
+
+
+<!-- MAPA RUTA -->
+<div class="sw" id="mapa">
+  <p class="sec-label">La aventura completa</p>
+  <h2 class="sec-title">Ruta del viaje</h2>
+  <div id="travel-map"></div>
+  <div class="map-legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--bali);"></div>Bali · Indonesia</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--thai);"></div>Tailandia</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--japan);"></div>Japón</div>
+    <div class="legend-item"><div class="legend-line"></div>Ruta del viaje</div>
+    <div class="legend-item" style="margin-left:auto;font-size:.72rem;color:rgba(0,0,0,.3);">Haz clic en cada ciudad para ver las fechas</div>
+  </div>
+</div>
+
+<!-- ALOJAMIENTOS -->
+<div class="sw" id="alojamientos">
+  <p class="sec-label">Dónde dormimos</p>
+  <h2 class="sec-title">Alojamientos</h2>
+
+  <div class="aloj-section">
+    <div class="aloj-country-header">🇮🇩 Bali · Indonesia</div>
+    <div class="aloj-list">
+      <div class="aloj-item">
+        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-bali"></div><div><div>Jalan Pantai Berawa N°6</div><div class="aloj-item-sub">Canggu</div></div></div>
+        <div class="aloj-item-date"><div class="aloj-item-date-lbl">Llegada</div><div class="aloj-item-date-val">28 Dic</div></div>
+        <div class="aloj-item-date"><div class="aloj-item-date-lbl">Salida</div><div class="aloj-item-date-val">30 Dic</div></div>
+      </div>
+      <div class="aloj-item">
+        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-bali"></div><div><div>Soka Suarsena</div><div class="aloj-item-sub">Ubud</div></div></div>
+        <div class="aloj-item-date"><div class="aloj-item-date-lbl">Llegada</div><div class="aloj-item-date-val">30 Dic</div></div>
+        <div class="aloj-item-date"><div class="aloj-item-date-lbl">Salida</div><div class="aloj-item-date-val">2 Ene</div></div>
+      </div>
+      <div class="aloj-item">
+        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-bali"></div><div><div>Grand Puri Hotel</div><div class="aloj-item-sub">Nusa Penida</div></div></div>
+        <div class="aloj-item-date"><div class="aloj-item-date-lbl">Llegada</div><div class="aloj-item-date-val">2 Ene</div></div>
+        <div class="aloj-item-date"><div class="aloj-item-date-lbl">Salida</div><div class="aloj-item-date-val">4 Ene</div></div>
+      </div>
+      <div class="aloj-item">
+        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-bali"></div><div><div>OLIVIA Sanur Workstay Suites</div><div class="aloj-item-sub">Sanur</div></div></div>
+        <div class="aloj-item-date"><div class="aloj-item-date-lbl">Llegada</div><div class="aloj-item-date-val">4 Ene</div></div>
+        <div class="aloj-item-date"><div class="aloj-item-date-lbl">Salida</div><div class="aloj-item-date-val">5 Ene</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="aloj-section">
+    <div class="aloj-country-header">🇹🇭 Tailandia</div>
+    <div class="aloj-list">
+      <div class="aloj-item">
+        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-thai"></div><div><div>TAN Hostel x Cafe · Ao Nang</div><div class="aloj-item-sub">Krabi · pago en efectivo al llegar</div></div></div>
+        <div class="aloj-item-date"><div class="aloj-item-date-lbl">Llegada</div><div class="aloj-item-date-val">8 Ene</div></div>
+        <div class="aloj-item-date"><div class="aloj-item-date-lbl">Salida</div><div class="aloj-item-date-val">13 Ene</div></div>
+      </div>
+    </div>
+    <div class="aloj-pending">Por reservar: Phuket, Bangkok y Chiang Mai.</div>
+  </div>
+
+  <div class="aloj-section">
+    <div class="aloj-country-header">🇯🇵 Japón</div>
+    <div class="aloj-pending">Por reservar: Osaka, Kyoto y Tokyo.</div>
+  </div>
+</div>
+
+
+<!-- DIARIO -->
+<div class="sw" id="preparacion" style="display:none;">
+  <p class="sec-label">Solo para el grupo viajero</p>
+  <h2 class="sec-title">Preparacion<br>del viaje</h2>
+
+  <div class="prep-grid">
+
+    <!-- COLUMNA IZQUIERDA: CHECKLIST -->
+    <div>
+      <div class="prep-col-title">Checklist <span id="prep-counter">0 / 0 completados</span></div>
+      <div class="prep-progress-label"><span id="prep-pct-text">0% listo</span></div>
+      <div class="prep-progress"><div class="prep-progress-bar" id="prep-bar" style="width:0%"></div></div>
+
+      <!-- DOCUMENTOS -->
+      <div class="prep-category">
+        <span class="prep-cat-label">Documentos y visas</span>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_pasaporte">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">Verificar vigencia del pasaporte</div><div class="prep-item-sub">Debe tener al menos 6 meses de validez desde la fecha de regreso</div></div>
+        </div>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_visa_bali">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">Visa Bali (Visa on Arrival)</div><div class="prep-item-sub">Se puede comprar online en molina.imigrasi.go.id — USD 35 · 30 días</div></div>
+        </div>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_visa_thai">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">Visa Tailandia (TDAC)</div><div class="prep-item-sub">Permiso de 60 días. Tramitar en consulado o en línea antes de viajar</div></div>
+        </div>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_visa_japon">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">Visa Japón</div><div class="prep-item-sub">Chile tiene exención de visa para estancias de hasta 90 días</div></div>
+        </div>
+      </div>
+
+      <!-- TRANSPORTE -->
+      <div class="prep-category">
+        <span class="prep-cat-label">Transporte</span>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_vuelos_internos">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">Confirmar vuelos internos</div><div class="prep-item-sub">Bali → Phuket, Chiang Mai → Osaka</div></div>
+        </div>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_grab">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">Instalar Grab y Gojek</div><div class="prep-item-sub">Apps de transporte esenciales en Bali y Tailandia</div></div>
+        </div>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_suica">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">Activar Suica o IC Card (Japón)</div><div class="prep-item-sub">Se puede agregar a Apple Wallet o Google Pay antes de llegar</div></div>
+        </div>
+      </div>
+
+      <!-- SALUD -->
+      <div class="prep-category">
+        <span class="prep-cat-label">Salud y seguro</span>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_seguro">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">Contratar seguro de viaje</div><div class="prep-item-sub">Cobertura médica + cancelación para toda la duración del viaje</div></div>
+        </div>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_vacunas">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">Revisar vacunas recomendadas</div><div class="prep-item-sub">Hepatitis A/B, tifoidea, dengue (consultar con médico)</div></div>
+        </div>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_medicamentos">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">Botiquin de viaje</div><div class="prep-item-sub">Antidiarreicos, analgésicos, antihistamínicos, repelente DEET</div></div>
+        </div>
+      </div>
+
+      <!-- DINERO -->
+      <div class="prep-category">
+        <span class="prep-cat-label">Dinero y conectividad</span>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_efectivo">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">Llevar efectivo USD para emergencias</div><div class="prep-item-sub">~USD 200-300 por persona. Cambiar a moneda local al llegar</div></div>
+        </div>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_sim">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">SIM internacional o eSIM</div><div class="prep-item-sub">Airalo o Holafly funcionan en los 3 países. Activar antes de salir</div></div>
+        </div>
+      </div>
+
+      <!-- EQUIPAJE -->
+      <div class="prep-category">
+        <span class="prep-cat-label">Equipaje esencial</span>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_adaptador">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">Adaptador de enchufes universal</div><div class="prep-item-sub">Bali usa tipo C/F · Tailandia A/B/C · Japón tipo A</div></div>
+        </div>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_banco_energia">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">Power bank de al menos 20.000 mAh</div><div class="prep-item-sub">Indispensable para los dias de actividades largas</div></div>
+        </div>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_ropa">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">Ropa para clima caluroso y frio</div><div class="prep-item-sub">Bali/Thai: verano. Japón enero: frio intenso, capas necesarias</div></div>
+        </div>
+        <div class="prep-item" onclick="togglePrep(this)" data-key="prep_camara">
+          <div class="prep-check"></div>
+          <div><div class="prep-item-text">Llevar camara</div><div class="prep-item-sub">Cargar batería extra, tarjetas SD de repuesto y estuche impermeable</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMNA DERECHA: CONVERSOR Y EFECTIVO -->
+    <div>
+      <div class="prep-col-title">Dinero y cambio</div>
+
+      <!-- CONVERSOR -->
+      <div class="currency-converter">
+        <div class="converter-title">Conversor rapido</div>
+        <div class="converter-row">
+          <input type="number" class="converter-input" id="conv-amount" value="100" oninput="updateConverter()" placeholder="Monto">
+          <select class="converter-select" id="conv-from" onchange="updateConverter()">
+            <option value="USD">USD</option>
+            <option value="CLP">CLP</option>
+            <option value="IDR">IDR</option>
+            <option value="THB">THB</option>
+            <option value="JPY">JPY</option>
+          </select>
+          <span class="converter-arrow">→</span>
+          <select class="converter-select" id="conv-to" onchange="updateConverter()">
+            <option value="IDR">IDR</option>
+            <option value="THB">THB</option>
+            <option value="JPY">JPY</option>
+            <option value="USD">USD</option>
+            <option value="CLP">CLP</option>
+          </select>
+        </div>
+        <div style="margin-top:.9rem;">
+          <div class="converter-result" id="conv-result">—</div>
+          <div class="converter-result-sub" id="conv-result-sub"></div>
+        </div>
+        <div class="currency-updated" id="rates-updated" style="margin-top:.6rem;">Cargando tasas...</div>
+      </div>
+
+      <!-- EFECTIVO RECOMENDADO -->
+      <div style="margin-top:1.2rem;display:flex;flex-direction:column;gap:.6rem;">
+        <div style="background:#fff;border-radius:12px;padding:1rem 1.1rem;border:1.5px solid var(--warm);">
+          <div style="font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.35);font-weight:600;margin-bottom:.7rem;">Cuanto llevar en efectivo</div>
+          <div style="display:flex;flex-direction:column;gap:.45rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:.83rem;color:var(--ink);">🇮🇩 Bali (10 días)</span>
+              <span style="font-size:.83rem;font-weight:600;color:var(--bali);">~USD 300–400</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:.83rem;color:var(--ink);">🇹🇭 Tailandia (14 días)</span>
+              <span style="font-size:.83rem;font-weight:600;color:var(--thai);">~USD 400–600</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:.83rem;color:var(--ink);">🇯🇵 Japón (14 días)</span>
+              <span style="font-size:.83rem;font-weight:600;color:var(--japan);">~USD 500–800</span>
+            </div>
+            <div style="height:1px;background:var(--warm);margin:.3rem 0;"></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="font-size:.83rem;font-weight:600;color:var(--ink);">Total estimado</span>
+              <span style="font-size:.88rem;font-weight:700;color:var(--ember);">~USD 1.200–1.800</span>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--sand);border-radius:12px;padding:.9rem 1.1rem;font-size:.78rem;color:rgba(0,0,0,.55);line-height:1.5;">
+          Usa <strong>Wise o Revolut</strong> para pagos con tarjeta. Guarda el efectivo para mercados, tuk-tuks y lugares sin POS.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLb(event)">
+  <button id="lb-close" onclick="closeLb()">✕</button>
+  <img id="lb-img" src="" alt="">
+  <div id="lb-caption"></div>
+  <div class="lb-nav">
+    <button class="lb-btn" onclick="lbNav(-1);event.stopPropagation()">← Anterior</button>
+    <button class="lb-btn" onclick="lbNav(1);event.stopPropagation()">Siguiente →</button>
+  </div>
+</div>
+
+<!-- SCORES MODAL -->
+<div id="scores-modal" onclick="closeScores(event)">
+  <div class="scores-box" onclick="event.stopPropagation()">
+    <button id="scores-close" onclick="closeScores()">✕</button>
+    <h3>Tus puntuaciones</h3>
+    <div id="scores-list"></div>
+    <button id="reset-scores-btn" onclick="resetRatings()" style="margin-top:1.5rem;background:none;border:1px solid rgba(200,80,42,.35);color:var(--ember);padding:.5rem 1.2rem;border-radius:20px;font-size:.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;" onmouseover="this.style.background='rgba(200,80,42,.08)'" onmouseout="this.style.background='none'">Restablecer puntuaciones</button>
+  </div>
+</div>
+
+<!-- Firebase SDKs -->
+<script type="module" src="js/backend.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Leaflet CSS scope fix -->
+
+<script>
+// ── COUNTDOWN ──
+const TRIP_TARGET = Date.UTC(2026, 11, 26, 3, 0, 0);
+const TRIP_RETURN = Date.UTC(2027, 1, 1, 3, 0, 0);
+function pad(n){ return String(Math.floor(Math.abs(n))).padStart(2,'0'); }
+function tick(){
+  var now=Date.now(), diff=TRIP_TARGET-now;
+  if(diff>0){
+    var s=diff/1000;
+    document.getElementById('cd-days').textContent=Math.floor(s/86400);
+    document.getElementById('cd-hours').textContent=pad(Math.floor((s%86400)/3600));
+    document.getElementById('cd-mins').textContent=pad(Math.floor((s%3600)/60));
+    document.getElementById('cd-secs').textContent=pad(Math.floor(s%60));
+    document.getElementById('cd-status').textContent='para el despegue';
+  } else if(now<TRIP_RETURN){
+    var s=(now-TRIP_TARGET)/1000;
+    document.getElementById('cd-days').textContent=Math.floor(s/86400);
+    document.getElementById('cd-hours').textContent=pad(Math.floor((s%86400)/3600));
+    document.getElementById('cd-mins').textContent=pad(Math.floor((s%3600)/60));
+    document.getElementById('cd-secs').textContent=pad(Math.floor(s%60));
+    document.getElementById('cd-status').textContent='¡Estás viajando!';
+  } else {
+    var s=(now-TRIP_TARGET)/1000;
+    document.getElementById('cd-days').textContent=Math.floor(s/86400);
+    document.getElementById('cd-hours').textContent=pad(Math.floor((s%86400)/3600));
+    document.getElementById('cd-mins').textContent=pad(Math.floor((s%3600)/60));
+    document.getElementById('cd-secs').textContent=pad(Math.floor(s%60));
+    document.getElementById('cd-status').textContent='desde que comenzó el viaje';
+  }
+}
+tick(); setInterval(tick,1000);
+
+// ── COUNTRY SELECTOR ──
+function showCountry(id){
+  document.querySelectorAll('.ccontent').forEach(function(el){el.classList.remove('visible');});
+  document.querySelectorAll('.c-card').forEach(function(el){el.classList.remove('active');});
+  document.getElementById('content-'+id).classList.add('visible');
+  document.getElementById('card-'+id).classList.add('active');
+  setTimeout(function(){document.getElementById('content-'+id).scrollIntoView({behavior:'smooth',block:'start'});},120);
+}
+
+// ── LIGHTBOX ──
+var lbImages=[],lbIndex=0;
+function openLb(src,caption){
+  document.getElementById('lb-img').src=src;
+  document.getElementById('lb-caption').textContent=caption||'';
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+  lbImages=[];
+  document.querySelectorAll('.g-item img,.zone-img').forEach(function(img){lbImages.push({src:img.src,caption:img.alt});});
+  lbIndex=0;
+}
+function closeLb(e){
+  if(!e||e.target===document.getElementById('lightbox')||e.target.id==='lb-close'){
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow='';
+  }
+}
+function lbNav(dir){
+  lbIndex=(lbIndex+dir+lbImages.length)%lbImages.length;
+  document.getElementById('lb-img').src=lbImages[lbIndex].src;
+  document.getElementById('lb-caption').textContent=lbImages[lbIndex].caption;
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape') closeLb({target:document.getElementById('lightbox')});
+  if(e.key==='ArrowRight') lbNav(1);
+  if(e.key==='ArrowLeft') lbNav(-1);
+});
+
+// ── HALF-STAR RATINGS ──
+var RATINGS_KEY='asia_trip_ratings_v2';
+var _fbRatings={};
+var _fbAllRatings={};
+function starsDisplay(val){
+  var s='';
+  for(var i=1;i<=5;i++){s+=val>=i?'★':val>=i-0.5?'½':'☆';}
+  return s;
+}
+function renderStars(id,ratingsObj){
+  var container=document.getElementById('stars-'+id);
+  if(!container) return;
+  var ratings=ratingsObj||_fbRatings;
+  var current=ratings[id]||0;
+  container.innerHTML='';
+  for(var star=1;star<=5;star++){
+    var wrap=document.createElement('span'); wrap.className='star-wrap';
+    var lh=document.createElement('span');
+    lh.className='half half-left'+(current>=star-0.5?' lit':'');
+    lh.textContent='★'; lh.dataset.val=star-0.5;
+    var rh=document.createElement('span');
+    rh.className='half half-right'+(current>=star?' lit':'');
+    rh.textContent='★'; rh.dataset.val=star;
+    (function(lid,lhEl,rhEl){
+      [lhEl,rhEl].forEach(function(half){
+        half.onmouseenter=function(){hoverStars(lid,parseFloat(half.dataset.val));};
+        half.onmouseleave=function(){renderStars(lid);};
+        half.onclick=function(e){e.stopPropagation();setRating(lid,parseFloat(half.dataset.val));};
+      });
+    })(id,lh,rh);
+    wrap.appendChild(lh); wrap.appendChild(rh); container.appendChild(wrap);
+  }
+  var saved=document.getElementById('saved-'+id);
+  if(saved) saved.textContent=current>0?'¡Guardado! '+starsDisplay(current)+' ('+current+'/5)':'';
+}
+function hoverStars(id,val){
+  var container=document.getElementById('stars-'+id);
+  if(!container) return;
+  container.querySelectorAll('.half').forEach(function(h){h.classList.toggle('lit',parseFloat(h.dataset.val)<=val);});
+}
+function setRating(id,val){
+  // Puntuar es exclusivo del grupo viajero (rol editor).
+  if(!window._currentUser){ showLogin(); return; }
+  if(_userRole !== 'editor'){ if(window.openUpgrade) openUpgrade(); return; }
+  _fbRatings[id]=val;
+  renderStars(id);
+  if(window._fb && window._fb.saveRatingFlat){
+    var uid=window._currentUser.uid;
+    var name=(window._initProfile&&window._initProfile.displayName)||window._currentUser.email.split('@')[0];
+    window._fb.saveRatingFlat(id,val,uid,name);
+  }
+}
+var PLACES=[
+  {id:'canggu',   place:'Canggu',      country:'Bali \uD83C\uDDEE\uD83C\uDDE9'},
+  {id:'ubud',     place:'Ubud',        country:'Bali \uD83C\uDDEE\uD83C\uDDE9'},
+  {id:'nusa',     place:'Nusa Penida', country:'Bali \uD83C\uDDEE\uD83C\uDDE9'},
+  {id:'bangkok',  place:'Bangkok',     country:'Tailandia \uD83C\uDDF9\uD83C\uDDED'},
+  {id:'chiangmai',place:'Chiang Mai',  country:'Tailandia \uD83C\uDDF9\uD83C\uDDED'},
+  {id:'phuket',   place:'Phuket',      country:'Tailandia \uD83C\uDDF9\uD83C\uDDED'},
+  {id:'krabi',    place:'Krabi',       country:'Tailandia \uD83C\uDDF9\uD83C\uDDED'},
+  {id:'osaka',    place:'Osaka',       country:'Jap\u00F3n \uD83C\uDDEF\uD83C\uDDF5'},
+  {id:'kyoto',    place:'Kyoto',       country:'Jap\u00F3n \uD83C\uDDEF\uD83C\uDDF5'},
+  {id:'nara',     place:'Nara',        country:'Jap\u00F3n \uD83C\uDDEF\uD83C\uDDF5'},
+  {id:'tokyo',    place:'Tokyo',       country:'Jap\u00F3n \uD83C\uDDEF\uD83C\uDDF5'},
+  {id:'nagano',   place:'Nagano',      country:'Jap\u00F3n \uD83C\uDDEF\uD83C\uDDF5'},
+];
+PLACES.forEach(function(p){renderStars(p.id,{});});
+document.addEventListener('firebase-ready',function(){
+  if(window._fb.listenAllRatings){
+    window._fb.listenAllRatings(function(allRatings){
+      _fbAllRatings=allRatings;
+      // Build my own ratings for star display
+      var myUid=window._currentUser?window._currentUser.uid:'';
+      _fbRatings={};
+      PLACES.forEach(function(p){
+        if(allRatings[p.id]&&allRatings[p.id][myUid]) _fbRatings[p.id]=allRatings[p.id][myUid].value;
+      });
+      PLACES.forEach(function(p){renderStars(p.id,_fbRatings);});
+      var modal=document.getElementById('scores-modal');
+      if(modal && modal.classList.contains('open')) openScores();
+    });
+  }
+});
+
+// ── SCORES MODAL ──
+function openScores(){
+  var list=document.getElementById('scores-list');
+  document.getElementById('scores-modal').querySelector('h3').textContent='Puntuaciones del grupo';
+
+  // Calculate group average per place
+  var hasAny=false;
+  var allPlacesHTML=PLACES.map(function(p){
+    var placeRatings=_fbAllRatings[p.id]||{};
+    var members=Object.values(placeRatings);
+    var rated=members.filter(function(m){return m.value>0;});
+    if(rated.length>0) hasAny=true;
+    var avg=rated.length>0?(rated.reduce(function(s,m){return s+m.value;},0)/rated.length):0;
+    var avgRounded=Math.round(avg*10)/10;
+
+    var memberRows=rated.map(function(m){
+      return '<div style="display:flex;align-items:center;justify-content:space-between;padding:.2rem 0;font-size:.78rem;color:rgba(0,0,0,.55);">'+
+        '<span>'+escHtml(m.name||'?')+'</span>'+
+        '<span style="color:var(--gold);">'+starsDisplay(m.value)+'</span>'+
+      '</div>';
+    }).join('');
+
+    var avgDisplay=avg>0?
+      '<div style="display:flex;align-items:center;gap:.5rem;">'+
+        '<span style="color:var(--gold);font-size:1.05rem;">'+starsDisplay(Math.round(avg))+'</span>'+
+        '<span style="font-size:.85rem;font-weight:700;color:var(--ink);">'+avgRounded+'/5</span>'+
+        '<span style="font-size:.72rem;color:rgba(0,0,0,.35);">('+rated.length+' voto'+( rated.length!==1?'s':'')+')</span>'+
+      '</div>':
+      '<span style="color:#ddd;font-size:.95rem;">☆☆☆☆☆</span>';
+
+    return '<div style="background:var(--sand);border-radius:14px;padding:.9rem 1.1rem;margin-bottom:.7rem;">'+
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:'+( rated.length?'.5rem':'0')+';">'+
+        '<div><div style="font-weight:600;font-size:.9rem;color:var(--ink);">'+p.place+'</div><div style="font-size:.7rem;color:rgba(0,0,0,.35);">'+p.country+'</div></div>'+
+        avgDisplay+
+      '</div>'+
+      (memberRows?'<div style="border-top:1px solid rgba(0,0,0,.07);padding-top:.4rem;margin-top:.2rem;">'+memberRows+'</div>':'')+
+    '</div>';
+  });
+
+  if(!hasAny){
+    list.innerHTML='<div class="scores-empty">Aún no hay puntuaciones.<br>¡Sé el primero en puntuar!</div>';
+  } else {
+    // Sort by avg descending, unrated at bottom
+    var rated2=PLACES.filter(function(p){return Object.values(_fbAllRatings[p.id]||{}).some(function(m){return m.value>0;});});
+    var unrated2=PLACES.filter(function(p){return !Object.values(_fbAllRatings[p.id]||{}).some(function(m){return m.value>0;});});
+    var sorted2=[...rated2].sort(function(a,b){
+      var avgA=Object.values(_fbAllRatings[a.id]||{}).reduce(function(s,m){return s+m.value;},0)/(Object.values(_fbAllRatings[a.id]||{}).length||1);
+      var avgB=Object.values(_fbAllRatings[b.id]||{}).reduce(function(s,m){return s+m.value;},0)/(Object.values(_fbAllRatings[b.id]||{}).length||1);
+      return avgB-avgA;
+    });
+    list.innerHTML=[...sorted2,...unrated2].map(function(p){
+      return allPlacesHTML[PLACES.findIndex(function(pl){return pl.id===p.id;})];
+    }).join('');
+  }
+  document.getElementById('scores-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeScores(e){
+  if(!e||e.target===document.getElementById('scores-modal')||e.target.id==='scores-close'){
+    document.getElementById('scores-modal').classList.remove('open');
+    document.body.style.overflow='';
+  }
+}
+function resetRatings(){
+  if(!window._currentUser){alert('Inicia sesión');return;}
+  if(!confirm('¿Restablecer TUS puntuaciones?')) return;
+  var uid=window._currentUser.uid;
+  PLACES.forEach(function(p){
+    if(window._fb&&window._fb.saveRatingFlat) window._fb.saveRatingFlat(p.id,0,uid,'');
+    _fbRatings[p.id]=0;
+  });
+  PLACES.forEach(function(p){renderStars(p.id,_fbRatings);});
+  openScores();
+}
+
+// ── CHECKLIST ──
+var ACT_KEY='asia_trip_activities';
+var _fbChecks={};
+function slugify(s){return s.toLowerCase().replace(/[^a-z0-9]/g,'_');}
+function initZoneActivities(){
+  document.querySelectorAll('.zone-acts').forEach(function(ul){
+    var zoneName=ul.closest('.zone-card')?ul.closest('.zone-card').querySelector('.zone-name').textContent:'zone';
+    ul.querySelectorAll('li').forEach(function(li,i){
+      if(li.dataset.initialized) return;
+      li.dataset.initialized='1';
+      var key='act_'+slugify(zoneName)+'_'+i;
+      li.dataset.key=key;
+      var check=document.createElement('span'); check.className='act-check';
+      var text=document.createElement('span'); text.textContent=li.textContent.trim();
+      li.textContent=''; li.appendChild(check); li.appendChild(text);
+      if(_fbChecks[key]) li.classList.add('done');
+      li.onclick=function(){toggleAct(li);};
+    });
+    if(!ul.nextSibling||!ul.nextSibling.classList||!ul.nextSibling.classList.contains('zone-progress')){
+      addProgressBar(ul);
+    }
+  });
+}
+function toggleAct(li){
+  var key=li.dataset.key;
+  var isDone=li.classList.contains('done');
+  li.classList.toggle('done',!isDone);
+  _fbChecks[key]=!isDone;
+  updateProgressBar(li.closest('.zone-acts'));
+  if(window._fb && window._fb.saveCheck) window._fb.saveCheck(key,!isDone);
+  else { try{var d=JSON.parse(localStorage.getItem(ACT_KEY)||'{}');d[key]=!isDone;localStorage.setItem(ACT_KEY,JSON.stringify(d));}catch(e){} }
+}
+function addProgressBar(ul){
+  var total=ul.querySelectorAll('li').length;
+  var doneN=ul.querySelectorAll('li.done').length;
+  var pct=total>0?Math.round((doneN/total)*100):0;
+  var bar=document.createElement('div'); bar.className='zone-progress';
+  bar.innerHTML='<div class="zpbar-label"><span>Progreso del grupo</span><span>'+doneN+'/'+total+'</span></div><div class="zpbar-track"><div class="zpbar-fill" style="width:'+pct+'%"></div></div>';
+  if(ul.nextSibling) ul.parentNode.insertBefore(bar,ul.nextSibling);
+  else ul.parentNode.appendChild(bar);
+}
+function updateProgressBar(ul){
+  var total=ul.querySelectorAll('li').length;
+  var doneN=ul.querySelectorAll('li.done').length;
+  var pct=total>0?Math.round((doneN/total)*100):0;
+  var bar=ul.nextSibling;
+  if(bar&&bar.classList&&bar.classList.contains('zone-progress')){
+    bar.querySelector('.zpbar-fill').style.width=pct+'%';
+    var lbl=bar.querySelector('.zpbar-label span:last-child');
+    if(lbl) lbl.textContent=doneN+'/'+total;
+  }
+}
+document.addEventListener('firebase-ready',function(){
+  window._fb.listenChecklist(function(checks){
+    _fbChecks=checks;
+    document.querySelectorAll('.zone-acts li[data-key]').forEach(function(li){li.classList.toggle('done',!!checks[li.dataset.key]);});
+    document.querySelectorAll('.zone-acts').forEach(function(ul){updateProgressBar(ul);});
+  });
+});
+document.addEventListener('DOMContentLoaded',initZoneActivities);
+if(document.readyState!=='loading') initZoneActivities();
+
+// ── REACCIONES DEL DIARIO ──
+var REACTIONS = ['❤️','😂','😮','🔥','👏'];
+var _reactionUnsubs = {};
+
+function renderReactionBar(entryId, counts, userReacted){
+  var uid = window._currentUser ? window._currentUser.uid : null;
+  return REACTIONS.map(function(emoji){
+    var count  = counts[emoji] || 0;
+    var reacted = uid && userReacted[emoji] && userReacted[emoji][uid];
+    return '<button class="reaction-btn'+(reacted?' reacted':'')+'" '+
+      'onclick="toggleReaction(\''+entryId+'\',\''+emoji+'\')" '+
+      'title="'+(reacted?'Quitar ':'')+'reacción">'+
+      '<span class="reaction-emoji">'+emoji+'</span>'+
+      (count > 0 ? '<span class="reaction-count">'+count+'</span>' : '')+
+    '</button>';
+  }).join('');
+}
+
+function toggleReaction(entryId, emoji){
+  if(!window._currentUser){ showLogin(); return; }
+  if(!window._fb||!window._fb.toggleReaction) return;
+  var uid  = window._currentUser.uid;
+  var name = (window._initProfile&&window._initProfile.displayName)||window._currentUser.email.split('@')[0];
+  window._fb.toggleReaction(entryId, emoji, uid, name);
+  // Optimistic UI: the onSnapshot listener will update immediately
+}
+
+function listenReactions(entryId){
+  if(_reactionUnsubs[entryId]) return; // already listening
+  if(!window._fb||!window._fb.listenReactions) return;
+  _reactionUnsubs[entryId] = window._fb.listenReactions(entryId, function(counts, userReacted){
+    var bar = document.getElementById('reactions-'+entryId);
+    if(bar) bar.innerHTML = renderReactionBar(entryId, counts, userReacted);
+  });
+}
+
+// ── DIARIO ──
+var DIARIO_KEY='asia_diario_v1';
+var pendingPhotos=[];
+var currentFilter='';
+var _searchQuery='';
+function searchDiario(q){ _searchQuery=q.toLowerCase().trim(); renderDiario(_lastEntries); }
+var _unsubDiario=null;
+var _userRole='viewer';
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+document.addEventListener('DOMContentLoaded',function(){
+  var inp=document.getElementById('diario-photo-input');
+  if(!inp) return;
+  inp.addEventListener('change',function(){
+    pendingPhotos=[];
+    document.getElementById('de-preview').innerHTML='';
+    Array.from(this.files).slice(0,3).forEach(function(file){
+      var reader=new FileReader();
+      reader.onload=function(e){
+        var img=new Image();
+        img.onload=function(){
+          var canvas=document.createElement('canvas');
+          var maxW=1600,maxH=1600,w=img.width,h=img.height;
+          if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
+          if(h>maxH){w=Math.round(w*maxH/h);h=maxH;}
+          canvas.width=w;canvas.height=h;
+          canvas.getContext('2d').drawImage(img,0,0,w,h);
+          // Con Supabase Storage guardamos en buena calidad (sin el limite de Firestore)
+          var c=canvas.toDataURL('image/jpeg',0.85);
+          pendingPhotos.push(c);
+          var prev=document.createElement('img');
+          prev.className='diario-preview-img';prev.src=c;
+          document.getElementById('de-preview').appendChild(prev);
+        };
+        img.src=e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+});
+
+function submitEntry(){
+  if(!window._currentUser){ showLogin(); return; }
+  if(_userRole !== 'editor'){ alert('Solo el grupo viajero puede publicar entradas.'); return; }
+  // Autofill author from logged-in user
+  var authorEl=document.getElementById('de-author');
+  if(!authorEl.value.trim() && window._currentUser){
+    var p=window._initProfile;
+    var auto=(p&&p.username)?('@'+p.username):(p&&p.displayName)?p.displayName:(window._initUsername?('@'+window._initUsername):window._currentUser.email.split('@')[0]);
+    authorEl.value=auto;
+  }
+  var author=authorEl.value.trim();
+  var date=document.getElementById('de-date').value;
+  var placeVal=document.getElementById('de-place').value;
+  var title=document.getElementById('de-title').value.trim();
+  var text=document.getElementById('de-text').value.trim();
+  if(!author){alert('Escribe tu nombre');return;}
+  if(!placeVal){alert('Selecciona un destino');return;}
+  if(!title){alert('Ponle un título');return;}
+  var parts=placeVal.split('|');
+  var entry={author:author,date:date||new Date().toISOString().slice(0,10),place:parts[0],country:parts[1]||'',title:title,text:text,photos:pendingPhotos.slice()};
+  var btn=document.querySelector('.diario-submit');
+  if(btn){ btn.disabled=true; btn.textContent='Guardando...'; }
+  if(window._fb) window._fb.saveDiarioEntry(entry).then(function(id){
+    if(btn){ btn.disabled=false; btn.textContent='Publicar entrada'; }
+    if(id){
+      ['de-author','de-title','de-text'].forEach(function(id){document.getElementById(id).value='';});
+      document.getElementById('de-date').value='';
+      document.getElementById('de-place').value='';
+      document.getElementById('de-preview').innerHTML='';
+      document.getElementById('diario-photo-input').value='';
+      pendingPhotos=[];
+    } else {
+      alert('Error al guardar. Revisa tu conexión.');
+    }
+  });
+}
+
+// ── EDITAR ENTRADA ──
+var _editingEntry=null;
+function openEditModal(btn){
+  var wrap=btn.closest('.diario-entry-wrap');
+  if(!wrap) return;
+  var id=wrap.querySelector('.diario-entry').dataset.entryId;
+  _editingEntry=_lastEntries.find(function(e){return e.id===id;});
+  if(!_editingEntry) return;
+  document.getElementById('edit-id').value=id;
+  document.getElementById('edit-date').value=_editingEntry.date||'';
+  document.getElementById('edit-title').value=_editingEntry.title||'';
+  document.getElementById('edit-text').value=_editingEntry.text||'';
+  var sel=document.getElementById('edit-place');
+  var key=(_editingEntry.place||'')+'|'+(_editingEntry.country||'bali');
+  for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===key){sel.selectedIndex=i;break;}}
+  document.getElementById('edit-msg').textContent='';
+  document.getElementById('edit-modal').style.display='flex';
+  document.body.style.overflow='hidden';
+}
+function closeEditModal(){
+  document.getElementById('edit-modal').style.display='none';
+  document.body.style.overflow='';
+  _editingEntry=null;
+}
+function saveEdit(){
+  var id=document.getElementById('edit-id').value;
+  if(!id||!window._fb||!window._fb.updateDiarioEntry) return;
+  var parts=document.getElementById('edit-place').value.split('|');
+  var data={title:document.getElementById('edit-title').value.trim(),text:document.getElementById('edit-text').value.trim(),date:document.getElementById('edit-date').value,place:parts[0],country:parts[1]||'bali'};
+  var msgEl=document.getElementById('edit-msg');
+  if(!data.title){msgEl.textContent='El título no puede estar vacío';msgEl.style.color='var(--ember)';return;}
+  var btn=document.getElementById('edit-save-btn');
+  btn.disabled=true;btn.textContent='Guardando...';
+  window._fb.updateDiarioEntry(id,data).then(function(ok){
+    btn.disabled=false;btn.textContent='Guardar cambios';
+    if(ok){msgEl.textContent='Guardado';msgEl.style.color='var(--moss)';setTimeout(closeEditModal,700);}
+    else{msgEl.textContent='Error al guardar';msgEl.style.color='var(--ember)';}
+  });
+}
+function deleteEntry(id){
+  if(!window._currentUser || _userRole !== 'editor') return;
+  if(!confirm('¿Eliminar esta entrada?')) return;
+  if(window._fb) window._fb.deleteDiarioEntry(id);
+}
+
+function filterDiario(country,btn){
+  currentFilter=country;
+  document.querySelectorAll('.df-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+}
+
+function renderDiario(entries){
+  var grid=document.getElementById('diario-grid');
+  if(!grid) return;
+  var filtered=(currentFilter?entries.filter(function(e){return e.country===currentFilter;}):entries).filter(function(e){
+    if(!_searchQuery) return true;
+    return ((e.title||'')+(e.text||'')+(e.place||'')+(e.author||'')).toLowerCase().indexOf(_searchQuery)>=0;
+  });
+  if(filtered.length===0){
+    grid.innerHTML='<div class="diario-empty" style="grid-column:1/-1">Aún no hay entradas'+(currentFilter?' para este destino':'')+'.<br>¡Sé el primero en compartir!</div>';
+    return;
+  }
+  var canEdit=window._currentUser && _userRole==='editor';
+  grid.innerHTML=filtered.map(function(e){
+    var colorClass='de-place-'+(e.country||'bali');
+    var dateStr=e.date?new Date(e.date+'T12:00:00').toLocaleDateString('es-CL',{day:'numeric',month:'short',year:'numeric'}):'';
+    var photosHTML='';
+    if(e.photos&&e.photos.length>0){
+      _lbPhotoMap[e.id] = e.photos;
+      photosHTML='<div class="de-photos">'+e.photos.map(function(src,i){
+        return '<img class="de-photo" src="'+src+'" alt="foto" onclick="openLightbox(\''+e.id+'\','+i+')" style="cursor:zoom-in">';
+      }).join('')+'</div>';
+    }
+    var loggedIn=!!window._currentUser;
+    return '<div class="diario-entry-wrap">'+(canEdit?'<button class="de-delete" onclick="delEntry(this)" title="Eliminar entrada">✕</button>'+'<button class="de-edit-btn" onclick="openEditModal(this)" title="Editar entrada">&#9998;</button>':'')+
+      '<div class="diario-entry" data-entry-id="'+e.id+'">'+
+      photosHTML+
+      '<div class="de-body">'+
+        '<div class="de-meta"><span class="de-place '+colorClass+'">'+escHtml(e.place)+'</span><span class="de-date">'+dateStr+'</span></div>'+
+        '<div class="de-title">'+escHtml(e.title)+'</div>'+
+        (e.text?'<div class="de-text">'+escHtml(e.text)+'</div>':'')+
+        '<div style="margin-top:.7rem;">'+
+          '<span class="de-author">'+escHtml(e.author)+'</span>'+
+        '</div>'+
+      '</div>'+
+      '<div class="de-reactions" id="reactions-'+e.id+'">'+
+        renderReactionBar(e.id, {}, {})+
+      '</div>'+
+      '<div class="de-comments">'+
+        '<div class="de-comments-title">Comentarios</div>'+
+        '<div class="comment-list" id="comments-'+e.id+'"><div class="no-comments">Sin comentarios a\u00FAn</div></div>'+
+        (loggedIn
+          ? '<div class="comment-form"><input class="comment-input" id="cinput-'+e.id+'" placeholder="Escribe un comentario..." maxlength="300"><button class="comment-send" onclick="sendComment(\''+e.id+'\')">Enviar</button></div>'
+          : '<span class="comment-login-hint" onclick="showLogin()">Inicia sesi\u00F3n para comentar</span>'
+        )+
+      '</div>'+
+    '</div></div>';
+  }).join('');
+  setTimeout(function(){
+    observeEntries();
+    // Iniciar listeners de reacciones para entradas visibles
+    if(window._fbReady){
+      entries.forEach(function(e){ listenReactions(e.id); });
+    }
+  },100);
+}
+
+var _lastEntries=[];
+document.addEventListener('firebase-ready',function(){
+  if(_unsubDiario) _unsubDiario();
+  _unsubDiario=window._fb.listenDiario(function(entries){
+    _lastEntries=entries;
+    renderDiario(entries);
+    document.querySelectorAll('.df-btn').forEach(function(btn){
+      btn.onclick=function(){filterDiario(btn.dataset.filter||'',btn);renderDiario(_lastEntries);};
+    });
+  });
+});
+document.addEventListener('DOMContentLoaded',function(){
+  if(!window._fbReady){
+    setTimeout(function(){if(!window._fbReady){try{renderDiario(JSON.parse(localStorage.getItem(DIARIO_KEY)||'[]'));}catch(e){}}},3000);
+  }
+});
+
+// ── COMENTARIOS ──
+var _commentUnsubs={};
+var _commentObserver=new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      var id=entry.target.dataset.entryId;
+      if(id) loadComments(id);
+    }
+  });
+},{threshold:0.1});
+
+function observeEntries(){
+  document.querySelectorAll('.diario-entry[data-entry-id]').forEach(function(el){
+    _commentObserver.observe(el);
+  });
+}
+function loadComments(entryId){
+  if(_commentUnsubs[entryId]) return;
+  if(!window._fb||!window._fb.listenComments) return;
+  _commentUnsubs[entryId]=window._fb.listenComments(entryId,function(comments){
+    var list=document.getElementById('comments-'+entryId);
+    if(!list) return;
+    if(comments.length===0){list.innerHTML='<div class="no-comments">Sin comentarios a\u00FAn</div>';return;}
+    list.innerHTML=comments.map(function(c){
+      var initial=c.author?c.author.charAt(0).toUpperCase():'?';
+      var canDel=window._currentUser&&(window._currentUser.uid===c.uid||_userRole==='editor');
+      return '<div class="comment-item" data-entry="'+entryId+'" data-cid="'+c.id+'">'+
+        '<div class="comment-avatar">'+initial+'</div>'+
+        '<div class="comment-body">'+
+          '<div class="comment-author">'+escHtml(c.author)+'</div>'+
+          '<div class="comment-text">'+escHtml(c.text)+'</div>'+
+        '</div>'+
+        (canDel?'<button class="comment-del" onclick="delCmt(this)">\u2715</button>':'')+
+      '</div>';
+    }).join('');
+  });
+}
+function sendComment(entryId){
+  var input=document.getElementById('cinput-'+entryId);
+  if(!input) return;
+  var text=input.value.trim();
+  if(!text) return;
+  if(!window._currentUser){showLogin();return;}
+  // Use @username or displayName if available, fallback to email prefix
+  var uid = window._currentUser.uid;
+  var getAuthorAndSend = function(author){
+    input.value=''; input.disabled=true;
+    window._fb.saveComment(entryId,{text:text,author:author,uid:uid}).then(function(){input.disabled=false;input.focus();});
+  };
+  if(window._fb && window._fb.getProfile){
+    window._fb.getProfile(uid).then(function(profile){
+      var author = '';
+      if(profile && profile.username) author = '@'+profile.username;
+      else if(profile && profile.displayName) author = profile.displayName;
+      else { author = window._currentUser.email.split('@')[0]; author = author.charAt(0).toUpperCase()+author.slice(1); }
+      getAuthorAndSend(author);
+    });
+  } else {
+    var author=window._currentUser.email.split('@')[0];
+    author=author.charAt(0).toUpperCase()+author.slice(1);
+    getAuthorAndSend(author);
+  }
+}
+function delCmt(btn){
+  var item=btn.closest('.comment-item');
+  if(!item) return;
+  if(!confirm('\u00BFEliminar este comentario?')) return;
+  window._fb.deleteComment(item.dataset.entry,item.dataset.cid);
+}
+function delEntry(btn){
+  var wrap=btn.closest('.diario-entry-wrap');
+  if(!wrap) return;
+  var entry=wrap.querySelector('.diario-entry');
+  if(!entry) return;
+  deleteEntry(entry.dataset.entryId);
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&e.target.classList.contains('comment-input')){
+    sendComment(e.target.id.replace('cinput-',''));
+  }
+});
+
+// ── AUTH ──
+window._currentUser=null;
+var _userRole='viewer';
+
+function showLogin(){
+  document.getElementById('login-overlay').classList.add('visible');
+  setTimeout(function(){document.getElementById('login-email').focus();},300);
+}
+function hideLogin(){document.getElementById('login-overlay').classList.remove('visible');}
+
+function switchTab(tab){
+  document.getElementById('tab-login').classList.toggle('active',tab==='login');
+  document.getElementById('tab-register').classList.toggle('active',tab==='register');
+  document.getElementById('form-login').style.display=tab==='login'?'block':'none';
+  document.getElementById('form-register').style.display=tab==='register'?'block':'none';
+  document.getElementById('login-error').classList.remove('visible');
+  document.getElementById('login-success').classList.remove('visible');
+}
+
+function doLogin(){
+  var email=document.getElementById('login-email').value.trim();
+  var pass=document.getElementById('login-pass').value;
+  var btn=document.getElementById('login-submit');
+  if(!email||!pass){showErr('Completa todos los campos');return;}
+  btn.disabled=true; btn.textContent='Entrando...';
+  document.getElementById('login-error').classList.remove('visible');
+  if(window._fb&&window._fb.login){
+    window._fb.login(email,pass).then(function(res){
+      btn.disabled=false; btn.textContent='Entrar al viaje \u2192';
+      if(res.ok){hideLogin();document.getElementById('login-email').value='';document.getElementById('login-pass').value='';}
+      else showErr(res.msg);
+    });
+  } else {btn.disabled=false;btn.textContent='Entrar al viaje \u2192';showErr('Firebase no disponible.');}
+}
+
+function doRegister(){
+  var username=(document.getElementById('reg-username').value||'').trim().toLowerCase();
+  var email=document.getElementById('reg-email').value.trim();
+  var pass=document.getElementById('reg-pass').value;
+  var code=document.getElementById('reg-code').value.trim();
+  var btn=document.getElementById('reg-submit');
+  var ok=document.getElementById('login-success');
+  if(!username){showErr('Elige un nombre de usuario (@usuario)');return;}
+  if(username.length<3){showErr('El nombre de usuario debe tener al menos 3 caracteres');return;}
+  if(!email||!pass){showErr('Completa correo y contraseña');return;}
+  btn.disabled=true; btn.textContent='Creando cuenta...';
+  document.getElementById('login-error').classList.remove('visible');
+  ok.classList.remove('visible');
+  if(window._fb&&window._fb.register){
+    window._fb.register(email,pass,code,username).then(function(res){
+      btn.disabled=false; btn.textContent='Crear cuenta →';
+      if(res.ok){
+        var msg=res.role==='editor'?'¡Cuenta creada! Eres parte del grupo viajero':'¡Cuenta creada! Ya puedes comentar las publicaciones';
+        ok.textContent=msg; ok.classList.add('visible');
+        document.getElementById('reg-username').value='';
+        document.getElementById('reg-email').value=''; document.getElementById('reg-pass').value=''; document.getElementById('reg-code').value='';
+        document.getElementById('username-check-msg').textContent='';
+        if(window._currentUser&&window._fb.getUserRole){
+          window._fb.getUserRole(window._currentUser.uid).then(function(role){_userRole=role;updateUIForRole(role);});
+        }
+        setTimeout(hideLogin,1800);
+      } else showErr(res.msg);
+    });
+  } else {btn.disabled=false;btn.textContent='Crear cuenta →';showErr('Firebase no disponible.');}
+}
+
+function showErr(msg){
+  var err=document.getElementById('login-error');
+  err.textContent=msg; err.classList.add('visible');
+}
+
+function doLogout(){
+  if(window._fb&&window._fb.logout) window._fb.logout().then(function(){updateNavUser(null);});
+}
+function handleNavUser(){
+  if(window._currentUser) openProfile(); else showLogin();
+}
+
+var _navProfileListenUnsub = null;
+
+function updateNavUser(user){
+  var navUser    = document.getElementById('nav-user');
+  var navText    = document.getElementById('nav-user-text');
+  var navAvBtn   = document.getElementById('nav-av-btn');
+  var navLogout  = document.getElementById('nav-logout-btn');
+  var navUpgrade = document.getElementById('nav-upgrade-btn');
+  var navMsg     = document.getElementById('nav-msg-btn');
+
+  if(_navProfileListenUnsub){ _navProfileListenUnsub(); _navProfileListenUnsub=null; }
+
+  if(user){
+    // Show logged-in state immediately
+    if(navUser)    navUser.classList.remove('logged-out');
+    if(navAvBtn)   navAvBtn.style.display='flex';
+    if(navLogout)  navLogout.style.display='inline-block';
+    if(navMsg)     navMsg.style.display='block';
+
+    // Fallback name from email
+    var fallback = user.email.split('@')[0];
+    fallback = fallback.charAt(0).toUpperCase() + fallback.slice(1);
+    if(navText) navText.textContent = fallback;
+    // Show avatar initial right away
+    setAvatarUI(null, fallback);
+
+    // Fetch role
+    if(window._fb && window._fb.getUserRole){
+      window._fb.getUserRole(user.uid).then(function(role){
+        _userRole = role;
+        updateUIForRole(role);
+        if(navUpgrade) navUpgrade.style.display = (role==='editor') ? 'none' : 'inline-block';
+        if(_lastEntries.length>0) renderDiario(_lastEntries);
+      });
+    }
+
+    // Load profile for name + avatar (single listener)
+    if(window._fb && window._fb.listenProfile){
+      _navProfileListenUnsub = window._fb.listenProfile(user.uid, function(profile){
+        var label = (profile&&profile.username)?('@'+profile.username):(profile&&profile.displayName)?profile.displayName:fallback;
+        if(navText) navText.textContent = label.charAt(0).toUpperCase() + label.slice(1);
+        setAvatarUI((profile&&profile.avatarUrl)||null, (profile&&profile.displayName)||fallback);
+      });
+    }
+
+    // Message badge
+    if(window._fb && window._fb.listenInbox) startNavMsgListener(user.uid);
+
+  } else {
+    _userRole = 'viewer';
+    if(navUser)    navUser.classList.add('logged-out');
+    if(navText)    navText.textContent = 'Iniciar sesión';
+    if(navAvBtn)   navAvBtn.style.display='none';
+    if(navLogout)  navLogout.style.display='none';
+    if(navUpgrade) navUpgrade.style.display='none';
+    if(navMsg)     navMsg.style.display='none';
+    // Ocultar preparacion
+    var prepSection = document.getElementById('preparacion');
+    var prepBtn     = document.getElementById('nav-prep-btn');
+    if(prepSection) prepSection.style.display='none';
+    if(prepBtn)     prepBtn.style.display='none';
+    // Reset avatar
+    var inner = document.getElementById('nav-av-inner');
+    if(inner) inner.textContent = '?';
+    addLocks();
+    if(_lastEntries.length>0) renderDiario(_lastEntries);
+    if(_navMsgUnsub){ _navMsgUnsub(); _navMsgUnsub=null; }
+    // Limpiar listeners de reacciones
+    Object.keys(_reactionUnsubs).forEach(function(k){ if(_reactionUnsubs[k]) _reactionUnsubs[k](); });
+    _reactionUnsubs = {};
+    updateNavMsgBadge(0);
+  }
+}
+
+
+function updateUIForRole(role){
+  var prepSection = document.getElementById('preparacion');
+  var prepBtn     = document.getElementById('nav-prep-btn');
+  if(role==='editor'){
+    removeLocks();
+    var upBtn=document.getElementById('nav-upgrade-btn');
+    if(upBtn) upBtn.style.display='none';
+    // Mostrar sección y botón de preparacion
+    if(prepSection) prepSection.style.display='block';
+    if(prepBtn)     prepBtn.style.display='inline-block';
+    // Cargar tasas si aún no se han cargado
+    setTimeout(loadExchangeRates, 300);
+  } else {
+    addLocks();
+    if(window._currentUser){
+      var upBtn=document.getElementById('nav-upgrade-btn');
+      if(upBtn) upBtn.style.display='inline-block';
+    }
+    // Ocultar sección y botón de preparacion para viewers
+    if(prepSection) prepSection.style.display='none';
+    if(prepBtn)     prepBtn.style.display='none';
+  }
+}
+
+function openUpgrade(){
+  document.getElementById('upgrade-modal').style.display='flex';
+  document.body.style.overflow='hidden';
+  document.getElementById('upgrade-code').value='';
+  document.getElementById('upgrade-error').style.display='none';
+  document.getElementById('upgrade-success').style.display='none';
+  setTimeout(function(){document.getElementById('upgrade-code').focus();},200);
+}
+function closeUpgrade(e){
+  if(!e||e.target===document.getElementById('upgrade-modal')||e.type==='click'&&!e.target.id.includes('upgrade-btn')){
+    document.getElementById('upgrade-modal').style.display='none';
+    document.body.style.overflow='';
+  }
+}
+function doUpgrade(){
+  var code=document.getElementById('upgrade-code').value.trim();
+  var errEl=document.getElementById('upgrade-error');
+  var okEl=document.getElementById('upgrade-success');
+  var btn=document.getElementById('upgrade-btn');
+  errEl.style.display='none'; okEl.style.display='none';
+  if(!code){errEl.textContent='Ingresa el código de invitación';errEl.style.display='block';return;}
+  if(code!=='viaje26'){errEl.textContent='Código incorrecto. Pídele el código al grupo';errEl.style.display='block';return;}
+  if(!window._currentUser){errEl.textContent='Debes iniciar sesión primero';errEl.style.display='block';return;}
+  btn.disabled=true; btn.textContent='Actualizando...';
+  var uid=window._currentUser.uid;
+  // Update role in Firestore
+  if(window._fb && window._fb.upgradeToEditor){
+    window._fb.upgradeToEditor(uid).then(function(ok){
+      btn.disabled=false; btn.textContent='Unirme →';
+      if(ok){
+        okEl.textContent='¡Bienvenido al grupo viajero!';
+        okEl.style.display='block';
+        _userRole='editor';
+        removeLocks();
+        var upBtn=document.getElementById('nav-upgrade-btn');
+        if(upBtn) upBtn.style.display='none';
+        // Update nav label
+        var navText=document.getElementById('nav-user-text');
+        if(navText) navText.textContent=navText.textContent.replace(' · Salir','')+' · Salir';
+        setTimeout(function(){
+          document.getElementById('upgrade-modal').style.display='none';
+          document.body.style.overflow='';
+        },2000);
+      } else {
+        errEl.textContent='Error al actualizar. Intenta de nuevo.';
+        errEl.style.display='block';
+      }
+    });
+  }
+}
+
+// ── MENSAJES PRIVADOS ──
+var _msgUnsub=null;
+var _currentConvId=null;
+
+function getConvId(uid1,uid2){ return [uid1,uid2].sort().join('_'); }
+
+function openMsgModal(otherUid,name,username){
+  if(!window._currentUser){ showLogin(); return; }
+  var modal=document.getElementById('msg-modal');
+  document.getElementById('msg-modal-name').textContent=name;
+  document.getElementById('msg-modal-username').textContent=username?'@'+username:'';
+  document.getElementById('msg-input').value='';
+  modal.style.display='flex';
+  document.body.style.overflow='hidden';
+  var convId=getConvId(window._currentUser.uid,otherUid);
+  _currentConvId=convId;
+  markConvRead(convId);
+  if(_msgUnsub){ _msgUnsub(); _msgUnsub=null; }
+  var list=document.getElementById('msg-list');
+  list.innerHTML='<div style="text-align:center;color:rgba(0,0,0,.3);font-size:.8rem;padding:2rem 0;">Cargando...</div>';
+  _msgUnsub=window._fb.listenMessages(convId,function(msgs){
+    if(msgs.length===0){
+      list.innerHTML='<div style="text-align:center;color:rgba(0,0,0,.3);font-size:.8rem;padding:2rem 0;">\u00C1un no hay mensajes. \u00A1Di hola!</div>';
+      return;
+    }
+    var myUid=window._currentUser.uid;
+    list.innerHTML=msgs.map(function(m){
+      var sent=m.from===myUid;
+      var ts='';
+      if(m.ts&&m.ts.toDate){
+        var d=m.ts.toDate();
+        ts=d.toLocaleDateString('es-CL',{day:'numeric',month:'short'})+' '+d.toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
+      }
+      return '<div class="msg-row"><div class="msg-bubble '+(sent?'sent':'recv')+'">'+escHtml(m.text)+'<div class="msg-time">'+ts+'</div></div></div>';
+    }).join('');
+    list.scrollTop=list.scrollHeight;
+  });
+  setTimeout(function(){document.getElementById('msg-input').focus();},200);
+}
+
+function closeMsgModal(e){
+  if(e&&e.target!==document.getElementById('msg-modal')) return;
+  document.getElementById('msg-modal').style.display='none';
+  document.body.style.overflow='';
+  if(_msgUnsub){ _msgUnsub(); _msgUnsub=null; }
+  _currentConvId=null;
+}
+
+function sendPrivateMsg(){
+  if(!window._currentUser||!_currentConvId) return;
+  var input=document.getElementById('msg-input');
+  var text=input.value.trim();
+  if(!text) return;
+  input.value='';
+  window._fb.sendMessage(_currentConvId,{text:text,from:window._currentUser.uid});
+}
+
+var _inboxUnsub = null;
+var _mcInboxUnsub = null;
+
+function openMsgCenter(){
+  if(!window._currentUser){ showLogin(); return; }
+  var modal = document.getElementById('msgcenter-modal');
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  loadMsgCenterMembers();
+  loadMsgCenterConvs();
+}
+
+function closeMsgCenter(e){
+  if(e && e.target !== document.getElementById('msgcenter-modal')) return;
+  document.getElementById('msgcenter-modal').style.display = 'none';
+  document.body.style.overflow = '';
+  if(_mcInboxUnsub){ _mcInboxUnsub(); _mcInboxUnsub = null; }
+}
+
+function loadMsgCenterMembers(){
+  var el = document.getElementById('msgcenter-members');
+  var titleEl = document.querySelector('#msgcenter-modal [style*="Grupo viajero"]');
+  if(!el) return;
+  if(!window._fb){ el.innerHTML=''; return; }
+  var myUid = window._currentUser ? window._currentUser.uid : '';
+  var isEditor = _userRole === 'editor';
+
+  if(isEditor){
+    // Editors see ALL registered users
+    window._fb.listenAllUsers(function(users){
+      var others = users.filter(function(u){ return u.uid !== myUid; });
+      if(others.length === 0){
+        el.innerHTML = '<div style="font-size:.8rem;color:rgba(0,0,0,.3);">No hay otros usuarios aún</div>';
+        return;
+      }
+      el.innerHTML = others.map(function(m){
+        var name = m.displayName || m.username || (m.email ? m.email.split('@')[0] : 'Usuario');
+        name = name.charAt(0).toUpperCase() + name.slice(1);
+        var avHtml = m.avatarUrl
+          ? '<img class="mc-member-av" src="'+m.avatarUrl+'" alt="'+escHtml(name)+'">'
+          : '<div class="mc-member-av">'+name.charAt(0)+'</div>';
+        var uTag = m.username ? '<div class="mc-member-user">@'+escHtml(m.username)+'</div>' : '';
+        var roleBadge = m.role === 'editor' ? '<span style="font-size:.6rem;background:rgba(212,168,83,.2);color:var(--gold);padding:.1rem .35rem;border-radius:6px;margin-left:.4rem;">Grupo</span>' : '';
+        return '<div class="mc-member" onclick="closeMsgCenter();openMsgModal(\''+m.uid+'\',\''+escHtml(name)+'\',\''+escHtml(m.username||'')+'\')">'+
+          avHtml+
+          '<div class="mc-member-info"><div class="mc-member-name">'+escHtml(name)+roleBadge+'</div>'+uTag+'</div>'+
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>'+
+        '</div>';
+      }).join('');
+    });
+  } else {
+    // Viewers only see editors
+    var unsub = window._fb.listenMembers(function(members){
+      unsub();
+      var others = members.filter(function(m){ return m.uid !== myUid; });
+      if(others.length === 0){
+        el.innerHTML = '<div style="font-size:.8rem;color:rgba(0,0,0,.3);">No hay miembros aún</div>';
+        return;
+      }
+      el.innerHTML = others.map(function(m){
+        var name = m.displayName || m.username || (m.email ? m.email.split('@')[0] : 'Viajero');
+        name = name.charAt(0).toUpperCase() + name.slice(1);
+        var avHtml = m.avatarUrl
+          ? '<img class="mc-member-av" src="'+m.avatarUrl+'" alt="'+escHtml(name)+'">'
+          : '<div class="mc-member-av">'+name.charAt(0)+'</div>';
+        var uTag = m.username ? '<div class="mc-member-user">@'+escHtml(m.username)+'</div>' : '';
+        return '<div class="mc-member" onclick="closeMsgCenter();openMsgModal(\''+m.uid+'\',\''+escHtml(name)+'\',\''+escHtml(m.username||'')+'\')">'+
+          avHtml+
+          '<div class="mc-member-info"><div class="mc-member-name">'+escHtml(name)+'</div>'+uTag+'</div>'+
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>'+
+        '</div>';
+      }).join('');
+    });
+  }
+}
+
+function loadMsgCenterConvs(){
+  var el = document.getElementById('msgcenter-convs');
+  if(!el || !window._fb || !window._fb.listenInbox) return;
+  var myUid = window._currentUser.uid;
+  if(_mcInboxUnsub){ _mcInboxUnsub(); _mcInboxUnsub = null; }
+  _mcInboxUnsub = window._fb.listenInbox(myUid, function(convs){
+    if(convs.length === 0){
+      el.innerHTML = '<div style="font-size:.8rem;color:rgba(0,0,0,.3);">Sin conversaciones aún</div>';
+      return;
+    }
+    Promise.all(convs.map(function(conv){
+      var otherUid = conv.participants.find(function(p){ return p !== myUid; });
+      if(!otherUid) return Promise.resolve(Object.assign({otherName:'?',otherUsername:'',otherUid:''},conv));
+      return window._fb.getProfile(otherUid).then(function(profile){
+        var name = '', username = '';
+        if(profile && profile.username){ username = profile.username; name = '@'+username; }
+        else if(profile && profile.displayName){ name = profile.displayName; }
+        // Fallback: check users collection for username
+        if(!name){
+          return window._fb.getUserRole(otherUid).then(function(){
+            return window._fb.getProfile(otherUid);
+          }).catch(function(){ return null; }).then(function(){
+            // Try usernames collection via users doc
+            return window._fb.getProfile ? window._fb.getProfile(otherUid) : null;
+          }).then(function(p2){
+            var n = (p2&&p2.username)?('@'+p2.username):(p2&&p2.displayName)?p2.displayName:('Usuario');
+            return Object.assign({otherName:n,otherUsername:(p2&&p2.username)||'',otherUid:otherUid},conv);
+          });
+        }
+        name = name.charAt(0).toUpperCase()+name.slice(1);
+        return Object.assign({otherName:name,otherUsername:username,otherUid:otherUid},conv);
+      }).catch(function(){ return Object.assign({otherName:'Usuario',otherUsername:'',otherUid:otherUid},conv); });
+    })).then(function(resolved){
+      el.innerHTML = resolved.map(function(c){
+        var ts='';
+        if(c.lastTs&&c.lastTs.toDate){
+          var d=c.lastTs.toDate();
+          ts=d.toLocaleDateString('es-CL',{day:'numeric',month:'short'})+' '+d.toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
+        }
+        var preview = c.lastMsg ? escHtml(c.lastMsg.slice(0,55))+(c.lastMsg.length>55?'…':'') : '';
+        var uTag = c.otherUsername ? '<span style="font-size:.68rem;color:var(--ember);margin-left:.3rem;">@'+escHtml(c.otherUsername)+'</span>' : '';
+        // Unread indicator
+        var lastTs = c.lastTs ? (c.lastTs.toMillis?c.lastTs.toMillis():c.lastTs.seconds*1000) : 0;
+        var lastRead = parseInt(localStorage.getItem('msgread_'+c.id)||'0');
+        var unread = lastTs > lastRead && c.lastFrom !== myUid;
+        var dot = unread ? '<span style="width:.5rem;height:.5rem;border-radius:50%;background:#e53e3e;display:inline-block;margin-left:.4rem;flex-shrink:0;"></span>' : '';
+        return '<div class="inbox-item" onclick="closeMsgCenter();openMsgModal(\''+c.otherUid+'\',\''+escHtml(c.otherName)+'\',\''+escHtml(c.otherUsername||'')+'\')">'+
+          '<div class="inbox-item-name" style="display:flex;align-items:center;">'+escHtml(c.otherName)+uTag+dot+'</div>'+
+          '<div class="inbox-item-preview">'+preview+'</div>'+
+          '<div class="inbox-item-time">'+ts+'</div>'+
+        '</div>';
+      }).join('');
+    });
+  });
+}
+
+var _navMsgUnsub = null;
+
+function updateNavMsgBadge(count){
+  var btn = document.getElementById('nav-msg-btn');
+  var badge = document.getElementById('nav-msg-badge');
+  if(!btn || !badge) return;
+  if(count > 0){
+    badge.textContent = count > 9 ? '9+' : count;
+    badge.style.display = 'flex';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function startNavMsgListener(uid){
+  if(_navMsgUnsub){ _navMsgUnsub(); _navMsgUnsub = null; }
+  var btn = document.getElementById('nav-msg-btn');
+  if(btn) btn.style.display = 'block';
+
+  // Listen to all conversations for this user
+  _navMsgUnsub = window._fb.listenInbox(uid, function(convs){
+    var unread = 0;
+    var now = Date.now();
+    convs.forEach(function(c){
+      if(!c.lastTs) return;
+      var lastTs = c.lastTs.toMillis ? c.lastTs.toMillis() : (c.lastTs.seconds * 1000);
+      // Skip conversations where I sent the last message
+      if(c.lastFrom === uid) return;
+      // Compare with locally stored read time
+      var readKey = 'msgread_' + c.id;
+      var lastRead = parseInt(localStorage.getItem(readKey) || '0');
+      if(lastTs > lastRead) unread++;
+    });
+    updateNavMsgBadge(unread);
+  });
+}
+
+function markConvRead(convId){
+  localStorage.setItem('msgread_' + convId, Date.now().toString());
+  // Recount
+  if(window._currentUser) startNavMsgListener(window._currentUser.uid);
+}
+
+function loadInbox(myUid){
+  if(_inboxUnsub){ _inboxUnsub(); _inboxUnsub = null; }
+  var listEl = document.getElementById('pf-inbox-list');
+  if(!listEl) return;
+
+  _inboxUnsub = window._fb.listenInbox(myUid, function(convs){
+    if(convs.length === 0){
+      listEl.innerHTML = '<div style="font-size:.8rem;color:rgba(0,0,0,.35);">Sin conversaciones aún</div>';
+      document.getElementById('pf-inbox-badge').style.display = 'none';
+      return;
+    }
+    var badge = document.getElementById('pf-inbox-badge');
+    if(badge){ badge.textContent = convs.length; badge.style.display = 'inline'; }
+
+    // Resolve the other person's name for each conversation
+    Promise.all(convs.map(function(conv){
+      var otherUid = conv.participants.find(function(p){ return p !== myUid; });
+      if(!otherUid) return Promise.resolve(Object.assign({otherName:'?', otherUsername:'', otherUid:''}, conv));
+      return window._fb.getProfile(otherUid).then(function(profile){
+        var name = (profile && profile.displayName) ? profile.displayName : otherUid.slice(0,8);
+        name = name.charAt(0).toUpperCase() + name.slice(1);
+        var username = (profile && profile.username) ? profile.username : '';
+        return Object.assign({otherName: name, otherUsername: username, otherUid: otherUid}, conv);
+      }).catch(function(){ return Object.assign({otherName:'Usuario', otherUsername:'', otherUid: otherUid}, conv); });
+    })).then(function(resolved){
+      listEl.innerHTML = resolved.map(function(c){
+        var ts = '';
+        if(c.lastTs && c.lastTs.toDate){
+          var d = c.lastTs.toDate();
+          ts = d.toLocaleDateString('es-CL',{day:'numeric',month:'short'}) + ' ' + d.toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'});
+        }
+        var preview = c.lastMsg ? escHtml(c.lastMsg.slice(0,60))+(c.lastMsg.length>60?'…':'') : '';
+        var uTag = c.otherUsername ? '<span style="font-size:.68rem;color:var(--ember);margin-left:.3rem;">@'+escHtml(c.otherUsername)+'</span>' : '';
+        return '<div class="inbox-item" onclick="openMsgModal(\''+c.otherUid+'\',\''+escHtml(c.otherName)+'\',\''+escHtml(c.otherUsername||'')+'\')">'+
+          '<div class="inbox-item-name">'+escHtml(c.otherName)+uTag+'</div>'+
+          '<div class="inbox-item-preview">'+preview+'</div>'+
+          '<div class="inbox-item-time">'+ts+'</div>'+
+        '</div>';
+      }).join('');
+    });
+  });
+}
+
+function doLeaveGroup(){
+  if(!window._currentUser) return;
+  if(!confirm('¿Seguro que quieres abandonar el grupo viajero?\nPerderás acceso a puntuar y publicar entradas.')) return;
+  var uid=window._currentUser.uid;
+  var msgEl=document.getElementById('pf-leave-msg');
+  if(msgEl){msgEl.textContent='Procesando...';msgEl.style.color='rgba(0,0,0,.4)';}
+  window._fb.downgradeToViewer(uid).then(function(ok){
+    if(ok){
+      _userRole='viewer';
+      addLocks();
+      document.getElementById('pf-leave-section').style.display='none';
+      var roleEl=document.getElementById('profile-role-display');
+      if(roleEl) roleEl.innerHTML='<span class="profile-role-badge prole-viewer">Seguidor del viaje</span>';
+      var upBtn=document.getElementById('nav-upgrade-btn');
+      if(upBtn) upBtn.style.display='inline-block';
+      var navText=document.getElementById('nav-user-text');
+      if(navText) navText.textContent=navText.textContent;
+      if(_lastEntries.length>0) renderDiario(_lastEntries);
+      if(msgEl){msgEl.textContent='Has salido del grupo viajero.';msgEl.style.color='var(--ember)';}
+      setTimeout(function(){
+        document.getElementById('profile-modal').classList.remove('open');
+        document.body.style.overflow='';
+      },1600);
+    } else {
+      if(msgEl){msgEl.textContent='Error. Intenta de nuevo.';msgEl.style.color='var(--ember)';}
+    }
+  });
+}
+
+function addLocks(){
+  document.querySelectorAll('.rating-section,.zone-acts,.diario-form').forEach(function(el){
+    if(el.querySelector('.auth-lock')) return;
+    el.classList.add('requires-auth'); el.style.position='relative';
+    var lock=document.createElement('div'); lock.className='auth-lock';
+    lock.onclick=function(){ if(window._currentUser){ if(window.openUpgrade) openUpgrade(); } else { showLogin(); } };
+    var txt=window._currentUser
+      ? 'Solo el grupo viajero puede puntuar y publicar · Únete con el código'
+      : 'Inicia sesión — solo el grupo viajero puede puntuar y publicar';
+    lock.innerHTML='<div class="auth-lock-icon">🔒</div><div class="auth-lock-text">'+txt+'</div>';
+    el.appendChild(lock);
+  });
+}
+function removeLocks(){
+  document.querySelectorAll('.auth-lock').forEach(function(el){el.remove();});
+  document.querySelectorAll('.requires-auth').forEach(function(el){el.classList.remove('requires-auth');});
+}
+
+document.addEventListener('auth-changed',function(e){
+  window._currentUser=e.detail;
+  if(_profileUnsub){ _profileUnsub(); _profileUnsub = null; }
+  if(_inboxUnsub){ _inboxUnsub(); _inboxUnsub = null; }
+  if(_navMsgUnsub){ _navMsgUnsub(); _navMsgUnsub = null; }
+  if(typeof _navProfileListenUnsub !== 'undefined' && _navProfileListenUnsub){ _navProfileListenUnsub(); _navProfileListenUnsub=null; }
+  if(e.detail){
+    // User is logged in — update nav immediately
+    updateNavUser(e.detail);
+  } else {
+    // No user — reset profile form and nav only after firebase-ready has confirmed no session
+    ['pf-name','pf-bio','pf-username'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.value='';
+    });
+    var dispEl=document.getElementById('profile-name-display');
+    if(dispEl) dispEl.textContent='Tu perfil';
+    var subEl=document.getElementById('profile-username-display');
+    if(subEl) subEl.textContent='';
+    setAvatarUI(null,'?');
+    // Only update nav to logged-out state after firebase-ready fires
+    // (firebase-ready fires from onAuthStateChanged, so by now it's confirmed)
+    updateNavUser(null);
+  }
+});
+document.addEventListener('firebase-ready',function(){
+  if(!window._currentUser){ showLogin(); return; }
+  // Firebase ready and user is logged in — fetch role then update UI
+  if(window._fb && window._fb.getUserRole){
+    window._fb.getUserRole(window._currentUser.uid).then(function(role){
+      _userRole = role;
+      updateUIForRole(role);
+      if(_lastEntries.length>0) renderDiario(_lastEntries);
+    });
+  }
+});
+document.addEventListener('DOMContentLoaded',function(){
+  ['login-email','login-pass'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.addEventListener('keydown',function(e){if(e.key==='Enter') doLogin();});
+  });
+  ['reg-username','reg-email','reg-pass','reg-code'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.addEventListener('keydown',function(e){if(e.key==='Enter') doRegister();});
+  });
+
+  // Live username availability check in register form
+  var _usernameTimer=null;
+  var regUsernameEl=document.getElementById('reg-username');
+  if(regUsernameEl){
+    regUsernameEl.addEventListener('input',function(){
+      clearTimeout(_usernameTimer);
+      var val=this.value.trim();
+      var msgEl=document.getElementById('username-check-msg');
+      if(!val){msgEl.textContent='';msgEl.style.color='';return;}
+      if(val.length<3){msgEl.textContent='Mínimo 3 caracteres';msgEl.style.color='var(--ember)';return;}
+      msgEl.textContent='Comprobando...';msgEl.style.color='rgba(0,0,0,.4)';
+      _usernameTimer=setTimeout(function(){
+        if(!window._fb||!window._fb.checkUsername){msgEl.textContent='';return;}
+        window._fb.checkUsername(val).then(function(r){
+          if(r.available){
+            msgEl.textContent='✓ @'+val+' disponible';
+            msgEl.style.color='var(--moss)';
+          } else {
+            msgEl.textContent='✗ '+r.msg;
+            msgEl.style.color='var(--ember)';
+          }
+        });
+      },600);
+    });
+  }
+
+  // Live username check in profile modal
+  var _pfUsernameTimer=null;
+  var pfUsernameEl=document.getElementById('pf-username');
+  if(pfUsernameEl){
+    pfUsernameEl.addEventListener('input',function(){
+      clearTimeout(_pfUsernameTimer);
+      var val=this.value.trim();
+      var msgEl=document.getElementById('pf-username-msg');
+      if(!val){msgEl.textContent='';msgEl.style.color='';return;}
+      if(val.length<3){msgEl.textContent='Mínimo 3 caracteres';msgEl.style.color='var(--ember)';return;}
+      msgEl.textContent='Comprobando...';msgEl.style.color='rgba(0,0,0,.4)';
+      _pfUsernameTimer=setTimeout(function(){
+        if(!window._fb||!window._fb.checkUsername){msgEl.textContent='';return;}
+        window._fb.checkUsername(val).then(function(r){
+          if(r.available){
+            msgEl.textContent=r.own?'✓ Tu usuario actual':'✓ @'+val+' disponible';
+            msgEl.style.color='var(--moss)';
+          } else {
+            msgEl.textContent='✗ '+r.msg;
+            msgEl.style.color='var(--ember)';
+          }
+        });
+      },600);
+    });
+  }
+});
+
+// ── PREPARACION: CHECKLIST ──
+var _prepChecks = {};
+var _prepUnsub = null;
+
+var PREP_ITEMS = [
+  'prep_pasaporte','prep_visa_bali','prep_visa_thai','prep_visa_japon',
+  'prep_vuelos_internos','prep_grab','prep_suica',
+  'prep_seguro','prep_vacunas','prep_medicamentos',
+  'prep_wise','prep_efectivo','prep_sim','prep_banco',
+  'prep_adaptador','prep_banco_energia','prep_ropa','prep_camara'
+];
+
+function togglePrep(el){
+  var key = el.dataset.key;
+  if(!key) return;
+  var done = !el.classList.contains('done-item');
+  // Optimistic UI
+  el.classList.toggle('done-item', done);
+  el.querySelector('.prep-check').textContent = done ? '✓' : '';
+  updatePrepProgress();
+  // Guardar en Firestore (coleccion checklist)
+  if(window._fb && window._fb.saveChecklist){
+    window._fb.saveChecklist(key, done);
+  } else {
+    // fallback localStorage
+    try{
+      var s = JSON.parse(localStorage.getItem('prep_checks')||'{}');
+      s[key] = done;
+      localStorage.setItem('prep_checks', JSON.stringify(s));
+    }catch(e){}
+  }
+}
+
+function updatePrepProgress(){
+  var total = document.querySelectorAll('.prep-item[data-key]').length;
+  var done  = document.querySelectorAll('.prep-item.done-item').length;
+  var pct   = total ? Math.round((done/total)*100) : 0;
+  var bar   = document.getElementById('prep-bar');
+  var lbl   = document.getElementById('prep-counter');
+  var pctTxt= document.getElementById('prep-pct-text');
+  if(bar)   bar.style.width = pct + '%';
+  if(lbl)   lbl.textContent = done + ' / ' + total + ' completados';
+  if(pctTxt)pctTxt.textContent = pct + '% listo';
+}
+
+function applyPrepChecks(checks){
+  _prepChecks = checks || {};
+  document.querySelectorAll('.prep-item[data-key]').forEach(function(el){
+    var done = !!_prepChecks[el.dataset.key];
+    el.classList.toggle('done-item', done);
+    var chk = el.querySelector('.prep-check');
+    if(chk) chk.textContent = done ? '✓' : '';
+  });
+  updatePrepProgress();
+}
+
+// Cargar checks al entrar en la sección
+document.addEventListener('firebase-ready', function(){
+  if(window._fb && window._fb.listenChecklist && !_prepUnsub){
+    _prepUnsub = window._fb.listenChecklist(function(checks){
+      applyPrepChecks(checks);
+    });
+  } else {
+    // fallback localStorage
+    try{
+      applyPrepChecks(JSON.parse(localStorage.getItem('prep_checks')||'{}'));
+    }catch(e){}
+  }
+});
+
+// ── PREPARACION: TASAS DE CAMBIO ──
+var _rates = { USD:1, CLP:950, IDR:16200, THB:35, JPY:155 };
+var _ratesLoaded = false;
+
+function loadExchangeRates(){
+  if(_ratesLoaded) return;
+  // API gratuita sin key: exchangerate-api
+  fetch('https://api.exchangerate-api.com/v4/latest/USD')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(!data.rates) return;
+      _rates.IDR = Math.round(data.rates.IDR || 16200);
+      _rates.THB = +(data.rates.THB || 35).toFixed(2);
+      _rates.JPY = Math.round(data.rates.JPY || 155);
+      _rates.CLP = Math.round(data.rates.CLP || 950);
+      _ratesLoaded = true;
+      // Mostrar en cards
+      var idrEl = document.getElementById('rate-idr');
+      var thbEl = document.getElementById('rate-thb');
+      var jpyEl = document.getElementById('rate-jpy');
+      var upd   = document.getElementById('rates-updated');
+      if(idrEl) idrEl.textContent = _rates.IDR.toLocaleString('es-CL');
+      if(thbEl) thbEl.textContent = _rates.THB.toFixed(2);
+      if(jpyEl) jpyEl.textContent = _rates.JPY.toLocaleString('es-CL');
+      if(upd)   upd.textContent = 'Actualizado: ' + new Date().toLocaleDateString('es-CL', {day:'2-digit',month:'short',year:'numeric'});
+      updateConverter();
+    })
+    .catch(function(){
+      // Fallback con tasas aproximadas
+      var upd = document.getElementById('rates-updated');
+      var idrEl = document.getElementById('rate-idr');
+      var thbEl = document.getElementById('rate-thb');
+      var jpyEl = document.getElementById('rate-jpy');
+      if(idrEl) idrEl.textContent = '16.200';
+      if(thbEl) thbEl.textContent = '35.00';
+      if(jpyEl) jpyEl.textContent = '155';
+      if(upd)   upd.textContent = 'Tasas aproximadas — sin conexion';
+      updateConverter();
+    });
+}
+
+function updateConverter(){
+  var amountEl = document.getElementById('conv-amount');
+  var fromEl   = document.getElementById('conv-from');
+  var toEl     = document.getElementById('conv-to');
+  var resultEl = document.getElementById('conv-result');
+  var subEl    = document.getElementById('conv-result-sub');
+  if(!amountEl||!fromEl||!toEl||!resultEl) return;
+  var amount = parseFloat(amountEl.value) || 0;
+  var from = fromEl.value;
+  var to   = toEl.value;
+  if(from === to){ resultEl.textContent = amount.toLocaleString('es-CL'); if(subEl) subEl.textContent = ''; return; }
+  // Convertir a USD primero, luego a destino
+  var inUSD   = amount / (_rates[from] || 1);
+  var result  = inUSD * (_rates[to] || 1);
+  // Formatear según moneda
+  var fmtResult;
+  if(to === 'JPY' || to === 'IDR' || to === 'CLP'){
+    fmtResult = Math.round(result).toLocaleString('es-CL');
+  } else {
+    fmtResult = result.toFixed(2);
+  }
+  resultEl.textContent = fmtResult + ' ' + to;
+  // Tasa unitaria
+  var unit = (_rates[to]||1) / (_rates[from]||1);
+  var unitFmt = (to==='JPY'||to==='IDR'||to==='CLP') ? Math.round(unit).toLocaleString('es-CL') : unit.toFixed(4);
+  if(subEl) subEl.textContent = '1 ' + from + ' = ' + unitFmt + ' ' + to;
+}
+
+// Cargar tasas cuando el usuario navega a la sección
+(function(){
+  var origGoTo = window.goTo;
+})();
+
+// ── MAPA ──
+var mapInitialized = false;
+var _leafletMap = null;
+
+var STOPS = [
+  {name:'Bali',       label:'Bali',         country:'Indonesia',    dates:'28 Dic – 5 Ene',  lat:-8.40,  lng:115.19, color:'#d4783a', r:9,  num:1},
+  {name:'Phuket',     label:'Phuket',        country:'Tailandia',    dates:'5 – 9 Ene',       lat:7.90,   lng:98.30,  color:'#8b1a3a', r:7,  num:2},
+  {name:'Krabi',      label:'Krabi',         country:'Tailandia',    dates:'9 – 13 Ene',      lat:8.09,   lng:98.91,  color:'#8b1a3a', r:7,  num:3},
+  {name:'Bangkok',    label:'Bangkok',       country:'Tailandia',    dates:'13 – 15 Ene',     lat:13.75,  lng:100.50, color:'#8b1a3a', r:7,  num:4},
+  {name:'Chiang Mai', label:'Chiang Mai',    country:'Tailandia',    dates:'15 – 19 Ene',     lat:18.79,  lng:98.98,  color:'#8b1a3a', r:7,  num:5},
+  {name:'Osaka',      label:'Osaka',         country:'Japón',        dates:'19 – 22 Ene',     lat:34.69,  lng:135.50, color:'#c8293a', r:7,  num:6},
+  {name:'Kyoto',      label:'Kyoto',         country:'Japón',        dates:'22 – 25 Ene',     lat:35.01,  lng:135.77, color:'#c8293a', r:6,  num:7},
+  {name:'Tokyo',      label:'Tokyo',         country:'Japón',        dates:'25 Ene – 1 Feb',  lat:35.68,  lng:139.69, color:'#c8293a', r:9,  num:8},
+];
+
+function initTravelMap(){
+  if(mapInitialized) return;
+  var el = document.getElementById('travel-map');
+  if(!el) return;
+  // Wait for Leaflet to be available, retry up to 20 times
+  if(typeof L === 'undefined'){
+    var attempts = 0;
+    var tryInit = setInterval(function(){
+      attempts++;
+      if(typeof L !== 'undefined'){ clearInterval(tryInit); initTravelMap(); }
+      else if(attempts > 20) clearInterval(tryInit);
+    }, 200);
+    return;
+  }
+  mapInitialized = true;
+
+  // Tile layer oscuro (CartoDB Dark Matter) que combina con el diseño
+  var map = L.map('travel-map', {
+    center: [18, 118],
+    zoom: 4,
+    zoomControl: true,
+    scrollWheelZoom: false,
+    attributionControl: true
+  });
+  _leafletMap = map;
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://openstreetmap.org">OSM</a> &copy; <a href="https://carto.com">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 14,
+    minZoom: 2
+  }).addTo(map);
+
+  // Ruta: solo paradas en Asia (sin Santiago para no deformar el zoom)
+  var coords = STOPS.map(function(s){ return [s.lat, s.lng]; });
+
+  // Línea de ruta — sombra gruesa semitransparente + línea dorada encima
+  L.polyline(coords, {color:'#d4a853', weight:8, opacity:0.10}).addTo(map);
+  L.polyline(coords, {color:'#d4a853', weight:2.5, opacity:0.9, dashArray:'10 7'}).addTo(map);
+
+  // Marcadores con número de parada
+  STOPS.forEach(function(s){
+    var size = s.r * 2 + 10;
+    var html =
+      '<div style="'+
+        'width:'+size+'px;height:'+size+'px;'+
+        'background:'+s.color+';'+
+        'border-radius:50%;'+
+        'border:3px solid rgba(255,255,255,.95);'+
+        'box-shadow:0 2px 10px rgba(0,0,0,.45), 0 0 0 '+(s.r+3)+'px '+s.color+'28;'+
+        'display:flex;align-items:center;justify-content:center;'+
+        'font-family:\'DM Sans\',sans-serif;font-size:11px;font-weight:700;color:#fff;'+
+      '">'+s.num+'</div>';
+
+    var icon = L.divIcon({
+      className: '',
+      html: html,
+      iconSize: [size, size],
+      iconAnchor: [size/2, size/2]
+    });
+
+    var marker = L.marker([s.lat, s.lng], {icon: icon}).addTo(map);
+
+    marker.bindPopup(
+      '<div style="font-family:\'DM Sans\',sans-serif;min-width:160px;">'+
+        '<div style="font-weight:700;font-size:.97rem;color:#1a1410;margin-bottom:.15rem;">'+s.name+'</div>'+
+        '<div style="font-size:.72rem;color:#888;margin-bottom:.3rem;">'+s.country+'</div>'+
+        '<div style="display:inline-block;background:'+s.color+'1a;color:'+s.color+';border-radius:6px;padding:.18rem .55rem;font-size:.75rem;font-weight:600;">'+s.dates+'</div>'+
+      '</div>',
+      {maxWidth: 220, className: 'map-popup-custom'}
+    );
+
+    marker.bindTooltip(s.label, {
+      permanent: true,
+      direction: 'top',
+      offset: [0, -(size/2 + 4)],
+      className: 'map-tooltip-custom',
+      opacity: 1
+    });
+  });
+
+  // Ajustar vista solo a las paradas en Asia
+  var bounds = L.latLngBounds(STOPS.map(function(s){ return [s.lat, s.lng]; }));
+  map.fitBounds(bounds, {padding: [50, 50]});
+
+  // Forzar redibujado (fix tamaño si estaba oculto al iniciar)
+  setTimeout(function(){ map.invalidateSize(); }, 300);
+}
+
+// Observador de intersección — inicia el mapa cuando es visible
+(function(){
+  var mapDiv = document.getElementById('travel-map');
+  if(!mapDiv) return;
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      if(entries[0].isIntersecting){ obs.disconnect(); setTimeout(initTravelMap, 150); }
+    }, {threshold: 0.05});
+    obs.observe(mapDiv);
+  } else {
+    // Fallback sin IntersectionObserver
+    setTimeout(initTravelMap, 800);
+  }
+})();
+
+// ── NAV ──
+function goTo(id,btn){
+  document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
+  document.querySelectorAll('.nav-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  if(id==='mapa'){
+    setTimeout(function(){
+      initTravelMap();
+      if(_leafletMap) _leafletMap.invalidateSize();
+    }, 350);
+  }
+  if(id==='preparacion'){
+    setTimeout(loadExchangeRates, 200);
+  }
+}
+var NAV_IDS=['resumen','destinos','diario','galeria','vuelos','mapa','alojamientos'];
+var navObs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){
+      var idx=NAV_IDS.indexOf(e.target.id);
+      document.querySelectorAll('.nav-btn').forEach(function(b,i){b.classList.toggle('active',i===idx);});
+    }
+  });
+},{threshold:.2});
+NAV_IDS.forEach(function(id){var el=document.getElementById(id);if(el) navObs.observe(el);});
+
+// ── PERFIL ──
+var _profileUnsub = null;
+var _membersUnsub = null;
+var _pendingAvatar = null;
+
+function openProfile(){
+  if(!window._currentUser){ showLogin(); return; }
+  document.getElementById('profile-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  loadMyProfile();
+  loadMembers();
+}
+
+function closeProfile(e){
+  if(!e || e.target === document.getElementById('profile-modal') || e.target.id === 'profile-close'){
+    document.getElementById('profile-modal').classList.remove('open');
+    document.body.style.overflow = '';
+    _pendingAvatar = null;
+  }
+}
+
+function loadMyProfile(){
+  if(!window._currentUser || !window._fb.listenProfile) return;
+  if(_profileUnsub) _profileUnsub();
+  var uid = window._currentUser.uid;
+  _profileUnsub = window._fb.listenProfile(uid, function(profile){
+    var nameEl     = document.getElementById('pf-name');
+    var bioEl      = document.getElementById('pf-bio');
+    var usernameEl = document.getElementById('pf-username');
+    var dispEl     = document.getElementById('profile-name-display');
+    var roleEl     = document.getElementById('profile-role-display');
+    if(profile){
+      if(nameEl)     nameEl.value     = profile.displayName || '';
+      if(bioEl)      bioEl.value      = profile.bio || '';
+      if(usernameEl) usernameEl.value = profile.username || '';
+      var dispName = profile.displayName || window._currentUser.email.split('@')[0];
+      var dispUser = profile.username ? ' @'+profile.username : '';
+      if(dispEl) dispEl.textContent = dispName;
+      // Show username as subtitle in profile header
+      var subEl = document.getElementById('profile-username-display');
+      if(subEl) subEl.textContent = profile.username ? '@'+profile.username : '';
+      setAvatarUI(profile.avatarUrl || null, profile.displayName || '?');
+    } else {
+      var defName = window._currentUser.email.split('@')[0];
+      defName = defName.charAt(0).toUpperCase() + defName.slice(1);
+      if(dispEl) dispEl.textContent = defName;
+    }
+    if(roleEl){
+      // Always fetch role fresh to avoid stale state
+      (window._fb.getUserRole ? window._fb.getUserRole(uid) : Promise.resolve(_userRole)).then(function(role){
+        _userRole = role;
+        var isEd = role === 'editor';
+        roleEl.innerHTML = '<span class="profile-role-badge '+(isEd?'prole-editor':'prole-viewer')+'">'+(isEd?'Grupo viajero':'Seguidor del viaje')+'</span>';
+        var leaveSec = document.getElementById('pf-leave-section');
+        if(leaveSec) leaveSec.style.display = isEd ? 'block' : 'none';
+        var leaveMsg = document.getElementById('pf-leave-msg');
+        if(leaveMsg) leaveMsg.textContent = '';
+        var inboxSec = document.getElementById('pf-inbox-section');
+        if(inboxSec) inboxSec.style.display = isEd ? 'block' : 'none';
+        if(isEd) loadInbox(uid);
+        updateUIForRole(role);
+      });
+    }
+  });
+}
+
+function setAvatarUI(url, name){
+  var wrap = document.getElementById('avatar-display');
+  if(!wrap) return;
+  if(url){
+    wrap.innerHTML = '<img class="avatar-img" src="'+url+'" alt="avatar">';
+    // Update nav
+    var inner = document.getElementById('nav-av-inner');
+    if(inner) inner.innerHTML = '<img src="'+url+'" style="width:28px;height:28px;border-radius:50%;object-fit:cover;">';
+  } else {
+    var initial = (name||'?').charAt(0).toUpperCase();
+    wrap.innerHTML = '<div class="avatar-placeholder">' + initial + '</div>';
+    var inner = document.getElementById('nav-av-inner');
+    if(inner) inner.textContent = initial;
+  }
+}
+
+// Avatar preview
+document.addEventListener('DOMContentLoaded', function(){
+  var inp = document.getElementById('avatar-input');
+  if(!inp) return;
+  inp.addEventListener('change', function(){
+    if(!this.files[0]) return;
+    var reader = new FileReader();
+    reader.onload = function(e){
+      var img = new Image();
+      img.onload = function(){
+        var canvas = document.createElement('canvas');
+        var size = 512;
+        canvas.width = size; canvas.height = size;
+        var ctx = canvas.getContext('2d');
+        // Crop to square
+        var min = Math.min(img.width, img.height);
+        var sx = (img.width - min)/2, sy = (img.height - min)/2;
+        ctx.drawImage(img, sx, sy, min, min, 0, 0, size, size);
+        _pendingAvatar = canvas.toDataURL('image/jpeg', 0.9);
+        // Show preview
+        var wrap = document.getElementById('avatar-display');
+        if(wrap) wrap.innerHTML = '<img class="avatar-img" src="'+_pendingAvatar+'" alt="preview">';
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(this.files[0]);
+  });
+});
+
+function saveProfile(){
+  if(!window._currentUser || !window._fb.saveProfile) return;
+  var uid = window._currentUser.uid;
+  var name     = (document.getElementById('pf-name').value||'').trim();
+  var bio      = (document.getElementById('pf-bio').value||'').trim();
+  var username = (document.getElementById('pf-username').value||'').trim().toLowerCase();
+  var btn  = document.querySelector('.profile-save');
+  var msg  = document.getElementById('pf-saved');
+  var msgEl = document.getElementById('pf-username-msg');
+
+  if(username && username.length < 3){
+    if(msgEl){msgEl.textContent='Mínimo 3 caracteres';msgEl.style.color='var(--ember)';}
+    return;
+  }
+
+  btn.disabled = true; btn.textContent = 'Guardando...';
+  msg.textContent = '';
+
+  var doSave = function(avatarUrl){
+    var data = { displayName: name, bio: bio, role: _userRole, email: window._currentUser.email, username: username };
+    if(avatarUrl) data.avatarUrl = avatarUrl;
+    window._fb.saveProfile(uid, data).then(function(ok){
+      btn.disabled = false; btn.textContent = 'Guardar perfil';
+      if(ok){
+        msg.textContent = '¡Perfil guardado!';
+        _pendingAvatar = null;
+        // Update nav name — show @username if available
+        var navText = document.getElementById('nav-user-text');
+        if(navText){
+          var displayLabel = username ? '@'+username : (name || window._currentUser.email.split('@')[0]);
+          navText.textContent = displayLabel + ''+' · Salir';
+        }
+        // Update username subtitle in profile header
+        var subEl = document.getElementById('profile-username-display');
+        if(subEl) subEl.textContent = username ? '@'+username : '';
+        setTimeout(function(){msg.textContent='';},2500);
+      } else {
+        msg.style.color = 'var(--ember)';
+        msg.textContent = 'Error al guardar. Intenta de nuevo.';
+      }
+    });
+  };
+
+  // Fetch old username to handle rename correctly
+  var saveAndMap = function(avatarUrl){
+    if(window._fb.getProfile && window._fb.saveUsername){
+      window._fb.getProfile(uid).then(function(existing){
+        var oldUsername = (existing && existing.username) ? existing.username : '';
+        window._fb.saveUsername(uid, username, oldUsername).then(function(){
+          doSave(avatarUrl);
+        });
+      });
+    } else {
+      doSave(avatarUrl);
+    }
+  };
+
+  if(_pendingAvatar && window._fb.uploadAvatar){
+    window._fb.uploadAvatar(uid, _pendingAvatar).then(function(url){
+      saveAndMap(url);
+    });
+  } else {
+    saveAndMap(null);
+  }
+}
+
+function loadMembers(){
+  if(!window._fb.listenMembers) return;
+  if(_membersUnsub) _membersUnsub();
+  _membersUnsub = window._fb.listenMembers(function(members){
+    var list = document.getElementById('members-list');
+    if(!list) return;
+    // Only show editors
+    var editors = members.filter(function(m){ return m.role === 'editor'; });
+    if(editors.length === 0){
+      list.innerHTML = '<div style="font-size:.8rem;color:rgba(0,0,0,.35)">Aún no hay miembros registrados</div>';
+      return;
+    }
+    list.innerHTML = editors.map(function(m){
+      var name = m.displayName || (m.email ? m.email.split('@')[0] : 'Viajero');
+      name = name.charAt(0).toUpperCase() + name.slice(1);
+      var av = m.avatarUrl
+        ? '<img class="member-av" src="'+m.avatarUrl+'" alt="'+escHtml(name)+'">'
+        : '<div class="member-av-ph">'+name.charAt(0)+'</div>';
+      var usernameTag = m.username ? '<div style="font-size:.65rem;color:var(--ember);font-weight:600;letter-spacing:.04em;">@'+escHtml(m.username)+'</div>' : '';
+      var bio = m.bio ? '<div style="font-size:.72rem;color:rgba(0,0,0,.4);margin-top:.1rem;max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+escHtml(m.bio)+'</div>' : '';
+      // Show message button for all logged-in users (not self)
+      var isSelf = window._currentUser && m.uid === window._currentUser.uid;
+      var canMsg = window._currentUser && !isSelf;
+      var msgBtn = canMsg ? '<button class="msg-btn" onclick="openMsgModal(\''+m.uid+'\',\''+escHtml(name)+'\',\''+escHtml(m.username||'')+'\')">Mensaje</button>' : '';
+      return '<div class="member-chip">'+av+'<div class="member-info"><div class="member-name">'+escHtml(name)+'</div>'+usernameTag+bio+msgBtn+'</div></div>';
+    }).join('');
+  });
+}
+
+// ── LIGHTBOX ──
+var _lbPhotos = [];
+var _lbIdx = 0;
+var _lbPhotoMap = {}; // stores photos by entry id
+
+function openLightbox(entryId, idx){
+  _lbPhotos = _lbPhotoMap[entryId] || [];
+  if(!_lbPhotos.length) return;
+  _lbIdx = idx;
+  var lb = document.getElementById('lightbox');
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateLightbox();
+  document.addEventListener('keydown', lightboxKey);
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+  document.removeEventListener('keydown', lightboxKey);
+}
+function updateLightbox(){
+  document.getElementById('lightbox-img').src = _lbPhotos[_lbIdx];
+  document.getElementById('lightbox-counter').textContent = _lbPhotos.length > 1 ? (_lbIdx+1) + ' / ' + _lbPhotos.length : '';
+  document.getElementById('lightbox-prev').style.display = _lbPhotos.length > 1 ? 'flex' : 'none';
+  document.getElementById('lightbox-next').style.display = _lbPhotos.length > 1 ? 'flex' : 'none';
+}
+function lightboxNav(dir){
+  _lbIdx = (_lbIdx + dir + _lbPhotos.length) % _lbPhotos.length;
+  updateLightbox();
+}
+function lightboxKey(e){
+  if(e.key==='ArrowRight') lightboxNav(1);
+  else if(e.key==='ArrowLeft') lightboxNav(-1);
+  else if(e.key==='Escape') closeLightbox();
+}
+
+// (nav-av listener merged into updateNavUser)
+
+</script>
+<script src="js/features.js"></script>
+<script>
+  // Registrar el service worker (para que sea instalable y abra offline)
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("sw.js").catch(function (e) { console.warn("SW:", e); });
+    });
+  }
+</script>
+</body>
+</html>

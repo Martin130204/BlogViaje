@@ -1,0 +1,13 @@
+# Restos del export de Word del CLAUDE.md antiguo (no forman parte del sitio)
+CLAUDE_archivos/
+
+# Config local de Claude Code / preview
+.claude/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs / temporales
+*.log
