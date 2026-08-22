@@ -617,7 +617,7 @@
       <div class="info-head"><span class="info-flag">🇮🇩</span><div><div class="info-title">Indonesia</div><div class="info-sub">Bali</div></div></div>
       <ul class="info-list">
         <li><span>🚗 Transporte</span><b>Grab · Gojek</b></li>
-        <li><span>💵 Moneda</span><b>Rupia · ~16.200/USD</b></li>
+        <li><span>💵 Moneda</span><b>Rupia (IDR)</b></li>
         <li><span>🔌 Enchufe</span><b>Tipo C/F · 230V</b></li>
         <li><span>🆘 Emergencias</span><b>112</b></li>
         <li><span>💡 Tip</span><b>Regatear en mercados</b></li>
@@ -627,7 +627,7 @@
       <div class="info-head"><span class="info-flag">🇹🇭</span><div><div class="info-title">Tailandia</div><div class="info-sub">Phuket · Bangkok · Chiang Mai</div></div></div>
       <ul class="info-list">
         <li><span>🚗 Transporte</span><b>Grab · Bolt</b></li>
-        <li><span>💵 Moneda</span><b>Baht (THB) · ~35/USD</b></li>
+        <li><span>💵 Moneda</span><b>Baht (THB)</b></li>
         <li><span>🔌 Enchufe</span><b>Tipo A/B/C · 230V</b></li>
         <li><span>🆘 Emergencias</span><b>1155 (turista) · 191</b></li>
         <li><span>💡 Tip</span><b>Cubrir hombros/rodillas en templos</b></li>
@@ -637,7 +637,7 @@
       <div class="info-head"><span class="info-flag">🇯🇵</span><div><div class="info-title">Japón</div><div class="info-sub">Osaka · Kyoto · Tokyo</div></div></div>
       <ul class="info-list">
         <li><span>🚆 Transporte</span><b>Google Maps · IC Suica/Pasmo</b></li>
-        <li><span>💵 Moneda</span><b>Yen (JPY) · ~150/USD</b></li>
+        <li><span>💵 Moneda</span><b>Yen (JPY)</b></li>
         <li><span>🔌 Enchufe</span><b>Tipo A · 100V</b></li>
         <li><span>🆘 Emergencias</span><b>110 policía · 119 ambulancia</b></li>
         <li><span>💡 Tip</span><b>Llevar efectivo · no se da propina</b></li>
@@ -733,7 +733,7 @@
     <div class="aloj-country-header">🇹🇭 Tailandia</div>
     <div class="aloj-list">
       <div class="aloj-item">
-        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-thai"></div><div><div>TAN Hostel x Cafe · Ao Nang</div><div class="aloj-item-sub">Krabi · efectivo · <a class="aloj-map" href="https://www.google.com/maps/search/?api=1&amp;query=TAN%20Hostel%20x%20Cafe%20Ao%20Nang%20Krabi" target="_blank" rel="noopener">📍 Mapa</a></div><div class="aloj-item-sub" style="margin-top:.15rem;">Reserva 5634.567.411 · PIN 7190</div></div></div>
+        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-thai"></div><div><div>TAN Hostel x Cafe · Ao Nang</div><div class="aloj-item-sub">Krabi · efectivo · <a class="aloj-map" href="https://www.google.com/maps/search/?api=1&amp;query=8.03412,98.82832" target="_blank" rel="noopener">📍 Mapa</a></div><div class="aloj-item-sub" style="margin-top:.15rem;">Reserva 5634.567.411 · PIN 7190</div></div></div>
         <div class="aloj-item-date"><div class="aloj-item-date-lbl">Llegada</div><div class="aloj-item-date-val">8 Ene</div></div>
         <div class="aloj-item-date"><div class="aloj-item-date-lbl">Salida</div><div class="aloj-item-date-val">13 Ene</div></div>
       </div>
@@ -1292,13 +1292,13 @@ document.addEventListener('DOMContentLoaded',function(){
         var img=new Image();
         img.onload=function(){
           var canvas=document.createElement('canvas');
-          var maxW=1600,maxH=1600,w=img.width,h=img.height;
+          var maxW=2048,maxH=2048,w=img.width,h=img.height;
           if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
           if(h>maxH){w=Math.round(w*maxH/h);h=maxH;}
           canvas.width=w;canvas.height=h;
           canvas.getContext('2d').drawImage(img,0,0,w,h);
           // Con Supabase Storage guardamos en buena calidad (sin el limite de Firestore)
-          var c=canvas.toDataURL('image/jpeg',0.85);
+          var c=canvas.toDataURL('image/jpeg',0.92);
           pendingPhotos.push(c);
           var prev=document.createElement('img');
           prev.className='diario-preview-img';prev.src=c;
