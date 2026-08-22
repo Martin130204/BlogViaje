@@ -680,3 +680,20 @@ footer span{color:var(--gold);}
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1);}
 .reveal.in{opacity:1;transform:none;}
 @media (prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;transition:none!important;}}
+
+/* ── APPS Y DATOS ÚTILES ── */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.4rem;}
+.info-card{background:#fff;border-radius:16px;padding:1.5rem;box-shadow:0 4px 20px rgba(0,0,0,.07);transition:transform .28s,box-shadow .28s;}
+.info-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.12);}
+.info-head{display:flex;align-items:center;gap:.7rem;margin-bottom:1rem;padding-bottom:.8rem;border-bottom:1px solid var(--warm);}
+.info-flag{font-size:1.9rem;line-height:1;font-family:'DM Sans',sans-serif,'Noto Color Emoji';}
+.info-title{font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--ink);line-height:1;}
+.info-sub{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ember);margin-top:.2rem;}
+.info-list{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+.info-list li{display:flex;justify-content:space-between;align-items:baseline;gap:.9rem;font-size:.82rem;}
+.info-list li span{color:rgba(26,20,16,.55);white-space:nowrap;}
+.info-list li b{color:var(--ink);text-align:right;font-weight:600;}
+
+/* Enlace a Google Maps en alojamientos */
+.aloj-map{color:var(--ocean);font-weight:600;white-space:nowrap;text-decoration:none;}
+.aloj-map:hover{text-decoration:underline;}

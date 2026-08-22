@@ -274,6 +274,7 @@
     <button class="nav-btn" onclick="goTo('vuelos',this)">Vuelos</button>
   <button class="nav-btn" onclick="goTo('mapa',this)">Mapa</button>
   <button class="nav-btn" onclick="goTo('alojamientos',this)">Alojamientos</button>
+  <button class="nav-btn" onclick="goTo('datos',this)">Info</button>
   <button class="nav-btn" onclick="goTo('preparacion',this)" id="nav-prep-btn" style="display:none;">Preparacion</button>
 </nav>
 
@@ -607,6 +608,44 @@
 </div>
 
 
+<!-- DATOS UTILES -->
+<div class="sw" id="datos">
+  <p class="sec-label">Antes de salir</p>
+  <h2 class="sec-title">Apps y datos útiles</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-head"><span class="info-flag">🇮🇩</span><div><div class="info-title">Indonesia</div><div class="info-sub">Bali</div></div></div>
+      <ul class="info-list">
+        <li><span>🚗 Transporte</span><b>Grab · Gojek</b></li>
+        <li><span>💵 Moneda</span><b>Rupia · ~16.200/USD</b></li>
+        <li><span>🔌 Enchufe</span><b>Tipo C/F · 230V</b></li>
+        <li><span>🆘 Emergencias</span><b>112</b></li>
+        <li><span>💡 Tip</span><b>Regatear en mercados</b></li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <div class="info-head"><span class="info-flag">🇹🇭</span><div><div class="info-title">Tailandia</div><div class="info-sub">Phuket · Bangkok · Chiang Mai</div></div></div>
+      <ul class="info-list">
+        <li><span>🚗 Transporte</span><b>Grab · Bolt</b></li>
+        <li><span>💵 Moneda</span><b>Baht (THB) · ~35/USD</b></li>
+        <li><span>🔌 Enchufe</span><b>Tipo A/B/C · 230V</b></li>
+        <li><span>🆘 Emergencias</span><b>1155 (turista) · 191</b></li>
+        <li><span>💡 Tip</span><b>Cubrir hombros/rodillas en templos</b></li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <div class="info-head"><span class="info-flag">🇯🇵</span><div><div class="info-title">Japón</div><div class="info-sub">Osaka · Kyoto · Tokyo</div></div></div>
+      <ul class="info-list">
+        <li><span>🚆 Transporte</span><b>Google Maps · IC Suica/Pasmo</b></li>
+        <li><span>💵 Moneda</span><b>Yen (JPY) · ~150/USD</b></li>
+        <li><span>🔌 Enchufe</span><b>Tipo A · 100V</b></li>
+        <li><span>🆘 Emergencias</span><b>110 policía · 119 ambulancia</b></li>
+        <li><span>💡 Tip</span><b>Llevar efectivo · no se da propina</b></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 <footer>
   <p>Asia '26–27 · <span>Bali · Tailandia · Japón</span> · 38 días · 3 países · infinitas memorias</p>
 </footer>
@@ -668,22 +707,22 @@
     <div class="aloj-country-header">🇮🇩 Bali · Indonesia</div>
     <div class="aloj-list">
       <div class="aloj-item">
-        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-bali"></div><div><div>Jalan Pantai Berawa N°6</div><div class="aloj-item-sub">Canggu</div></div></div>
+        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-bali"></div><div><div>Jalan Pantai Berawa N°6</div><div class="aloj-item-sub">Canggu · <a class="aloj-map" href="https://www.google.com/maps/search/?api=1&amp;query=Jalan%20Pantai%20Berawa%20Canggu%20Bali" target="_blank" rel="noopener">📍 Mapa</a></div></div></div>
         <div class="aloj-item-date"><div class="aloj-item-date-lbl">Llegada</div><div class="aloj-item-date-val">28 Dic</div></div>
         <div class="aloj-item-date"><div class="aloj-item-date-lbl">Salida</div><div class="aloj-item-date-val">30 Dic</div></div>
       </div>
       <div class="aloj-item">
-        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-bali"></div><div><div>Soka Suarsena</div><div class="aloj-item-sub">Ubud</div></div></div>
+        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-bali"></div><div><div>Soka Suarsena</div><div class="aloj-item-sub">Ubud · <a class="aloj-map" href="https://www.google.com/maps/search/?api=1&amp;query=Soka%20Suarsena%20Ubud%20Bali" target="_blank" rel="noopener">📍 Mapa</a></div></div></div>
         <div class="aloj-item-date"><div class="aloj-item-date-lbl">Llegada</div><div class="aloj-item-date-val">30 Dic</div></div>
         <div class="aloj-item-date"><div class="aloj-item-date-lbl">Salida</div><div class="aloj-item-date-val">2 Ene</div></div>
       </div>
       <div class="aloj-item">
-        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-bali"></div><div><div>Grand Puri Hotel</div><div class="aloj-item-sub">Nusa Penida</div></div></div>
+        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-bali"></div><div><div>Grand Puri Hotel</div><div class="aloj-item-sub">Nusa Penida · <a class="aloj-map" href="https://www.google.com/maps/search/?api=1&amp;query=Grand%20Puri%20Hotel%20Nusa%20Penida" target="_blank" rel="noopener">📍 Mapa</a></div></div></div>
         <div class="aloj-item-date"><div class="aloj-item-date-lbl">Llegada</div><div class="aloj-item-date-val">2 Ene</div></div>
         <div class="aloj-item-date"><div class="aloj-item-date-lbl">Salida</div><div class="aloj-item-date-val">4 Ene</div></div>
       </div>
       <div class="aloj-item">
-        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-bali"></div><div><div>OLIVIA Sanur Workstay Suites</div><div class="aloj-item-sub">Sanur</div></div></div>
+        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-bali"></div><div><div>OLIVIA Sanur Workstay Suites</div><div class="aloj-item-sub">Sanur · <a class="aloj-map" href="https://www.google.com/maps/search/?api=1&amp;query=OLIVIA%20Sanur%20Workstay%20Suites" target="_blank" rel="noopener">📍 Mapa</a></div></div></div>
         <div class="aloj-item-date"><div class="aloj-item-date-lbl">Llegada</div><div class="aloj-item-date-val">4 Ene</div></div>
         <div class="aloj-item-date"><div class="aloj-item-date-lbl">Salida</div><div class="aloj-item-date-val">5 Ene</div></div>
       </div>
@@ -694,7 +733,7 @@
     <div class="aloj-country-header">🇹🇭 Tailandia</div>
     <div class="aloj-list">
       <div class="aloj-item">
-        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-thai"></div><div><div>TAN Hostel x Cafe · Ao Nang</div><div class="aloj-item-sub">Krabi · pago en efectivo al llegar</div></div></div>
+        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-thai"></div><div><div>TAN Hostel x Cafe · Ao Nang</div><div class="aloj-item-sub">Krabi · efectivo · <a class="aloj-map" href="https://www.google.com/maps/search/?api=1&amp;query=TAN%20Hostel%20x%20Cafe%20Ao%20Nang%20Krabi" target="_blank" rel="noopener">📍 Mapa</a></div><div class="aloj-item-sub" style="margin-top:.15rem;">Reserva 5634.567.411 · PIN 7190</div></div></div>
         <div class="aloj-item-date"><div class="aloj-item-date-lbl">Llegada</div><div class="aloj-item-date-val">8 Ene</div></div>
         <div class="aloj-item-date"><div class="aloj-item-date-lbl">Salida</div><div class="aloj-item-date-val">13 Ene</div></div>
       </div>
@@ -2441,7 +2480,7 @@ function goTo(id,btn){
     setTimeout(loadExchangeRates, 200);
   }
 }
-var NAV_IDS=['resumen','destinos','diario','galeria','vuelos','mapa','alojamientos'];
+var NAV_IDS=['resumen','destinos','diario','galeria','vuelos','mapa','alojamientos','datos'];
 var navObs=new IntersectionObserver(function(entries){
   entries.forEach(function(e){
     if(e.isIntersecting){

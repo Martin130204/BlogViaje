@@ -155,8 +155,62 @@
     els.forEach(function (e) { io.observe(e); });
   }
 
+  // ── Zoom a las fotos del lightbox (pinch en móvil, doble clic + rueda en PC) ───
+  function initPhotoZoom() {
+    var img = document.getElementById("lightbox-img");
+    if (!img) return;
+    var scale = 1, tx = 0, ty = 0;
+    var pointers = new Map(), startDist = 0, startScale = 1;
+    var apply = function () {
+      img.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + scale + ")";
+      img.style.cursor = scale > 1 ? "grab" : "zoom-in";
+    };
+    var reset = function () { scale = 1; tx = 0; ty = 0; img.style.transition = "transform .2s"; apply(); };
+    img.style.touchAction = "none";
+    img.style.willChange = "transform";
+    // Al cambiar de foto (abrir / siguiente / anterior) se resetea el zoom
+    new MutationObserver(reset).observe(img, { attributes: true, attributeFilter: ["src"] });
+
+    img.addEventListener("dblclick", function (e) {
+      e.preventDefault(); img.style.transition = "transform .2s";
+      if (scale > 1) reset(); else { scale = 2.5; tx = 0; ty = 0; apply(); }
+    });
+    img.addEventListener("wheel", function (e) {
+      e.preventDefault(); img.style.transition = "none";
+      scale = Math.min(5, Math.max(1, scale + (e.deltaY < 0 ? 0.25 : -0.25)));
+      if (scale === 1) { tx = 0; ty = 0; } apply();
+    }, { passive: false });
+    img.addEventListener("pointerdown", function (e) {
+      img.setPointerCapture(e.pointerId);
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 2) {
+        var p = Array.from(pointers.values());
+        startDist = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y); startScale = scale;
+      }
+    });
+    img.addEventListener("pointermove", function (e) {
+      if (!pointers.has(e.pointerId)) return;
+      var prev = pointers.get(e.pointerId);
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 2) {
+        var p = Array.from(pointers.values());
+        var d = Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y);
+        img.style.transition = "none";
+        scale = Math.min(5, Math.max(1, startScale * (d / (startDist || d))));
+        if (scale === 1) { tx = 0; ty = 0; } apply();
+      } else if (pointers.size === 1 && scale > 1) {
+        img.style.transition = "none";
+        tx += e.clientX - prev.x; ty += e.clientY - prev.y; apply();
+      }
+    });
+    var up = function (e) { pointers.delete(e.pointerId); if (pointers.size < 2) startDist = 0; };
+    img.addEventListener("pointerup", up);
+    img.addEventListener("pointercancel", up);
+  }
+
   // ── Init ──────────────────────────────────────────────────────────────────────
   function init() {
+    initPhotoZoom();
     renderBanner();
     setInterval(renderBanner, 60000); // refresca cada minuto
     if (!hookDiario()) {
