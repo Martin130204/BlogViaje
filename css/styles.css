@@ -697,3 +697,17 @@ footer span{color:var(--gold);}
 /* Enlace a Google Maps en alojamientos */
 .aloj-map{color:var(--ocean);font-weight:600;white-space:nowrap;text-decoration:none;}
 .aloj-map:hover{text-decoration:underline;}
+
+/* ── HERO EN MÓVIL ── */
+@media(max-width:600px){
+  .hero{padding:0 .5rem;}
+  .hero-eyebrow{font-size:.56rem;letter-spacing:.2em;padding:0 1rem;line-height:1.7;}
+  .hero-title{font-size:clamp(2.3rem,12vw,3.3rem);}
+  .hero-sub{font-size:.9rem;}
+  .hero-dates{padding:0 1rem;font-size:.72rem;}
+  .countdown-wrap{gap:.4rem;width:100%;padding:0 .6rem;justify-content:center;margin-top:2rem;}
+  .cd-box{min-width:0;flex:1;padding:.7rem .25rem;}
+  .cd-num{font-size:1.8rem;min-height:2.1rem;}
+  .cd-lbl{font-size:.55rem;letter-spacing:.15em;}
+  .cd-sep{display:none;}
+}
