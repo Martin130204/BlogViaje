@@ -12,12 +12,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="El Gran Viaje · Bali · Tailandia & Japón">
 <meta property="og:description" content="38 días, 3 países. Sigue el viaje: destinos, mapa, diario y recuerdos.">
-<meta property="og:image" content="https://raw.githubusercontent.com/martin130204/viaje-asia/main/canguu.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/Martin130204/BlogViaje/main/assets/img/canguu.jpg">
 <meta property="og:url" content="https://martin130204.github.io/BlogViaje/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="El Gran Viaje · Bali · Tailandia & Japón">
 <meta name="twitter:description" content="38 días, 3 países. Sigue el viaje: destinos, mapa, diario y recuerdos.">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/martin130204/viaje-asia/main/canguu.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Martin130204/BlogViaje/main/assets/img/canguu.jpg">
 
 <!-- Íconos / PWA -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛩️</text></svg>">
@@ -25,7 +25,7 @@
 <link rel="manifest" href="manifest.json">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Noto+Serif+JP:wght@300;400&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -69,7 +69,7 @@
       <div class="profile-saved-msg" id="pf-saved"></div>
 
       <div id="pf-leave-section" style="display:none;margin-top:.8rem;">
-        <button onclick="doLeaveGroup()" style="width:100%;padding:.6rem;background:transparent;color:rgba(200,80,42,.65);border:1px solid rgba(200,80,42,.25);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.82rem;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='rgba(200,80,42,.07)'" onmouseout="this.style.background='transparent'">Abandonar el grupo viajero</button>
+        <button onclick="doLeaveGroup()" style="width:100%;padding:.6rem;background:transparent;color:rgba(200,80,42,.65);border:1px solid rgba(200,80,42,.25);border-radius:10px;font-family:'DM Sans',sans-serif,'Noto Color Emoji';font-size:.82rem;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='rgba(200,80,42,.07)'" onmouseout="this.style.background='transparent'">Abandonar el grupo viajero</button>
         <div id="pf-leave-msg" style="text-align:center;font-size:.75rem;min-height:.9rem;margin-top:.3rem;"></div>
       </div>
 
@@ -155,7 +155,7 @@
     <!-- Header -->
     <div style="background:var(--ink);padding:1.2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;">
       <div>
-        <div id="msg-modal-name" style="font-family:'Playfair Display',serif;font-size:1.05rem;color:#fff;"></div>
+        <div id="msg-modal-name" style="font-family:'Playfair Display',serif,'Noto Color Emoji';font-size:1.05rem;color:#fff;"></div>
         <div id="msg-modal-username" style="font-size:.72rem;color:rgba(255,255,255,.4);margin-top:.1rem;"></div>
       </div>
       <button onclick="closeMsgModal()" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:1.2rem;cursor:pointer;">✕</button>
@@ -167,10 +167,10 @@
     <!-- Input -->
     <div style="padding:.9rem 1.2rem;border-top:1px solid var(--warm);display:flex;gap:.6rem;background:#fff;">
       <input type="text" id="msg-input" placeholder="Escribe un mensaje..." maxlength="500"
-        style="flex:1;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--ink);background:var(--sand);border:1.5px solid transparent;border-radius:10px;padding:.55rem .9rem;outline:none;transition:border-color .2s;"
+        style="flex:1;font-family:'DM Sans',sans-serif,'Noto Color Emoji';font-size:.88rem;color:var(--ink);background:var(--sand);border:1.5px solid transparent;border-radius:10px;padding:.55rem .9rem;outline:none;transition:border-color .2s;"
         onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='transparent'"
         onkeydown="if(event.key==='Enter')sendPrivateMsg()">
-      <button onclick="sendPrivateMsg()" style="background:var(--ink);color:var(--gold);border:none;border-radius:10px;padding:.55rem 1.1rem;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;" onmouseover="this.style.background='var(--ember)'" onmouseout="this.style.background='var(--ink)'">Enviar</button>
+      <button onclick="sendPrivateMsg()" style="background:var(--ink);color:var(--gold);border:none;border-radius:10px;padding:.55rem 1.1rem;font-family:'DM Sans',sans-serif,'Noto Color Emoji';font-size:.85rem;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s;" onmouseover="this.style.background='var(--ember)'" onmouseout="this.style.background='var(--ink)'">Enviar</button>
     </div>
   </div>
 </div>
@@ -179,7 +179,7 @@
 <div id="msgcenter-modal" onclick="closeMsgCenter(event)" style="position:fixed;inset:0;z-index:9997;background:rgba(26,20,16,.88);display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);">
   <div onclick="event.stopPropagation()" style="background:#fff;border-radius:20px;width:90%;max-width:460px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 64px rgba(0,0,0,.4);overflow:hidden;">
     <div style="background:var(--ink);padding:1.1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
-      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;">Mensajes</div>
+      <div style="font-family:'Playfair Display',serif,'Noto Color Emoji';font-size:1.1rem;color:#fff;">Mensajes</div>
       <button onclick="closeMsgCenter()" style="background:none;border:none;color:rgba(255,255,255,.4);font-size:1.2rem;cursor:pointer;">✕</button>
     </div>
     <div style="overflow-y:auto;flex:1;">
@@ -214,24 +214,24 @@
 <div id="edit-modal" onclick="if(event.target===this)closeEditModal()" style="position:fixed;inset:0;z-index:9996;background:rgba(26,20,16,.88);display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);padding:1rem;">
   <div onclick="event.stopPropagation()" style="background:#fff;border-radius:20px;width:90%;max-width:540px;padding:2rem 2.2rem;box-shadow:0 24px 64px rgba(0,0,0,.4);position:relative;max-height:90vh;overflow-y:auto;">
     <button onclick="closeEditModal()" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:rgba(0,0,0,.3);">&#10005;</button>
-    <div style="font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--ink);margin-bottom:1.4rem;">Editar entrada</div>
+    <div style="font-family:'Playfair Display',serif,'Noto Color Emoji';font-size:1.3rem;color:var(--ink);margin-bottom:1.4rem;">Editar entrada</div>
     <input type="hidden" id="edit-id">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem;">
       <div><label style="font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.4);display:block;margin-bottom:.3rem;">Fecha</label>
-        <input type="date" id="edit-date" style="width:100%;font-family:'DM Sans',sans-serif;font-size:.85rem;color:var(--ink);background:var(--sand);border:none;border-radius:10px;padding:.55rem .9rem;outline:none;box-sizing:border-box;"></div>
+        <input type="date" id="edit-date" style="width:100%;font-family:'DM Sans',sans-serif,'Noto Color Emoji';font-size:.85rem;color:var(--ink);background:var(--sand);border:none;border-radius:10px;padding:.55rem .9rem;outline:none;box-sizing:border-box;"></div>
       <div><label style="font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.4);display:block;margin-bottom:.3rem;">Destino</label>
-        <select id="edit-place" style="width:100%;font-family:'DM Sans',sans-serif;font-size:.85rem;color:var(--ink);background:var(--sand);border:none;border-radius:10px;padding:.55rem .9rem;outline:none;box-sizing:border-box;">
+        <select id="edit-place" style="width:100%;font-family:'DM Sans',sans-serif,'Noto Color Emoji';font-size:.85rem;color:var(--ink);background:var(--sand);border:none;border-radius:10px;padding:.55rem .9rem;outline:none;box-sizing:border-box;">
           <option value="Canggu|bali">Canggu</option><option value="Ubud|bali">Ubud</option><option value="Nusa Penida|bali">Nusa Penida</option>
           <option value="Bangkok|thai">Bangkok</option><option value="Chiang Mai|thai">Chiang Mai</option><option value="Chiang Rai|thai">Chiang Rai</option><option value="Phuket|thai">Phuket</option><option value="Phi Phi|thai">Phi Phi</option><option value="Krabi|thai">Krabi</option>
           <option value="Osaka|japan">Osaka</option><option value="Kyoto|japan">Kyoto</option><option value="Nara|japan">Nara</option><option value="Tokyo|japan">Tokyo</option><option value="Nagano|japan">Nagano</option>
         </select></div>
     </div>
     <div style="margin-bottom:.8rem;"><label style="font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.4);display:block;margin-bottom:.3rem;">Título</label>
-      <input type="text" id="edit-title" maxlength="80" style="width:100%;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--ink);background:var(--sand);border:none;border-radius:10px;padding:.55rem .9rem;outline:none;box-sizing:border-box;"></div>
+      <input type="text" id="edit-title" maxlength="80" style="width:100%;font-family:'DM Sans',sans-serif,'Noto Color Emoji';font-size:.88rem;color:var(--ink);background:var(--sand);border:none;border-radius:10px;padding:.55rem .9rem;outline:none;box-sizing:border-box;"></div>
     <div style="margin-bottom:1.2rem;"><label style="font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(0,0,0,.4);display:block;margin-bottom:.3rem;">Experiencia</label>
-      <textarea id="edit-text" rows="5" maxlength="2000" style="width:100%;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--ink);background:var(--sand);border:none;border-radius:10px;padding:.7rem .9rem;outline:none;resize:vertical;box-sizing:border-box;"></textarea></div>
+      <textarea id="edit-text" rows="5" maxlength="2000" style="width:100%;font-family:'DM Sans',sans-serif,'Noto Color Emoji';font-size:.88rem;color:var(--ink);background:var(--sand);border:none;border-radius:10px;padding:.7rem .9rem;outline:none;resize:vertical;box-sizing:border-box;"></textarea></div>
     <div id="edit-msg" style="font-size:.8rem;min-height:1rem;margin-bottom:.6rem;"></div>
-    <button id="edit-save-btn" onclick="saveEdit()" style="width:100%;padding:.8rem;background:var(--ink);color:var(--gold);border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;">Guardar cambios</button>
+    <button id="edit-save-btn" onclick="saveEdit()" style="width:100%;padding:.8rem;background:var(--ink);color:var(--gold);border:none;border-radius:12px;font-family:'DM Sans',sans-serif,'Noto Color Emoji';font-size:.95rem;font-weight:600;cursor:pointer;">Guardar cambios</button>
   </div>
 </div>
 <div class="hero">
@@ -260,12 +260,12 @@
   <div class="nav-logo">Asia '26–27</div>
   <div id="nav-av-btn" style="display:none;cursor:pointer;" onclick="openProfile()" title="Mi perfil"><div id="nav-av-wrap"><div style="width:28px;height:28px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:.75rem;color:var(--ink);font-weight:700;border:2px solid rgba(255,255,255,.3);" id="nav-av-inner">?</div></div></div>
   <div id="nav-user" class="logged-out" onclick="handleNavUser()"><div class="user-dot"></div><span id="nav-user-text">Iniciar sesión</span></div>
-  <button id="nav-logout-btn" onclick="doLogout()" style="display:none;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);padding:.32rem .75rem;border-radius:20px;font-size:.72rem;cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;transition:all .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.6)'">Salir</button>
-  <button id="nav-upgrade-btn" style="display:none;background:rgba(212,168,83,.18);border:1px solid rgba(212,168,83,.5);color:var(--gold);padding:.38rem 1rem;border-radius:20px;font-size:.75rem;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;letter-spacing:.04em;transition:all .22s;" onclick="openUpgrade()" onmouseover="this.style.background='rgba(212,168,83,.35)'" onmouseout="this.style.background='rgba(212,168,83,.18)'">Unirme al grupo</button>
+  <button id="nav-logout-btn" onclick="doLogout()" style="display:none;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);padding:.32rem .75rem;border-radius:20px;font-size:.72rem;cursor:pointer;font-family:'DM Sans',sans-serif,'Noto Color Emoji';white-space:nowrap;transition:all .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.6)'">Salir</button>
+  <button id="nav-upgrade-btn" style="display:none;background:rgba(212,168,83,.18);border:1px solid rgba(212,168,83,.5);color:var(--gold);padding:.38rem 1rem;border-radius:20px;font-size:.75rem;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif,'Noto Color Emoji';letter-spacing:.04em;transition:all .22s;" onclick="openUpgrade()" onmouseover="this.style.background='rgba(212,168,83,.35)'" onmouseout="this.style.background='rgba(212,168,83,.18)'">Unirme al grupo</button>
   <!-- Botón mensajes nav -->
   <div id="nav-msg-btn" style="display:none;position:relative;cursor:pointer;flex-shrink:0;" onclick="openMsgCenter()" title="Mensajes">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-    <span id="nav-msg-badge" style="display:none;position:absolute;top:-.45rem;right:-.45rem;background:#e53e3e;color:#fff;border-radius:50%;min-width:1.05rem;height:1.05rem;font-size:.6rem;font-weight:700;align-items:center;justify-content:center;padding:0 .18rem;border:1.5px solid rgba(26,20,16,.96);font-family:'DM Sans',sans-serif;line-height:1;"></span>
+    <span id="nav-msg-badge" style="display:none;position:absolute;top:-.45rem;right:-.45rem;background:#e53e3e;color:#fff;border-radius:50%;min-width:1.05rem;height:1.05rem;font-size:.6rem;font-weight:700;align-items:center;justify-content:center;padding:0 .18rem;border:1.5px solid rgba(26,20,16,.96);font-family:'DM Sans',sans-serif,'Noto Color Emoji';line-height:1;"></span>
   </div>
   <button class="nav-btn" onclick="goTo('resumen',this)">Resumen</button>
   <button class="nav-btn" onclick="goTo('destinos',this)">Destinos</button>
@@ -281,15 +281,15 @@
 <div id="upgrade-modal" onclick="closeUpgrade(event)" style="position:fixed;inset:0;z-index:9999;background:rgba(26,20,16,.92);display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);">
   <div onclick="event.stopPropagation()" style="background:#fff;border-radius:24px;padding:2.5rem 2.8rem;width:90%;max-width:420px;box-shadow:0 24px 64px rgba(0,0,0,.5);position:relative;">
     <button onclick="closeUpgrade()" style="position:absolute;top:1rem;right:1.2rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:rgba(0,0,0,.3);">✕</button>
-    <div style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--ink);margin-bottom:.4rem;">Unirme al grupo</div>
+    <div style="font-family:'Playfair Display',serif,'Noto Color Emoji';font-size:1.5rem;color:var(--ink);margin-bottom:.4rem;">Unirme al grupo</div>
     <div style="font-size:.83rem;color:rgba(0,0,0,.45);margin-bottom:1.8rem;">Ingresa el código de invitación para acceder a todas las funciones del grupo viajero.</div>
     <div id="upgrade-error" style="background:rgba(200,80,42,.1);border-left:3px solid var(--ember);border-radius:0 8px 8px 0;padding:.6rem .9rem;font-size:.82rem;color:var(--ember);margin-bottom:1rem;display:none;"></div>
     <div id="upgrade-success" style="background:rgba(61,90,62,.1);border-left:3px solid var(--moss);border-radius:0 8px 8px 0;padding:.6rem .9rem;font-size:.82rem;color:var(--moss);margin-bottom:1rem;display:none;"></div>
     <div style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem;">
       <label style="font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(0,0,0,.4);">Código de invitación</label>
-      <input type="text" id="upgrade-code" placeholder="Código secreto del grupo" style="font-family:'DM Sans',sans-serif;font-size:.95rem;color:var(--ink);background:var(--sand);border:1.5px solid transparent;border-radius:10px;padding:.65rem 1rem;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='transparent'" onkeydown="if(event.key==='Enter')doUpgrade()">
+      <input type="text" id="upgrade-code" placeholder="Código secreto del grupo" style="font-family:'DM Sans',sans-serif,'Noto Color Emoji';font-size:.95rem;color:var(--ink);background:var(--sand);border:1.5px solid transparent;border-radius:10px;padding:.65rem 1rem;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='transparent'" onkeydown="if(event.key==='Enter')doUpgrade()">
     </div>
-    <button id="upgrade-btn" onclick="doUpgrade()" style="width:100%;padding:.8rem;background:var(--ink);color:var(--gold);border:none;border-radius:12px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:background .2s,transform .15s;letter-spacing:.04em;">Unirme →</button>
+    <button id="upgrade-btn" onclick="doUpgrade()" style="width:100%;padding:.8rem;background:var(--ink);color:var(--gold);border:none;border-radius:12px;font-family:'DM Sans',sans-serif,'Noto Color Emoji';font-size:.95rem;font-weight:600;cursor:pointer;transition:background .2s,transform .15s;letter-spacing:.04em;">Unirme →</button>
   </div>
 </div>
 
@@ -322,7 +322,7 @@
   </div>
   <div class="country-cards">
     <div class="c-card card-bali active" id="card-bali" onclick="showCountry('bali')">
-      <img class="bg-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/canguu.jpg" alt="Bali">
+      <img class="bg-img" src="assets/img/canguu.jpg" alt="Bali">
       <div class="c-card-active-bar"></div>
       <div class="c-card-body">
         <div class="c-card-flag">🇮🇩</div>
@@ -333,7 +333,7 @@
       </div>
     </div>
     <div class="c-card card-thai" id="card-thai" onclick="showCountry('thai')">
-      <img class="bg-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/chiang_mai.jpg" alt="Tailandia">
+      <img class="bg-img" src="assets/img/chiang_mai.jpg" alt="Tailandia">
       <div class="c-card-active-bar"></div>
       <div class="c-card-body">
         <div class="c-card-flag">🇹🇭</div>
@@ -344,7 +344,7 @@
       </div>
     </div>
     <div class="c-card card-japan" id="card-japan" onclick="showCountry('japan')">
-      <img class="bg-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/kyoto.jpg" alt="Japón">
+      <img class="bg-img" src="assets/img/kyoto.jpg" alt="Japón">
       <div class="c-card-active-bar"></div>
       <div class="c-card-body">
         <div class="c-card-flag">🇯🇵</div>
@@ -371,16 +371,16 @@
       </div>
       
       <div class="gallery-strip">
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/canguu_beach.jpg','Canggu Beach, Bali')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/canguu_beach.jpg" alt="Canggu Beach"><div class="g-label">Canggu Beach</div></div>
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/ubud.jpg','Tegallalang Rice Terraces, Ubud')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/ubud.jpg" alt="Ubud"><div class="g-label">Tegallalang · Ubud</div></div>
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/nusa_penida.jpg','Kelingking Beach, Nusa Penida')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/nusa_penida.jpg" alt="Nusa Penida"><div class="g-label">Kelingking Beach</div></div>
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/monkey_forest.jpg','Sacred Monkey Forest, Ubud')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/monkey_forest.jpg" alt="Monkey Forest"><div class="g-label">Monkey Forest</div></div>
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/nusa_penida.jpg','Angel Billabong, Nusa Penida')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/nusa_penida.jpg" alt="Angel Billabong"><div class="g-label">Angel's Billabong</div></div>
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/old_mans.jpg','Old Man\'s Canggu, Bali')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/old_mans.jpg" alt="Old Mans"><div class="g-label">Old Man's Canggu</div></div>
+        <div class="g-item" onclick="openLb('assets/img/canguu_beach.jpg','Canggu Beach, Bali')"><img src="assets/img/canguu_beach.jpg" alt="Canggu Beach"><div class="g-label">Canggu Beach</div></div>
+        <div class="g-item" onclick="openLb('assets/img/ubud.jpg','Tegallalang Rice Terraces, Ubud')"><img src="assets/img/ubud.jpg" alt="Ubud"><div class="g-label">Tegallalang · Ubud</div></div>
+        <div class="g-item" onclick="openLb('assets/img/nusa_penida.jpg','Kelingking Beach, Nusa Penida')"><img src="assets/img/nusa_penida.jpg" alt="Nusa Penida"><div class="g-label">Kelingking Beach</div></div>
+        <div class="g-item" onclick="openLb('assets/img/monkey_forest.jpg','Sacred Monkey Forest, Ubud')"><img src="assets/img/monkey_forest.jpg" alt="Monkey Forest"><div class="g-label">Monkey Forest</div></div>
+        <div class="g-item" onclick="openLb('assets/img/nusa_penida.jpg','Angel Billabong, Nusa Penida')"><img src="assets/img/nusa_penida.jpg" alt="Angel Billabong"><div class="g-label">Angel's Billabong</div></div>
+        <div class="g-item" onclick="openLb('assets/img/old_mans.jpg','Old Man\'s Canggu, Bali')"><img src="assets/img/old_mans.jpg" alt="Old Mans"><div class="g-label">Old Man's Canggu</div></div>
       </div>
       <div class="zones-grid">
         <div class="zone-card">
-          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/canguu.jpg" alt="Canggu" onclick="openLb(this.src,'Canggu, Bali')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-img-wrap"><img class="zone-img" src="assets/img/canguu.jpg" alt="Canggu" onclick="openLb(this.src,'Canggu, Bali')"><div class="zoom-hint">Ver foto</div></div>
           <div class="zone-body">
             <div class="zone-name">Canggu</div><div class="zone-dates">28 – 29 Diciembre</div>
             <ul class="zone-acts"><li>Clase de surf en Batu Bolong</li><li>Sunset en la playa</li><li>Old Man's Canggu</li><li>Atlas Night Club</li></ul>
@@ -388,7 +388,7 @@
           </div>
         </div>
         <div class="zone-card">
-          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/ubud.jpg" alt="Ubud" onclick="openLb(this.src,'Tegallalang, Ubud')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-img-wrap"><img class="zone-img" src="assets/img/ubud.jpg" alt="Ubud" onclick="openLb(this.src,'Tegallalang, Ubud')"><div class="zoom-hint">Ver foto</div></div>
           <div class="zone-body">
             <div class="zone-name">Ubud</div><div class="zone-dates">30 Dic – 1 Enero</div>
             <ul class="zone-acts"><li>Sacred Monkey Forest</li><li>Tegallalang Rice Terraces</li><li>Tegenungan Waterfall</li><li>Pura Tirta Empul — templo del agua</li><li>Año Nuevo en Ubud</li><li>Cascada Kanto Lampo</li></ul>
@@ -396,7 +396,7 @@
           </div>
         </div>
         <div class="zone-card">
-          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/nusa_penida.jpg" alt="Nusa Penida" onclick="openLb(this.src,'Kelingking Beach, Nusa Penida')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-img-wrap"><img class="zone-img" src="assets/img/nusa_penida.jpg" alt="Nusa Penida" onclick="openLb(this.src,'Kelingking Beach, Nusa Penida')"><div class="zoom-hint">Ver foto</div></div>
           <div class="zone-body">
             <div class="zone-name">Nusa Penida</div><div class="zone-dates">2 – 4 Enero</div>
             <ul class="zone-acts"><li>Kelingking Beach</li><li>Broken Beach</li><li>Diamond Beach · Atuh Beach</li><li>Snorkel en Manta Point</li></ul>
@@ -420,16 +420,16 @@
       </div>
       
       <div class="gallery-strip">
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/bangkok.jpg','Grand Palace, Bangkok')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/bangkok.jpg" alt="Bangkok"><div class="g-label">Grand Palace · Bangkok</div></div>
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/chiang_mai.jpg','Doi Suthep, Chiang Mai')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/chiang_mai.jpg" alt="Chiang Mai"><div class="g-label">Doi Suthep · Chiang Mai</div></div>
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/phuket.jpg','Phuket')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/phuket.jpg" alt="Phuket"><div class="g-label">Phuket</div></div>
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/krabi.jpg','Phi Phi Island, Krabi')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/krabi.jpg" alt="Krabi"><div class="g-label">Phi Phi · Krabi</div></div>
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/wat_arun.jpg','Wat Arun, Bangkok')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/wat_arun.jpg" alt="Wat Arun"><div class="g-label">Wat Arun · Bangkok</div></div>
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/chiang_mai.jpg','Chiang Mai')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/chiang_mai.jpg" alt="Chiang Mai"><div class="g-label">Chiang Mai</div></div>
+        <div class="g-item" onclick="openLb('assets/img/bangkok.jpg','Grand Palace, Bangkok')"><img src="assets/img/bangkok.jpg" alt="Bangkok"><div class="g-label">Grand Palace · Bangkok</div></div>
+        <div class="g-item" onclick="openLb('assets/img/chiang_mai.jpg','Doi Suthep, Chiang Mai')"><img src="assets/img/chiang_mai.jpg" alt="Chiang Mai"><div class="g-label">Doi Suthep · Chiang Mai</div></div>
+        <div class="g-item" onclick="openLb('assets/img/phuket.jpg','Phuket')"><img src="assets/img/phuket.jpg" alt="Phuket"><div class="g-label">Phuket</div></div>
+        <div class="g-item" onclick="openLb('assets/img/krabi.jpg','Phi Phi Island, Krabi')"><img src="assets/img/krabi.jpg" alt="Krabi"><div class="g-label">Phi Phi · Krabi</div></div>
+        <div class="g-item" onclick="openLb('assets/img/wat_arun.jpg','Wat Arun, Bangkok')"><img src="assets/img/wat_arun.jpg" alt="Wat Arun"><div class="g-label">Wat Arun · Bangkok</div></div>
+        <div class="g-item" onclick="openLb('assets/img/chiang_mai.jpg','Chiang Mai')"><img src="assets/img/chiang_mai.jpg" alt="Chiang Mai"><div class="g-label">Chiang Mai</div></div>
       </div>
       <div class="zones-grid">
         <div class="zone-card">
-          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/phuket.jpg" alt="Phuket" onclick="openLb(this.src,'Phuket, Tailandia')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-img-wrap"><img class="zone-img" src="assets/img/phuket.jpg" alt="Phuket" onclick="openLb(this.src,'Phuket, Tailandia')"><div class="zoom-hint">Ver foto</div></div>
           <div class="zone-body">
             <div class="zone-name">Phuket</div><div class="zone-dates">5 – 9 Enero</div>
             <ul class="zone-acts"><li>Hanuman World</li><li>Patong Beach</li><li>Bangla Road</li><li>Tour Phi Phi · Maya Bay</li></ul>
@@ -437,7 +437,7 @@
           </div>
         </div>
         <div class="zone-card">
-          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/krabi.jpg" alt="Krabi" onclick="openLb(this.src,'Krabi, Tailandia')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-img-wrap"><img class="zone-img" src="assets/img/krabi.jpg" alt="Krabi" onclick="openLb(this.src,'Krabi, Tailandia')"><div class="zoom-hint">Ver foto</div></div>
           <div class="zone-body">
             <div class="zone-name">Krabi</div><div class="zone-dates">9 – 13 Enero</div>
             <ul class="zone-acts"><li>Railay Beach en lancha</li><li>Tham Phra Nang</li><li>Tour Hong Island — laguna esmeralda</li><li>Four Islands Tour</li></ul>
@@ -445,7 +445,7 @@
           </div>
         </div>
         <div class="zone-card">
-          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/bangkok.jpg" alt="Bangkok" onclick="openLb(this.src,'Grand Palace, Bangkok')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-img-wrap"><img class="zone-img" src="assets/img/bangkok.jpg" alt="Bangkok" onclick="openLb(this.src,'Grand Palace, Bangkok')"><div class="zoom-hint">Ver foto</div></div>
           <div class="zone-body">
             <div class="zone-name">Bangkok</div><div class="zone-dates">13 – 15 Enero</div>
             <ul class="zone-acts"><li>Khao San Road</li><li>Grand Palace + Wat Phra Kaew</li><li>Wat Pho</li><li>Wat Arun + ferry Chao Phraya</li><li>Asiatique · Iconsiam</li></ul>
@@ -453,7 +453,7 @@
           </div>
         </div>
         <div class="zone-card">
-          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/chiang_mai.jpg" alt="Chiang Mai" onclick="openLb(this.src,'Chiang Mai, Tailandia')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-img-wrap"><img class="zone-img" src="assets/img/chiang_mai.jpg" alt="Chiang Mai" onclick="openLb(this.src,'Chiang Mai, Tailandia')"><div class="zoom-hint">Ver foto</div></div>
           <div class="zone-body">
             <div class="zone-name">Chiang Mai</div><div class="zone-dates">15 – 19 Enero</div>
             <ul class="zone-acts"><li>Wat Phra That Doi Suthep</li><li>Old City · Wat Chedi Luang</li><li>Night Bazaar</li><li>Elephant Nature Park</li><li>Daytrip Chiang Rai: Templo Blanco · Azul</li></ul>
@@ -477,15 +477,15 @@
       </div>
       
       <div class="gallery-strip">
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/osaka.jpg','Osaka · Japón')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/osaka.jpg" alt="Osaka"><div class="g-label">Osaka</div></div>
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/kyoto.jpg','Kyoto · Fushimi Inari')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/kyoto.jpg" alt="Kyoto"><div class="g-label">Fushimi Inari · Kyoto</div></div>
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/nara.jpg','Ciervos de Nara')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/nara.jpg" alt="Nara"><div class="g-label">Ciervos · Nara</div></div>
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/tokyo.jpg','Tokyo de noche')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/tokyo.jpg" alt="Tokyo"><div class="g-label">Tokyo</div></div>
-        <div class="g-item" onclick="openLb('https://raw.githubusercontent.com/martin130204/viaje-asia/main/nagano.jpg','Monos en onsen · Nagano')"><img src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/nagano.jpg" alt="Nagano"><div class="g-label">Monos onsen · Nagano</div></div>
+        <div class="g-item" onclick="openLb('assets/img/osaka.jpg','Osaka · Japón')"><img src="assets/img/osaka.jpg" alt="Osaka"><div class="g-label">Osaka</div></div>
+        <div class="g-item" onclick="openLb('assets/img/kyoto.jpg','Kyoto · Fushimi Inari')"><img src="assets/img/kyoto.jpg" alt="Kyoto"><div class="g-label">Fushimi Inari · Kyoto</div></div>
+        <div class="g-item" onclick="openLb('assets/img/nara.jpg','Ciervos de Nara')"><img src="assets/img/nara.jpg" alt="Nara"><div class="g-label">Ciervos · Nara</div></div>
+        <div class="g-item" onclick="openLb('assets/img/tokyo.jpg','Tokyo de noche')"><img src="assets/img/tokyo.jpg" alt="Tokyo"><div class="g-label">Tokyo</div></div>
+        <div class="g-item" onclick="openLb('assets/img/nagano.jpg','Monos en onsen · Nagano')"><img src="assets/img/nagano.jpg" alt="Nagano"><div class="g-label">Monos onsen · Nagano</div></div>
       </div>
       <div class="zones-grid">
         <div class="zone-card">
-          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/osaka.jpg" alt="Osaka" onclick="openLb(this.src,'Osaka, Japón')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-img-wrap"><img class="zone-img" src="assets/img/osaka.jpg" alt="Osaka" onclick="openLb(this.src,'Osaka, Japón')"><div class="zoom-hint">Ver foto</div></div>
           <div class="zone-body">
             <div class="zone-name">Osaka</div><div class="zone-dates">19 – 22 Enero</div>
             <ul class="zone-acts"><li>Kuromon Market</li><li>Castillo de Osaka</li><li>Dotonbori + Shinsaibashi de noche</li><li>Universal Studios Japan</li><li>Den Den Town · Katsuo-ji</li></ul>
@@ -493,7 +493,7 @@
           </div>
         </div>
         <div class="zone-card">
-          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/kyoto.jpg" alt="Kyoto" onclick="openLb(this.src,'Fushimi Inari, Kyoto')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-img-wrap"><img class="zone-img" src="assets/img/kyoto.jpg" alt="Kyoto" onclick="openLb(this.src,'Fushimi Inari, Kyoto')"><div class="zoom-hint">Ver foto</div></div>
           <div class="zone-body">
             <div class="zone-name">Kyoto</div><div class="zone-dates">22 – 25 Enero</div>
             <ul class="zone-acts"><li>Higashiyama + Kiyomizu-dera</li><li>Fushimi Inari Taisha</li><li>Arashiyama · bambú · Tenryu-ji</li><li>Kinkaku-ji · Ryoan-ji</li></ul>
@@ -501,7 +501,7 @@
           </div>
         </div>
         <div class="zone-card">
-          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/nara.jpg" alt="Nara" onclick="openLb(this.src,'Ciervos de Nara')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-img-wrap"><img class="zone-img" src="assets/img/nara.jpg" alt="Nara" onclick="openLb(this.src,'Ciervos de Nara')"><div class="zoom-hint">Ver foto</div></div>
           <div class="zone-body">
             <div class="zone-name">Nara</div><div class="zone-dates">Daytrip desde Kyoto</div>
             <ul class="zone-acts"><li>Ciervos del Parque de Nara</li><li>Todai-ji · Gran Buda de bronce</li><li>Kasuga Taisha</li></ul>
@@ -509,7 +509,7 @@
           </div>
         </div>
         <div class="zone-card">
-          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/tokyo.jpg" alt="Tokyo" onclick="openLb(this.src,'Tokyo de noche')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-img-wrap"><img class="zone-img" src="assets/img/tokyo.jpg" alt="Tokyo" onclick="openLb(this.src,'Tokyo de noche')"><div class="zoom-hint">Ver foto</div></div>
           <div class="zone-body">
             <div class="zone-name">Tokyo</div><div class="zone-dates">25 Ene – 1 Feb</div>
             <ul class="zone-acts"><li>Senso-ji + Nakamise</li><li>Akihabara</li><li>Meiji Jingu · Harajuku</li><li>Shibuya Crossing + Shibuya Sky</li><li>Tsukiji Market</li><li>Odaiba: teamLab · Gundam</li></ul>
@@ -517,7 +517,7 @@
           </div>
         </div>
         <div class="zone-card">
-          <div class="zone-img-wrap"><img class="zone-img" src="https://raw.githubusercontent.com/martin130204/viaje-asia/main/nagano.jpg" alt="Nagano" onclick="openLb(this.src,'Monos en onsen, Nagano')"><div class="zoom-hint">Ver foto</div></div>
+          <div class="zone-img-wrap"><img class="zone-img" src="assets/img/nagano.jpg" alt="Nagano" onclick="openLb(this.src,'Monos en onsen, Nagano')"><div class="zoom-hint">Ver foto</div></div>
           <div class="zone-body">
             <div class="zone-name">Nagano</div><div class="zone-dates">Daytrip desde Tokyo</div>
             <ul class="zone-acts"><li>Monos de nieve · Jigokudani</li><li>Zenko-ji · templo milenario</li></ul>
@@ -594,7 +594,7 @@
   </div>
 
   <!-- SEARCH + FILTERS -->
-  <div style="margin-bottom:.8rem;"><input id="diario-search" type="text" placeholder="Buscar en el diario..." oninput="searchDiario(this.value)" style="width:100%;max-width:400px;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--ink);background:#fff;border:1.5px solid var(--warm);border-radius:12px;padding:.6rem 1rem;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--warm)'"></div>
+  <div style="margin-bottom:.8rem;"><input id="diario-search" type="text" placeholder="Buscar en el diario..." oninput="searchDiario(this.value)" style="width:100%;max-width:400px;font-family:'DM Sans',sans-serif,'Noto Color Emoji';font-size:.88rem;color:var(--ink);background:#fff;border:1.5px solid var(--warm);border-radius:12px;padding:.6rem 1rem;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--warm)'"></div>
   <div class="diario-filter">
     <button class="df-btn active" onclick="filterDiario('',this);renderDiario(_lastEntries)">Todas</button>
     <button class="df-btn" data-filter="bali" onclick="filterDiario('bali',this);renderDiario(_lastEntries)">ID Bali</button>
@@ -894,7 +894,7 @@
     <button id="scores-close" onclick="closeScores()">✕</button>
     <h3>Tus puntuaciones</h3>
     <div id="scores-list"></div>
-    <button id="reset-scores-btn" onclick="resetRatings()" style="margin-top:1.5rem;background:none;border:1px solid rgba(200,80,42,.35);color:var(--ember);padding:.5rem 1.2rem;border-radius:20px;font-size:.78rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;" onmouseover="this.style.background='rgba(200,80,42,.08)'" onmouseout="this.style.background='none'">Restablecer puntuaciones</button>
+    <button id="reset-scores-btn" onclick="resetRatings()" style="margin-top:1.5rem;background:none;border:1px solid rgba(200,80,42,.35);color:var(--ember);padding:.5rem 1.2rem;border-radius:20px;font-size:.78rem;cursor:pointer;font-family:'DM Sans',sans-serif,'Noto Color Emoji';transition:all .2s;" onmouseover="this.style.background='rgba(200,80,42,.08)'" onmouseout="this.style.background='none'">Restablecer puntuaciones</button>
   </div>
 </div>
 
