@@ -711,3 +711,7 @@ footer span{color:var(--gold);}
   .cd-lbl{font-size:.55rem;letter-spacing:.15em;}
   .cd-sep{display:none;}
 }
+
+/* Tramo en bus (no vuelo): ícono de bus en vez de avión */
+.flight-row.is-bus .fl-line::after{content:'🚌';font-size:.9rem;font-family:'DM Sans',sans-serif,'Noto Color Emoji';}
+.flight-row.is-bus .fl-badge{background:rgba(110,122,85,.16);color:var(--moss);}
