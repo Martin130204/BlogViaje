@@ -268,13 +268,13 @@
     <span id="nav-msg-badge" style="display:none;position:absolute;top:-.45rem;right:-.45rem;background:#e53e3e;color:#fff;border-radius:50%;min-width:1.05rem;height:1.05rem;font-size:.6rem;font-weight:700;align-items:center;justify-content:center;padding:0 .18rem;border:1.5px solid rgba(26,20,16,.96);font-family:'DM Sans',sans-serif,'Noto Color Emoji';line-height:1;"></span>
   </div>
   <button class="nav-btn" onclick="goTo('resumen',this)">Resumen</button>
-  <button class="nav-btn" onclick="goTo('destinos',this)">Destinos</button>
   <button class="nav-btn" onclick="goTo('diario',this)">Diario</button>
   <button class="nav-btn" onclick="goTo('galeria',this)">Galería</button>
+  <button class="nav-btn" onclick="goTo('destinos',this)">Destinos</button>
     <button class="nav-btn" onclick="goTo('vuelos',this)">Vuelos</button>
   <button class="nav-btn" onclick="goTo('mapa',this)">Mapa</button>
   <button class="nav-btn" onclick="goTo('alojamientos',this)">Alojamientos</button>
-  <button class="nav-btn" onclick="goTo('datos',this)">Info</button>
+  <button class="nav-btn" onclick="goTo('datos',this)" id="nav-datos-btn" style="display:none;">Info</button>
   <button class="nav-btn" onclick="goTo('preparacion',this)" id="nav-prep-btn" style="display:none;">Preparacion</button>
 </nav>
 
@@ -316,6 +316,96 @@
 </div>
 
 <!-- DESTINOS -->
+<div class="sw" id="diario">
+  <p class="sec-label">Memorias en tiempo real</p>
+  <h2 class="sec-title">Diario<br>del viaje</h2>
+
+  <!-- FORM -->
+  <div class="diario-form">
+    <div class="diario-form-title">Nueva entrada</div>
+    <div class="diario-fields">
+      <div class="diario-field" id="de-author-field" style="display:none;">
+        <label>Tu nombre</label>
+        <input type="text" id="de-author" placeholder="¿Quién escribe?">
+      </div>
+      <div class="diario-field">
+        <label>Fecha</label>
+        <input type="date" id="de-date">
+      </div>
+      <div class="diario-field">
+        <label>Destino</label>
+        <select id="de-place">
+          <option value="">— Selecciona —</option>
+          <optgroup label="🇮🇩 Bali">
+            <option value="Canggu|bali">Canggu</option>
+            <option value="Ubud|bali">Ubud</option>
+            <option value="Nusa Penida|bali">Nusa Penida</option>
+            <option value="Sanur|bali">Sanur</option>
+          </optgroup>
+          <optgroup label="🇹🇭 Tailandia">
+            <option value="Bangkok|thai">Bangkok</option>
+            <option value="Chiang Mai|thai">Chiang Mai</option>
+            <option value="Chiang Rai|thai">Chiang Rai</option>
+            <option value="Phuket|thai">Phuket</option>
+            <option value="Phi Phi|thai">Phi Phi</option>
+            <option value="Krabi|thai">Krabi</option>
+          </optgroup>
+          <optgroup label="🇯🇵 Japón">
+            <option value="Osaka|japan">Osaka</option>
+            <option value="Kyoto|japan">Kyoto</option>
+            <option value="Nara|japan">Nara</option>
+            <option value="Tokyo|japan">Tokyo</option>
+            <option value="Nagano|japan">Nagano</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="diario-field">
+        <label>Título</label>
+        <input type="text" id="de-title" placeholder="Dale un nombre a este momento">
+      </div>
+      <div class="diario-field diario-field-full">
+        <label>Experiencia</label>
+        <textarea id="de-text" placeholder="Cuenta qué hiciste, cómo te sentiste, qué fue lo mejor..."></textarea>
+      </div>
+      <div class="diario-field diario-field-full">
+        <label>Fotos</label>
+        <label class="diario-photo-label" for="diario-photo-input">
+          Toca para agregar fotos (puedes elegir varias)
+        </label>
+        <input type="file" id="diario-photo-input" accept="image/*" multiple>
+        <div class="diario-photo-preview" id="de-preview"></div>
+      </div>
+    </div>
+    <button class="diario-submit" onclick="submitEntry()">Guardar entrada →</button>
+  </div>
+
+  <!-- SEARCH + FILTERS -->
+  <div style="margin-bottom:.8rem;"><input id="diario-search" type="text" placeholder="Buscar en el diario..." oninput="searchDiario(this.value)" style="width:100%;max-width:400px;font-family:'DM Sans',sans-serif,'Noto Color Emoji';font-size:.88rem;color:var(--ink);background:#fff;border:1.5px solid var(--warm);border-radius:12px;padding:.6rem 1rem;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--warm)'"></div>
+  <div class="diario-filter">
+    <button class="df-btn active" onclick="filterDiario('',this);renderDiario(_lastEntries)">Todas</button>
+    <button class="df-btn" data-filter="bali" onclick="filterDiario('bali',this);renderDiario(_lastEntries)">ID Bali</button>
+    <button class="df-btn" data-filter="thai" onclick="filterDiario('thai',this);renderDiario(_lastEntries)">TH Tailandia</button>
+    <button class="df-btn" data-filter="japan" onclick="filterDiario('japan',this);renderDiario(_lastEntries)">JP Japón</button>
+  </div>
+
+  <!-- ENTRIES -->
+  <div class="diario-grid" id="diario-grid"></div>
+</div>
+
+
+<!-- DATOS UTILES -->
+<div class="sw" id="galeria">
+  <p class="sec-label">Recuerdos</p>
+  <h2 class="sec-title">Galería</h2>
+  <div class="diario-filter" style="margin-bottom:1.5rem;">
+    <button class="df-btn active" onclick="filterGallery('',this)">Todas</button>
+    <button class="df-btn" onclick="filterGallery('bali',this)">🇮🇩 Bali</button>
+    <button class="df-btn" onclick="filterGallery('thai',this)">🇹🇭 Tailandia</button>
+    <button class="df-btn" onclick="filterGallery('japan',this)">🇯🇵 Japón</button>
+  </div>
+  <div class="gal-grid" id="galeria-grid"></div>
+</div>
+
 <div id="destinos">
   <div class="selector-header">
     <p class="sec-label">Explorar por país</p>
@@ -531,140 +621,6 @@
   </div>
 </div>
 
-<div class="sw" id="diario">
-  <p class="sec-label">Memorias en tiempo real</p>
-  <h2 class="sec-title">Diario<br>del viaje</h2>
-
-  <!-- FORM -->
-  <div class="diario-form">
-    <div class="diario-form-title">Nueva entrada</div>
-    <div class="diario-fields">
-      <div class="diario-field" id="de-author-field" style="display:none;">
-        <label>Tu nombre</label>
-        <input type="text" id="de-author" placeholder="¿Quién escribe?">
-      </div>
-      <div class="diario-field">
-        <label>Fecha</label>
-        <input type="date" id="de-date">
-      </div>
-      <div class="diario-field">
-        <label>Destino</label>
-        <select id="de-place">
-          <option value="">— Selecciona —</option>
-          <optgroup label="🇮🇩 Bali">
-            <option value="Canggu|bali">Canggu</option>
-            <option value="Ubud|bali">Ubud</option>
-            <option value="Nusa Penida|bali">Nusa Penida</option>
-            <option value="Sanur|bali">Sanur</option>
-          </optgroup>
-          <optgroup label="🇹🇭 Tailandia">
-            <option value="Bangkok|thai">Bangkok</option>
-            <option value="Chiang Mai|thai">Chiang Mai</option>
-            <option value="Chiang Rai|thai">Chiang Rai</option>
-            <option value="Phuket|thai">Phuket</option>
-            <option value="Phi Phi|thai">Phi Phi</option>
-            <option value="Krabi|thai">Krabi</option>
-          </optgroup>
-          <optgroup label="🇯🇵 Japón">
-            <option value="Osaka|japan">Osaka</option>
-            <option value="Kyoto|japan">Kyoto</option>
-            <option value="Nara|japan">Nara</option>
-            <option value="Tokyo|japan">Tokyo</option>
-            <option value="Nagano|japan">Nagano</option>
-          </optgroup>
-        </select>
-      </div>
-      <div class="diario-field">
-        <label>Título</label>
-        <input type="text" id="de-title" placeholder="Dale un nombre a este momento">
-      </div>
-      <div class="diario-field diario-field-full">
-        <label>Experiencia</label>
-        <textarea id="de-text" placeholder="Cuenta qué hiciste, cómo te sentiste, qué fue lo mejor..."></textarea>
-      </div>
-      <div class="diario-field diario-field-full">
-        <label>Fotos</label>
-        <label class="diario-photo-label" for="diario-photo-input">
-          Toca para agregar fotos (puedes elegir varias)
-        </label>
-        <input type="file" id="diario-photo-input" accept="image/*" multiple>
-        <div class="diario-photo-preview" id="de-preview"></div>
-      </div>
-    </div>
-    <button class="diario-submit" onclick="submitEntry()">Guardar entrada →</button>
-  </div>
-
-  <!-- SEARCH + FILTERS -->
-  <div style="margin-bottom:.8rem;"><input id="diario-search" type="text" placeholder="Buscar en el diario..." oninput="searchDiario(this.value)" style="width:100%;max-width:400px;font-family:'DM Sans',sans-serif,'Noto Color Emoji';font-size:.88rem;color:var(--ink);background:#fff;border:1.5px solid var(--warm);border-radius:12px;padding:.6rem 1rem;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--warm)'"></div>
-  <div class="diario-filter">
-    <button class="df-btn active" onclick="filterDiario('',this);renderDiario(_lastEntries)">Todas</button>
-    <button class="df-btn" data-filter="bali" onclick="filterDiario('bali',this);renderDiario(_lastEntries)">ID Bali</button>
-    <button class="df-btn" data-filter="thai" onclick="filterDiario('thai',this);renderDiario(_lastEntries)">TH Tailandia</button>
-    <button class="df-btn" data-filter="japan" onclick="filterDiario('japan',this);renderDiario(_lastEntries)">JP Japón</button>
-  </div>
-
-  <!-- ENTRIES -->
-  <div class="diario-grid" id="diario-grid"></div>
-</div>
-
-
-<!-- DATOS UTILES -->
-<div class="sw" id="datos">
-  <p class="sec-label">Antes de salir</p>
-  <h2 class="sec-title">Apps y datos útiles</h2>
-  <div class="info-grid">
-    <div class="info-card">
-      <div class="info-head"><span class="info-flag">🇮🇩</span><div><div class="info-title">Indonesia</div><div class="info-sub">Bali</div></div></div>
-      <ul class="info-list">
-        <li><span>🚗 Transporte</span><b>Grab · Gojek</b></li>
-        <li><span>💵 Moneda</span><b>Rupia (IDR)</b></li>
-        <li><span>🔌 Enchufe</span><b>Tipo C/F · 230V</b></li>
-        <li><span>🆘 Emergencias</span><b>112</b></li>
-        <li><span>💡 Tip</span><b>Regatear en mercados</b></li>
-      </ul>
-    </div>
-    <div class="info-card">
-      <div class="info-head"><span class="info-flag">🇹🇭</span><div><div class="info-title">Tailandia</div><div class="info-sub">Phuket · Bangkok · Chiang Mai</div></div></div>
-      <ul class="info-list">
-        <li><span>🚗 Transporte</span><b>Grab · Bolt</b></li>
-        <li><span>💵 Moneda</span><b>Baht (THB)</b></li>
-        <li><span>🔌 Enchufe</span><b>Tipo A/B/C · 230V</b></li>
-        <li><span>🆘 Emergencias</span><b>1155 (turista) · 191</b></li>
-        <li><span>💡 Tip</span><b>Cubrir hombros/rodillas en templos</b></li>
-      </ul>
-    </div>
-    <div class="info-card">
-      <div class="info-head"><span class="info-flag">🇯🇵</span><div><div class="info-title">Japón</div><div class="info-sub">Osaka · Kyoto · Tokyo</div></div></div>
-      <ul class="info-list">
-        <li><span>🚆 Transporte</span><b>Google Maps · IC Suica/Pasmo</b></li>
-        <li><span>💵 Moneda</span><b>Yen (JPY)</b></li>
-        <li><span>🔌 Enchufe</span><b>Tipo A · 100V</b></li>
-        <li><span>🆘 Emergencias</span><b>110 policía · 119 ambulancia</b></li>
-        <li><span>💡 Tip</span><b>Llevar efectivo · no se da propina</b></li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-<footer>
-  <p>Asia '26–27 · <span>Bali · Tailandia · Japón</span> · 38 días · 3 países · infinitas memorias</p>
-</footer>
-
-<!-- PREPARACION Y MONEDA — solo visible para editores -->
-
-<!-- GALERIA -->
-<div class="sw" id="galeria">
-  <p class="sec-label">Recuerdos</p>
-  <h2 class="sec-title">Galería</h2>
-  <div class="diario-filter" style="margin-bottom:1.5rem;">
-    <button class="df-btn active" onclick="filterGallery('',this)">Todas</button>
-    <button class="df-btn" onclick="filterGallery('bali',this)">🇮🇩 Bali</button>
-    <button class="df-btn" onclick="filterGallery('thai',this)">🇹🇭 Tailandia</button>
-    <button class="df-btn" onclick="filterGallery('japan',this)">🇯🇵 Japón</button>
-  </div>
-  <div class="gal-grid" id="galeria-grid"></div>
-</div>
-
 <div class="sw" id="vuelos">
   <p class="sec-label">Logística</p>
   <h2 class="sec-title">Vuelos del viaje</h2>
@@ -673,7 +629,7 @@
     <div class="flight-row"><div class="flight-airports"><div><div class="ap-code">SCL</div><div class="ap-city">Santiago</div></div><div class="flight-mid"><div class="fl-line"></div><div class="fl-info">Vuelo largo · escala</div></div><div><div class="ap-code">DPS</div><div class="ap-city">Bali</div></div></div><div><div class="fl-badge">26 Dic → 28 Dic 2026</div></div></div>
     <div class="flight-row"><div class="flight-airports"><div><div class="ap-code">DPS</div><div class="ap-city">Bali</div></div><div class="flight-mid"><div class="fl-line"></div><div class="fl-info">AirAsia · ~2h50</div></div><div><div class="ap-code">HKT</div><div class="ap-city">Phuket</div></div></div><div><div class="fl-badge">5 Ene · 14:25 → 17:15</div></div></div>
     <div class="flight-row"><div class="flight-airports"><div><div class="ap-code">HKT</div><div class="ap-city">Phuket</div></div><div class="flight-mid"><div class="fl-line"></div><div class="fl-info">Ferry + minibus · ~2h</div></div><div><div class="ap-code">KBV</div><div class="ap-city">Krabi</div></div></div><div><div class="fl-badge">9 Ene</div></div></div>
-    <div class="flight-row"><div class="flight-airports"><div><div class="ap-code">KBV</div><div class="ap-city">Krabi</div></div><div class="flight-mid"><div class="fl-line"></div><div class="fl-info">AirAsia · ~1h15</div></div><div><div class="ap-code">BKK</div><div class="ap-city">Bangkok</div></div></div><div><div class="fl-badge">13 Ene</div></div></div>
+    <div class="flight-row"><div class="flight-airports"><div><div class="ap-code">KBV</div><div class="ap-city">Krabi</div></div><div class="flight-mid"><div class="fl-line"></div><div class="fl-info">Thai AirAsia FD3211 · 1h25</div></div><div><div class="ap-code">DMK</div><div class="ap-city">Bangkok T2</div></div></div><div><div class="fl-badge">13 Ene · 12:50 → 14:15</div></div></div>
     <div class="flight-row"><div class="flight-airports"><div><div class="ap-code">BKK</div><div class="ap-city">Bangkok</div></div><div class="flight-mid"><div class="fl-line"></div><div class="fl-info">AirAsia · ~1h15</div></div><div><div class="ap-code">CNX</div><div class="ap-city">Chiang Mai</div></div></div><div><div class="fl-badge">15 Ene</div></div></div>
     <div class="flight-row"><div class="flight-airports"><div><div class="ap-code">CNX</div><div class="ap-city">Chiang Mai</div></div><div class="flight-mid"><div class="fl-line"></div><div class="fl-info">· ~6h</div></div><div><div class="ap-code">KIX</div><div class="ap-city">Osaka</div></div></div><div><div class="fl-badge">19 Ene · 08:30 → 19:30</div></div></div>
     <div class="flight-row"><div class="flight-airports"><div><div class="ap-code">NRT</div><div class="ap-city">Tokyo</div></div><div class="flight-mid"><div class="fl-line"></div><div class="fl-info">Vuelo de regreso</div></div><div><div class="ap-code">SCL</div><div class="ap-city">Santiago</div></div></div><div><div class="fl-badge">31 Ene / 1 Feb 2027</div></div></div>
@@ -749,6 +705,50 @@
 
 
 <!-- DIARIO -->
+<div class="sw" id="datos" style="display:none;">
+  <p class="sec-label">Antes de salir</p>
+  <h2 class="sec-title">Apps y datos útiles</h2>
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-head"><span class="info-flag">🇮🇩</span><div><div class="info-title">Indonesia</div><div class="info-sub">Bali</div></div></div>
+      <ul class="info-list">
+        <li><span>🚗 Transporte</span><b>Grab · Gojek</b></li>
+        <li><span>💵 Moneda</span><b>Rupia (IDR)</b></li>
+        <li><span>🔌 Enchufe</span><b>Tipo C/F · 230V</b></li>
+        <li><span>🆘 Emergencias</span><b>112</b></li>
+        <li><span>💡 Tip</span><b>Regatear en mercados</b></li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <div class="info-head"><span class="info-flag">🇹🇭</span><div><div class="info-title">Tailandia</div><div class="info-sub">Phuket · Bangkok · Chiang Mai</div></div></div>
+      <ul class="info-list">
+        <li><span>🚗 Transporte</span><b>Grab · Bolt</b></li>
+        <li><span>💵 Moneda</span><b>Baht (THB)</b></li>
+        <li><span>🔌 Enchufe</span><b>Tipo A/B/C · 230V</b></li>
+        <li><span>🆘 Emergencias</span><b>1155 (turista) · 191</b></li>
+        <li><span>💡 Tip</span><b>Cubrir hombros/rodillas en templos</b></li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <div class="info-head"><span class="info-flag">🇯🇵</span><div><div class="info-title">Japón</div><div class="info-sub">Osaka · Kyoto · Tokyo</div></div></div>
+      <ul class="info-list">
+        <li><span>🚆 Transporte</span><b>Google Maps · IC Suica/Pasmo</b></li>
+        <li><span>💵 Moneda</span><b>Yen (JPY)</b></li>
+        <li><span>🔌 Enchufe</span><b>Tipo A · 100V</b></li>
+        <li><span>🆘 Emergencias</span><b>110 policía · 119 ambulancia</b></li>
+        <li><span>💡 Tip</span><b>Llevar efectivo · no se da propina</b></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Asia '26–27 · <span>Bali · Tailandia · Japón</span> · 38 días · 3 países · infinitas memorias</p>
+</footer>
+
+<!-- PREPARACION Y MONEDA — solo visible para editores -->
+
+<!-- GALERIA -->
 <div class="sw" id="preparacion" style="display:none;">
   <p class="sec-label">Solo para el grupo viajero</p>
   <h2 class="sec-title">Preparacion<br>del viaje</h2>
@@ -1688,11 +1688,14 @@ function updateNavUser(user){
     if(navLogout)  navLogout.style.display='none';
     if(navUpgrade) navUpgrade.style.display='none';
     if(navMsg)     navMsg.style.display='none';
-    // Ocultar preparacion
+    // Ocultar preparacion e Info
     var prepSection = document.getElementById('preparacion');
     var prepBtn     = document.getElementById('nav-prep-btn');
     if(prepSection) prepSection.style.display='none';
     if(prepBtn)     prepBtn.style.display='none';
+    var loDatosSec = document.getElementById('datos'), loDatosBtn = document.getElementById('nav-datos-btn');
+    if(loDatosSec) loDatosSec.style.display='none';
+    if(loDatosBtn) loDatosBtn.style.display='none';
     // Reset avatar
     var inner = document.getElementById('nav-av-inner');
     if(inner) inner.textContent = '?';
@@ -1717,6 +1720,10 @@ function updateUIForRole(role){
     // Mostrar sección y botón de preparacion
     if(prepSection) prepSection.style.display='block';
     if(prepBtn)     prepBtn.style.display='inline-block';
+    // Mostrar seccion y boton de Info (apps y datos) — solo grupo viajero
+    var edDatosSec=document.getElementById('datos'), edDatosBtn=document.getElementById('nav-datos-btn');
+    if(edDatosSec) edDatosSec.style.display='block';
+    if(edDatosBtn) edDatosBtn.style.display='inline-block';
     // Cargar tasas si aún no se han cargado
     setTimeout(loadExchangeRates, 300);
   } else {
@@ -1728,6 +1735,9 @@ function updateUIForRole(role){
     // Ocultar sección y botón de preparacion para viewers
     if(prepSection) prepSection.style.display='none';
     if(prepBtn)     prepBtn.style.display='none';
+    var vwDatosSec=document.getElementById('datos'), vwDatosBtn=document.getElementById('nav-datos-btn');
+    if(vwDatosSec) vwDatosSec.style.display='none';
+    if(vwDatosBtn) vwDatosBtn.style.display='none';
   }
 }
 
@@ -2480,7 +2490,7 @@ function goTo(id,btn){
     setTimeout(loadExchangeRates, 200);
   }
 }
-var NAV_IDS=['resumen','destinos','diario','galeria','vuelos','mapa','alojamientos','datos'];
+var NAV_IDS=['resumen','diario','galeria','destinos','vuelos','mapa','alojamientos','datos'];
 var navObs=new IntersectionObserver(function(entries){
   entries.forEach(function(e){
     if(e.isIntersecting){
