@@ -270,11 +270,11 @@
     <span id="nav-msg-badge" style="display:none;position:absolute;top:-.45rem;right:-.45rem;background:#e53e3e;color:#fff;border-radius:50%;min-width:1.05rem;height:1.05rem;font-size:.6rem;font-weight:700;align-items:center;justify-content:center;padding:0 .18rem;border:1.5px solid rgba(26,20,16,.96);font-family:'DM Sans',sans-serif,'Noto Color Emoji';line-height:1;"></span>
   </div>
   <button class="nav-btn" onclick="goTo('resumen',this)">Resumen</button>
+  <button class="nav-btn" onclick="goTo('destinos',this)">Destinos</button>
   <button class="nav-btn" onclick="goTo('diario',this)">Diario</button>
   <button class="nav-btn" onclick="goTo('galeria',this)">Galería</button>
-  <button class="nav-btn" onclick="goTo('destinos',this)">Destinos</button>
-    <button class="nav-btn" onclick="goTo('vuelos',this)">Vuelos</button>
   <button class="nav-btn" onclick="goTo('mapa',this)">Mapa</button>
+    <button class="nav-btn" onclick="goTo('vuelos',this)">Vuelos</button>
   <button class="nav-btn" onclick="goTo('alojamientos',this)">Alojamientos</button>
   <button class="nav-btn" onclick="goTo('datos',this)" id="nav-datos-btn" style="display:none;">Info</button>
   <button class="nav-btn" onclick="goTo('preparacion',this)" id="nav-prep-btn" style="display:none;">Preparacion</button>
@@ -318,96 +318,6 @@
 </div>
 
 <!-- DESTINOS -->
-<div class="sw" id="diario">
-  <p class="sec-label">Memorias en tiempo real</p>
-  <h2 class="sec-title">Diario<br>del viaje</h2>
-
-  <!-- FORM -->
-  <div class="diario-form" id="diario-form" style="display:none;">
-    <div class="diario-form-title">Nueva entrada</div>
-    <div class="diario-fields">
-      <div class="diario-field" id="de-author-field" style="display:none;">
-        <label>Tu nombre</label>
-        <input type="text" id="de-author" placeholder="¿Quién escribe?">
-      </div>
-      <div class="diario-field">
-        <label>Fecha</label>
-        <input type="date" id="de-date">
-      </div>
-      <div class="diario-field">
-        <label>Destino</label>
-        <select id="de-place">
-          <option value="">— Selecciona —</option>
-          <optgroup label="🇮🇩 Bali">
-            <option value="Canggu|bali">Canggu</option>
-            <option value="Ubud|bali">Ubud</option>
-            <option value="Nusa Penida|bali">Nusa Penida</option>
-            <option value="Sanur|bali">Sanur</option>
-          </optgroup>
-          <optgroup label="🇹🇭 Tailandia">
-            <option value="Bangkok|thai">Bangkok</option>
-            <option value="Chiang Mai|thai">Chiang Mai</option>
-            <option value="Chiang Rai|thai">Chiang Rai</option>
-            <option value="Phuket|thai">Phuket</option>
-            <option value="Phi Phi|thai">Phi Phi</option>
-            <option value="Krabi|thai">Krabi</option>
-          </optgroup>
-          <optgroup label="🇯🇵 Japón">
-            <option value="Osaka|japan">Osaka</option>
-            <option value="Kyoto|japan">Kyoto</option>
-            <option value="Nara|japan">Nara</option>
-            <option value="Tokyo|japan">Tokyo</option>
-            <option value="Nagano|japan">Nagano</option>
-          </optgroup>
-        </select>
-      </div>
-      <div class="diario-field">
-        <label>Título</label>
-        <input type="text" id="de-title" placeholder="Dale un nombre a este momento">
-      </div>
-      <div class="diario-field diario-field-full">
-        <label>Experiencia</label>
-        <textarea id="de-text" placeholder="Cuenta qué hiciste, cómo te sentiste, qué fue lo mejor..."></textarea>
-      </div>
-      <div class="diario-field diario-field-full">
-        <label>Fotos</label>
-        <label class="diario-photo-label" for="diario-photo-input">
-          Toca para agregar fotos (puedes elegir varias)
-        </label>
-        <input type="file" id="diario-photo-input" accept="image/*" multiple>
-        <div class="diario-photo-preview" id="de-preview"></div>
-      </div>
-    </div>
-    <button class="diario-submit" onclick="submitEntry()">Guardar entrada →</button>
-  </div>
-
-  <!-- SEARCH + FILTERS -->
-  <div style="margin-bottom:.8rem;"><input id="diario-search" type="text" placeholder="Buscar en el diario..." oninput="searchDiario(this.value)" style="width:100%;max-width:400px;font-family:'DM Sans',sans-serif,'Noto Color Emoji';font-size:.88rem;color:var(--ink);background:#fff;border:1.5px solid var(--warm);border-radius:12px;padding:.6rem 1rem;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--warm)'"></div>
-  <div class="diario-filter">
-    <button class="df-btn active" onclick="filterDiario('',this);renderDiario(_lastEntries)">Todas</button>
-    <button class="df-btn" data-filter="bali" onclick="filterDiario('bali',this);renderDiario(_lastEntries)">ID Bali</button>
-    <button class="df-btn" data-filter="thai" onclick="filterDiario('thai',this);renderDiario(_lastEntries)">TH Tailandia</button>
-    <button class="df-btn" data-filter="japan" onclick="filterDiario('japan',this);renderDiario(_lastEntries)">JP Japón</button>
-  </div>
-
-  <!-- ENTRIES -->
-  <div class="diario-grid" id="diario-grid"><div class="diario-empty" style="grid-column:1/-1"><div class="diario-empty-icon">📖</div>Cargando el diario…</div></div>
-</div>
-
-
-<!-- DATOS UTILES -->
-<div class="sw" id="galeria">
-  <p class="sec-label">Recuerdos</p>
-  <h2 class="sec-title">Galería</h2>
-  <div class="diario-filter" style="margin-bottom:1.5rem;">
-    <button class="df-btn active" onclick="filterGallery('',this)">Todas</button>
-    <button class="df-btn" onclick="filterGallery('bali',this)">🇮🇩 Bali</button>
-    <button class="df-btn" onclick="filterGallery('thai',this)">🇹🇭 Tailandia</button>
-    <button class="df-btn" onclick="filterGallery('japan',this)">🇯🇵 Japón</button>
-  </div>
-  <div class="gal-grid" id="galeria-grid"></div>
-</div>
-
 <div id="destinos">
   <div class="selector-header">
     <p class="sec-label">Explorar por país</p>
@@ -623,6 +533,110 @@
   </div>
 </div>
 
+<div class="sw" id="diario">
+  <p class="sec-label">Memorias en tiempo real</p>
+  <h2 class="sec-title">Diario<br>del viaje</h2>
+
+  <!-- FORM -->
+  <div class="diario-form" id="diario-form" style="display:none;">
+    <div class="diario-form-title">Nueva entrada</div>
+    <div class="diario-fields">
+      <div class="diario-field" id="de-author-field" style="display:none;">
+        <label>Tu nombre</label>
+        <input type="text" id="de-author" placeholder="¿Quién escribe?">
+      </div>
+      <div class="diario-field">
+        <label>Fecha</label>
+        <input type="date" id="de-date">
+      </div>
+      <div class="diario-field">
+        <label>Destino</label>
+        <select id="de-place">
+          <option value="">— Selecciona —</option>
+          <optgroup label="🇮🇩 Bali">
+            <option value="Canggu|bali">Canggu</option>
+            <option value="Ubud|bali">Ubud</option>
+            <option value="Nusa Penida|bali">Nusa Penida</option>
+            <option value="Sanur|bali">Sanur</option>
+          </optgroup>
+          <optgroup label="🇹🇭 Tailandia">
+            <option value="Bangkok|thai">Bangkok</option>
+            <option value="Chiang Mai|thai">Chiang Mai</option>
+            <option value="Chiang Rai|thai">Chiang Rai</option>
+            <option value="Phuket|thai">Phuket</option>
+            <option value="Phi Phi|thai">Phi Phi</option>
+            <option value="Krabi|thai">Krabi</option>
+          </optgroup>
+          <optgroup label="🇯🇵 Japón">
+            <option value="Osaka|japan">Osaka</option>
+            <option value="Kyoto|japan">Kyoto</option>
+            <option value="Nara|japan">Nara</option>
+            <option value="Tokyo|japan">Tokyo</option>
+            <option value="Nagano|japan">Nagano</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="diario-field">
+        <label>Título</label>
+        <input type="text" id="de-title" placeholder="Dale un nombre a este momento">
+      </div>
+      <div class="diario-field diario-field-full">
+        <label>Experiencia</label>
+        <textarea id="de-text" placeholder="Cuenta qué hiciste, cómo te sentiste, qué fue lo mejor..."></textarea>
+      </div>
+      <div class="diario-field diario-field-full">
+        <label>Fotos</label>
+        <label class="diario-photo-label" for="diario-photo-input">
+          Toca para agregar fotos (puedes elegir varias)
+        </label>
+        <input type="file" id="diario-photo-input" accept="image/*" multiple>
+        <div class="diario-photo-preview" id="de-preview"></div>
+      </div>
+    </div>
+    <button class="diario-submit" onclick="submitEntry()">Guardar entrada →</button>
+  </div>
+
+  <!-- SEARCH + FILTERS -->
+  <div style="margin-bottom:.8rem;"><input id="diario-search" type="text" placeholder="Buscar en el diario..." oninput="searchDiario(this.value)" style="width:100%;max-width:400px;font-family:'DM Sans',sans-serif,'Noto Color Emoji';font-size:.88rem;color:var(--ink);background:#fff;border:1.5px solid var(--warm);border-radius:12px;padding:.6rem 1rem;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--warm)'"></div>
+  <div class="diario-filter">
+    <button class="df-btn active" onclick="filterDiario('',this);renderDiario(_lastEntries)">Todas</button>
+    <button class="df-btn" data-filter="bali" onclick="filterDiario('bali',this);renderDiario(_lastEntries)">ID Bali</button>
+    <button class="df-btn" data-filter="thai" onclick="filterDiario('thai',this);renderDiario(_lastEntries)">TH Tailandia</button>
+    <button class="df-btn" data-filter="japan" onclick="filterDiario('japan',this);renderDiario(_lastEntries)">JP Japón</button>
+  </div>
+
+  <!-- ENTRIES -->
+  <div class="diario-grid" id="diario-grid"><div class="diario-empty" style="grid-column:1/-1"><div class="diario-empty-icon">📖</div>Cargando el diario…</div></div>
+</div>
+
+
+<!-- DATOS UTILES -->
+<div class="sw" id="galeria">
+  <p class="sec-label">Recuerdos</p>
+  <h2 class="sec-title">Galería</h2>
+  <div class="diario-filter" style="margin-bottom:1.5rem;">
+    <button class="df-btn active" onclick="filterGallery('',this)">Todas</button>
+    <button class="df-btn" onclick="filterGallery('bali',this)">🇮🇩 Bali</button>
+    <button class="df-btn" onclick="filterGallery('thai',this)">🇹🇭 Tailandia</button>
+    <button class="df-btn" onclick="filterGallery('japan',this)">🇯🇵 Japón</button>
+  </div>
+  <div class="gal-grid" id="galeria-grid"></div>
+</div>
+
+<div class="sw" id="mapa">
+  <p class="sec-label">La aventura completa</p>
+  <h2 class="sec-title">Ruta del viaje</h2>
+  <div id="travel-map"></div>
+  <div class="map-legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--bali);"></div>Bali · Indonesia</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--thai);"></div>Tailandia</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--japan);"></div>Japón</div>
+    <div class="legend-item"><div class="legend-line"></div>Ruta del viaje</div>
+    <div class="legend-item" style="margin-left:auto;font-size:.72rem;color:rgba(0,0,0,.3);">Haz clic en cada ciudad para ver las fechas</div>
+  </div>
+</div>
+
+<!-- ALOJAMIENTOS -->
 <div class="sw" id="vuelos">
   <p class="sec-label">Logística</p>
   <h2 class="sec-title">Vuelos del viaje</h2>
@@ -643,20 +657,6 @@
 
 
 <!-- MAPA RUTA -->
-<div class="sw" id="mapa">
-  <p class="sec-label">La aventura completa</p>
-  <h2 class="sec-title">Ruta del viaje</h2>
-  <div id="travel-map"></div>
-  <div class="map-legend">
-    <div class="legend-item"><div class="legend-dot" style="background:var(--bali);"></div>Bali · Indonesia</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--thai);"></div>Tailandia</div>
-    <div class="legend-item"><div class="legend-dot" style="background:var(--japan);"></div>Japón</div>
-    <div class="legend-item"><div class="legend-line"></div>Ruta del viaje</div>
-    <div class="legend-item" style="margin-left:auto;font-size:.72rem;color:rgba(0,0,0,.3);">Haz clic en cada ciudad para ver las fechas</div>
-  </div>
-</div>
-
-<!-- ALOJAMIENTOS -->
 <div class="sw" id="alojamientos">
   <p class="sec-label">Dónde dormimos</p>
   <h2 class="sec-title">Alojamientos</h2>
@@ -2490,7 +2490,7 @@ function goTo(id,btn){
     setTimeout(loadExchangeRates, 200);
   }
 }
-var NAV_IDS=['resumen','diario','galeria','destinos','vuelos','mapa','alojamientos','datos'];
+var NAV_IDS=['resumen','destinos','diario','galeria','mapa','vuelos','alojamientos','datos'];
 var navObs=new IntersectionObserver(function(entries){
   entries.forEach(function(e){
     if(e.isIntersecting){
