@@ -144,15 +144,22 @@
   // ── Animación de aparición al hacer scroll ────────────────────────────────────
   function initReveal() {
     if (!("IntersectionObserver" in window)) return;
-    var els = document.querySelectorAll(".sum-card,.zone-card,.flight-row,.aloj-item,.tip-card,.prep-item");
+    var els = [].slice.call(document.querySelectorAll(".sum-card,.zone-card,.flight-row,.aloj-item,.tip-card,.prep-item"));
     if (!els.length) return;
-    els.forEach(function (e) { e.classList.add("reveal"); });
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
         if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
       });
     }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
-    els.forEach(function (e) { io.observe(e); });
+    var vh = window.innerHeight || 800;
+    els.forEach(function (e) {
+      // Lo que ya está a la vista al cargar NO se oculta (evita que la página se vea incompleta)
+      if (e.getBoundingClientRect().top < vh * 0.95) return;
+      e.classList.add("reveal");
+      io.observe(e);
+    });
+    // Seguridad: si algo quedara oculto por error, se muestra a los 3s
+    setTimeout(function () { els.forEach(function (e) { e.classList.add("in"); }); }, 3000);
   }
 
   // ── Zoom a las fotos del lightbox (pinch en móvil, doble clic + rueda en PC) ───

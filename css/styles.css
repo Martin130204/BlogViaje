@@ -715,3 +715,17 @@ footer span{color:var(--gold);}
 /* Tramo en bus (no vuelo): ícono de bus en vez de avión */
 .flight-row.is-bus .fl-line::after{content:'🚌';font-size:.9rem;font-family:'DM Sans',sans-serif,'Noto Color Emoji';}
 .flight-row.is-bus .fl-badge{background:rgba(110,122,85,.16);color:var(--moss);}
+
+/* ── ANTI-DESPLAZAMIENTO HORIZONTAL EN MÓVIL ── */
+html{overflow-x:hidden;}
+body{overscroll-behavior-x:none;}
+.nav,.gallery-strip{overscroll-behavior-x:contain;}
+
+/* Tarjetas de países se apilan en móvil (mejor lectura y sin desborde) */
+@media(max-width:600px){
+  .country-cards{grid-template-columns:1fr;}
+  .c-card{height:340px;}
+  .ccontent{padding:2.5rem 1.2rem 3.5rem;}
+  .flights-box{padding:1.6rem 1.2rem;}
+  .sw{padding:3.5rem 1.2rem;}
+}
