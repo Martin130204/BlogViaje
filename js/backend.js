@@ -24,6 +24,9 @@ if (!configured) {
   const { createClient } = _lib || {};
   if (!createClient) throw new Error("[viaje-asia] No se pudo cargar la librería de Supabase.");
   const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  // No usamos realtime (WebSockets): lo desconectamos para que no gaste ni reintente en móvil.
+  try { sb.realtime && sb.realtime.disconnect && sb.realtime.disconnect(); } catch (e) {}
+  try { if (sb.realtime) sb.realtime.connect = function () {}; } catch (e) {}
 
   // ── Helpers ───────────────────────────────────────────────────────────────
   // Timestamp compatible con la API de Firestore que espera el código (toDate/toMillis/seconds)
@@ -44,14 +47,9 @@ if (!configured) {
     if (error) { console.error("upload:", error); return null; }
     return sb.storage.from(bucket).getPublicUrl(path).data.publicUrl;
   };
-  // Suscripción realtime: corre `run` una vez y de nuevo ante cualquier cambio en la tabla.
-  const live = (table, run) => {
-    run();
-    const ch = sb.channel(`rt_${table}_${Math.random().toString(36).slice(2)}`)
-      .on("postgres_changes", { event: "*", schema: "public", table }, () => run())
-      .subscribe();
-    return () => { sb.removeChannel(ch); };
-  };
+  // Carga los datos UNA vez (sin WebSockets en vivo, para que sea liviano en móvil).
+  // Los cambios nuevos se ven al recargar la página — suficiente para un blog de viaje.
+  const live = (table, run) => { run(); return () => {}; };
   const mapProfile = (r) => r ? {
     uid: r.id, email: r.email, username: r.username || "",
     displayName: r.display_name || "", avatarUrl: r.avatar_url || "",

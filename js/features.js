@@ -224,7 +224,7 @@
       var t = setInterval(function () { if (hookDiario()) clearInterval(t); }, 300);
     }
     renderGallery(window._lastEntries || []);
-    initReveal();
+    // (animación de aparición desactivada: más liviana y sin riesgo de contenido que "desaparece")
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
   else init();

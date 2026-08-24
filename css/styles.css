@@ -198,10 +198,10 @@ nav{position:sticky;top:0;z-index:200;background:rgba(26,20,16,.96);backdrop-fil
 .flight-airports{display:flex;align-items:center;gap:.8rem;flex:1;}
 .ap-code{font-family:'Playfair Display',serif,'Noto Color Emoji';font-size:1.7rem;line-height:1;color:#fff;}
 .ap-city{font-size:.68rem;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.1em;}
-.flight-mid{flex:1;display:flex;flex-direction:column;align-items:center;gap:.22rem;min-width:80px;}
+.flight-mid{flex:1.3;display:flex;flex-direction:column;align-items:center;gap:.55rem;min-width:96px;padding:.35rem 0;}
 .fl-line{width:100%;height:1px;background:linear-gradient(to right,rgba(255,255,255,.25),var(--gold),rgba(255,255,255,.25));position:relative;}
 .fl-line::after{content:'✈';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--ink);padding:0 .3rem;color:var(--gold);font-size:.85rem;}
-.fl-info{font-size:.72rem;color:rgba(255,255,255,.38);}
+.fl-info{font-size:.72rem;color:rgba(255,255,255,.42);text-align:center;line-height:1.35;}
 .fl-badge{display:inline-block;background:rgba(212,168,83,.18);color:var(--gold);padding:.28rem .75rem;border-radius:8px;font-size:.75rem;}
 
 /* ── TIPS ── */
@@ -738,3 +738,12 @@ body:not(.is-editor) .zone-progress{display:none;}
 body:not(.is-editor) .act-check{display:none;}
 body:not(.is-editor) .zone-acts li{cursor:default;}
 body:not(.is-editor) .zone-acts li.done{opacity:1;text-decoration:none;}
+
+/* ── VUELOS EN MÓVIL: estructura pareja, el avión no tapa el texto ── */
+@media(max-width:600px){
+  .flight-row{flex-direction:column;align-items:stretch;gap:.7rem;padding:1rem 0;}
+  .flight-airports{width:100%;gap:.6rem;}
+  .flight-mid{min-width:0;flex:1;gap:.5rem;}
+  .ap-code{font-size:1.4rem;}
+  .fl-badge{align-self:center;}
+}
