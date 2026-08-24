@@ -26,6 +26,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://esm.sh" crossorigin>
+<link rel="preconnect" href="https://fnkoqrnnxmsuqblrpswl.supabase.co" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Noto+Serif+JP:wght@300;400&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -322,7 +324,7 @@
   <h2 class="sec-title">Diario<br>del viaje</h2>
 
   <!-- FORM -->
-  <div class="diario-form">
+  <div class="diario-form" id="diario-form" style="display:none;">
     <div class="diario-form-title">Nueva entrada</div>
     <div class="diario-fields">
       <div class="diario-field" id="de-author-field" style="display:none;">
@@ -390,7 +392,7 @@
   </div>
 
   <!-- ENTRIES -->
-  <div class="diario-grid" id="diario-grid"></div>
+  <div class="diario-grid" id="diario-grid"><div class="diario-empty" style="grid-column:1/-1"><div class="diario-empty-icon">📖</div>Cargando el diario…</div></div>
 </div>
 
 
@@ -1697,6 +1699,7 @@ function updateNavUser(user){
     var loDatosSec = document.getElementById('datos'), loDatosBtn = document.getElementById('nav-datos-btn');
     if(loDatosSec) loDatosSec.style.display='none';
     if(loDatosBtn) loDatosBtn.style.display='none';
+    var loForm=document.getElementById('diario-form'); if(loForm) loForm.style.display='none';
     // Reset avatar
     var inner = document.getElementById('nav-av-inner');
     if(inner) inner.textContent = '?';
@@ -1725,6 +1728,7 @@ function updateUIForRole(role){
     var edDatosSec=document.getElementById('datos'), edDatosBtn=document.getElementById('nav-datos-btn');
     if(edDatosSec) edDatosSec.style.display='block';
     if(edDatosBtn) edDatosBtn.style.display='inline-block';
+    var edForm=document.getElementById('diario-form'); if(edForm) edForm.style.display='block';
     // Cargar tasas si aún no se han cargado
     setTimeout(loadExchangeRates, 300);
   } else {
@@ -1739,6 +1743,7 @@ function updateUIForRole(role){
     var vwDatosSec=document.getElementById('datos'), vwDatosBtn=document.getElementById('nav-datos-btn');
     if(vwDatosSec) vwDatosSec.style.display='none';
     if(vwDatosBtn) vwDatosBtn.style.display='none';
+    var vwForm=document.getElementById('diario-form'); if(vwForm) vwForm.style.display='none';
   }
 }
 
@@ -2098,7 +2103,7 @@ function doLeaveGroup(){
 }
 
 function addLocks(){
-  document.querySelectorAll('.rating-section,.zone-acts,.diario-form').forEach(function(el){
+  document.querySelectorAll('.rating-section,.zone-acts').forEach(function(el){
     if(el.querySelector('.auth-lock')) return;
     el.classList.add('requires-auth'); el.style.position='relative';
     var lock=document.createElement('div'); lock.className='auth-lock';

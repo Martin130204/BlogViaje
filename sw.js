@@ -1,5 +1,6 @@
-/* sw.js — Service worker: cachea el "cascarón" para que el sitio abra offline. */
-const CACHE = "viaje-asia-v2";
+/* sw.js — Service worker: carga instantánea desde caché y actualiza en segundo plano.
+   Los datos en vivo (Supabase, tiles del mapa, fotos externas) siempre van a la red. */
+const CACHE = "viaje-asia-v3";
 const CORE = [
   "./", "./index.html", "./css/styles.css",
   "./js/config.js", "./js/backend.js", "./js/features.js",
@@ -19,14 +20,17 @@ self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET") return;
   const url = new URL(req.url);
+  // Sólo nuestro propio origen; Supabase, tiles, fotos y fuentes van directo a la red.
   if (url.origin !== self.location.origin) return;
+  // Stale-while-revalidate: responde al instante desde caché y actualiza atrás.
   e.respondWith(
-    fetch(req).then((res) => {
-      const copy = res.clone();
-      caches.open(CACHE).then((c) => c.put(req, copy));
-      return res;
-    }).catch(() =>
-      caches.match(req).then((hit) => hit || (req.mode === "navigate" ? caches.match("./index.html") : undefined))
+    caches.open(CACHE).then((cache) =>
+      cache.match(req).then((cached) => {
+        const network = fetch(req)
+          .then((res) => { if (res && res.status === 200) cache.put(req, res.clone()); return res; })
+          .catch(() => cached || (req.mode === "navigate" ? cache.match("./index.html") : undefined));
+        return cached || network;
+      })
     )
   );
 });
