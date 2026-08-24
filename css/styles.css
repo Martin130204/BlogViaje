@@ -22,7 +22,7 @@ body{font-family:'DM Sans',sans-serif,'Noto Color Emoji';background:var(--sand);
 .hero-eyebrow{font-size:.68rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem;opacity:0;animation:fadeUp .8s ease .3s forwards;}
 .hero-title{font-family:'Playfair Display',serif,'Noto Color Emoji';font-size:clamp(3.2rem,9vw,7rem);color:#fff;line-height:1.0;text-align:center;letter-spacing:-.01em;opacity:0;animation:fadeUp .9s ease .5s forwards;}
 .hero-title em{font-style:italic;color:var(--gold);}
-.hero-sub{font-family:'Noto Serif JP',serif;font-size:1rem;color:rgba(255,255,255,.45);margin-top:1.2rem;letter-spacing:.12em;opacity:0;animation:fadeUp .9s ease .7s forwards;}
+.hero-sub{font-family:"Hiragino Mincho ProN","Yu Mincho","Noto Serif CJK JP",serif;font-size:1rem;color:rgba(255,255,255,.45);margin-top:1.2rem;letter-spacing:.12em;opacity:0;animation:fadeUp .9s ease .7s forwards;}
 .hero-dates{font-size:.8rem;color:rgba(255,255,255,.35);letter-spacing:.22em;text-transform:uppercase;margin-top:.7rem;opacity:0;animation:fadeUp .9s ease .9s forwards;}
 
 /* countdown */
@@ -729,3 +729,12 @@ body{overscroll-behavior-x:none;}
   .flights-box{padding:1.6rem 1.2rem;}
   .sw{padding:3.5rem 1.2rem;}
 }
+
+/* ── HERRAMIENTAS DEL GRUPO: solo visibles para editores ── */
+/* Para el público / viewers se ocultan puntuaciones, progreso y casillas;
+   queda la lista de actividades limpia y de solo lectura. */
+body:not(.is-editor) .rating-section,
+body:not(.is-editor) .zone-progress{display:none;}
+body:not(.is-editor) .act-check{display:none;}
+body:not(.is-editor) .zone-acts li{cursor:default;}
+body:not(.is-editor) .zone-acts li.done{opacity:1;text-decoration:none;}

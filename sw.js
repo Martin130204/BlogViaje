@@ -1,9 +1,9 @@
 /* sw.js — Service worker: carga instantánea desde caché y actualiza en segundo plano.
    Los datos en vivo (Supabase, tiles del mapa, fotos externas) siempre van a la red. */
-const CACHE = "viaje-asia-v3";
+const CACHE = "viaje-asia-v4";
 const CORE = [
   "./", "./index.html", "./css/styles.css",
-  "./js/config.js", "./js/backend.js", "./js/features.js",
+  "./js/config.js", "./js/backend.js", "./js/features.js", "./js/vendor/supabase.js",
   "./manifest.json", "./assets/icon-192.png", "./assets/icon-512.png",
 ];
 self.addEventListener("install", (e) => {

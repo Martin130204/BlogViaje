@@ -26,9 +26,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://esm.sh" crossorigin>
 <link rel="preconnect" href="https://fnkoqrnnxmsuqblrpswl.supabase.co" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Noto+Serif+JP:wght@300;400&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -941,6 +940,7 @@
 </div>
 
 <!-- Firebase SDKs -->
+<script src="js/vendor/supabase.js"></script>
 <script type="module" src="js/backend.js"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -1199,6 +1199,7 @@ function initZoneActivities(){
   });
 }
 function toggleAct(li){
+  if(_userRole!=='editor') return; // solo el grupo viajero marca actividades
   var key=li.dataset.key;
   var isDone=li.classList.contains('done');
   li.classList.toggle('done',!isDone);
@@ -2103,19 +2104,12 @@ function doLeaveGroup(){
 }
 
 function addLocks(){
-  document.querySelectorAll('.rating-section,.zone-acts').forEach(function(el){
-    if(el.querySelector('.auth-lock')) return;
-    el.classList.add('requires-auth'); el.style.position='relative';
-    var lock=document.createElement('div'); lock.className='auth-lock';
-    lock.onclick=function(){ if(window._currentUser){ if(window.openUpgrade) openUpgrade(); } else { showLogin(); } };
-    var txt=window._currentUser
-      ? 'Solo el grupo viajero puede puntuar y publicar · Únete con el código'
-      : 'Inicia sesión — solo el grupo viajero puede puntuar y publicar';
-    lock.innerHTML='<div class="auth-lock-icon">🔒</div><div class="auth-lock-text">'+txt+'</div>';
-    el.appendChild(lock);
-  });
+  // No-miembros: se ocultan las herramientas del grupo (puntuar / progreso / casillas) vía CSS.
+  document.body.classList.remove('is-editor');
+  document.querySelectorAll('.auth-lock').forEach(function(el){el.remove();});
 }
 function removeLocks(){
+  document.body.classList.add('is-editor');
   document.querySelectorAll('.auth-lock').forEach(function(el){el.remove();});
   document.querySelectorAll('.requires-auth').forEach(function(el){el.classList.remove('requires-auth');});
 }

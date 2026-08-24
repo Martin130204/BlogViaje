@@ -15,7 +15,7 @@ const configured = Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
 if (!configured) {
   console.info("[viaje-asia] Supabase sin configurar: el sitio funciona en modo solo-lectura (login desactivado). Pega tus claves en js/config.js — ver README.");
 } else {
-  const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2");
+  const { createClient } = window.supabase; // librería cargada localmente (js/vendor/supabase.js)
   const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   // ── Helpers ───────────────────────────────────────────────────────────────
