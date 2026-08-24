@@ -1,36 +1,51 @@
-/* sw.js — Service worker: carga instantánea desde caché y actualiza en segundo plano.
-   Los datos en vivo (Supabase, tiles del mapa, fotos externas) siempre van a la red. */
-const CACHE = "viaje-asia-v4";
+/* sw.js — Service worker RED-PRIMERO (confiable): siempre trae lo último de la red
+   y usa la caché sólo como respaldo offline. Se auto-repara al actualizar. */
+const CACHE = "viaje-asia-v5";
 const CORE = [
   "./", "./index.html", "./css/styles.css",
   "./js/config.js", "./js/backend.js", "./js/features.js", "./js/vendor/supabase.js",
   "./manifest.json", "./assets/icon-192.png", "./assets/icon-512.png",
 ];
+
 self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(CORE)).then(() => self.skipWaiting()));
-});
-self.addEventListener("activate", (e) => {
+  // Cachear sin que un fallo puntual rompa la instalación.
   e.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
-    ).then(() => self.clients.claim())
+    caches.open(CACHE)
+      .then((c) => Promise.all(CORE.map((u) => c.add(u).catch(() => {}))))
+      .then(() => self.skipWaiting())
   );
 });
+
+self.addEventListener("activate", (e) => {
+  e.waitUntil((async () => {
+    // Borra cachés viejas
+    const keys = await caches.keys();
+    await Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)));
+    await self.clients.claim();
+    // Recarga las pestañas abiertas para salir de cualquier estado roto anterior
+    const clients = await self.clients.matchAll({ type: "window" });
+    clients.forEach((c) => { try { c.navigate(c.url); } catch (_) {} });
+  })());
+});
+
 self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET") return;
   const url = new URL(req.url);
-  // Sólo nuestro propio origen; Supabase, tiles, fotos y fuentes van directo a la red.
-  if (url.origin !== self.location.origin) return;
-  // Stale-while-revalidate: responde al instante desde caché y actualiza atrás.
+  if (url.origin !== self.location.origin) return; // Supabase, tiles, fuentes → red directa
+
+  // Red primero; si falla (offline), respaldo en caché.
   e.respondWith(
-    caches.open(CACHE).then((cache) =>
-      cache.match(req).then((cached) => {
-        const network = fetch(req)
-          .then((res) => { if (res && res.status === 200) cache.put(req, res.clone()); return res; })
-          .catch(() => cached || (req.mode === "navigate" ? cache.match("./index.html") : undefined));
-        return cached || network;
+    fetch(req)
+      .then((res) => {
+        if (res && res.status === 200) {
+          const copy = res.clone();
+          caches.open(CACHE).then((c) => c.put(req, copy));
+        }
+        return res;
       })
-    )
+      .catch(() =>
+        caches.match(req).then((hit) => hit || (req.mode === "navigate" ? caches.match("./index.html") : Response.error()))
+      )
   );
 });

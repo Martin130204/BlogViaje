@@ -15,7 +15,14 @@ const configured = Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
 if (!configured) {
   console.info("[viaje-asia] Supabase sin configurar: el sitio funciona en modo solo-lectura (login desactivado). Pega tus claves en js/config.js — ver README.");
 } else {
-  const { createClient } = window.supabase; // librería cargada localmente (js/vendor/supabase.js)
+  // Espera a que la librería local (script defer) esté disponible, hasta ~3s.
+  let _lib = window.supabase;
+  for (let _i = 0; _i < 120 && !(_lib && _lib.createClient); _i++) {
+    await new Promise((res) => setTimeout(res, 25));
+    _lib = window.supabase;
+  }
+  const { createClient } = _lib || {};
+  if (!createClient) throw new Error("[viaje-asia] No se pudo cargar la librería de Supabase.");
   const sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   // ── Helpers ───────────────────────────────────────────────────────────────
