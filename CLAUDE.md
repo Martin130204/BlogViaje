@@ -72,10 +72,23 @@ Bangkok→Chiang Mai = bus nocturno (15 ene).
 - Sanur — **Olivia Sanur Workstay Suites** (4-5 ene · 5388.821.533 · PIN 1303)
 - Krabi — **TAN Hostel x Cafe, Ao Nang** (8-13 ene, efectivo · 5634.567.411 · PIN 7190)
 - Osaka — **Estate Kuromon Bekkan D** (19-23 ene · 5514.672.129 · PIN 1206)
+- Kyoto — **Laon Inn Gion Nawate** (Gion · 23-26 ene · 6094.717.253 · PIN 7232)
 
-**Por reservar:** Phuket, Bangkok, Chiang Mai (Tailandia) · Kyoto, Tokyo (Japón).
+**Por reservar:** Phuket, Bangkok, Chiang Mai (Tailandia) · Tokyo (Japón).
 
 ## Pendiente
-1. Confirmar que carga bien en iPhone tras eliminar el service worker (se estaba probando).
+1. Confirmar que carga bien en iPhone. Además del service worker eliminado, se sacaron los
+   recursos externos de la ruta crítica de render: **Leaflet** (unpkg) ahora carga con `defer`
+   + CSS no-bloqueante, y **Google Fonts** también no-bloqueante (`media="print" onload`). Así,
+   si una CDN está lenta/bloqueada en la red del móvil, la página igual pinta (el mapa reintenta
+   hasta que exista `L`). Único CSS bloqueante = `css/styles.css` (local). Falta prueba en iPhone real.
+   - **Imágenes del diario**: se subían enormes (~1 MB c/u) y eran la causa de la lentitud
+     al inicio en móvil. Ahora se muestran vía la **transformación de Supabase Storage**
+     (`/render/image/...?width=&quality=75`), que redimensiona y recomprime por URL SIN
+     re-subir nada (arregla también las fotos ya subidas): thumbnails diario 900px, galería
+     800px, lightbox 1600px, avatares 128px. Helpers `imgTx()`/`imgFallback()` en el script
+     inline (fallback al original si fallara la transformación). La subida ahora limita a
+     1600px @ q0.82 (antes 2048 @ q0.92). Fotos de destinos locales (`assets/img/`) ya
+     pesaban bien; el hero es solo gradientes CSS (pinta al instante).
 2. Agregar alojamientos que falten cuando se reserven.
 3. Mejoras opcionales "Nivel 3": modo oscuro, clima por ciudad, indicador "hoy". (Presupuesto: descartado.)

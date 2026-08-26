@@ -27,7 +27,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://fnkoqrnnxmsuqblrpswl.supabase.co" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+<!-- Google Fonts no-bloqueante: si la CDN tarda/está bloqueada, la página igual pinta
+     con las fuentes de sistema (fallback ya definido en el CSS) y luego intercambia. -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Noto+Color+Emoji&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Noto+Color+Emoji&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -302,7 +305,7 @@
 <!-- RESUMEN -->
 <div class="sw" id="resumen">
   <p class="sec-label">Vista General</p>
-  <h2 class="sec-title">38 días.<br>3 países. Infinitas memorias.</h2>
+  <h2 class="sec-title">38 días.<br>3 países.</h2>
   <div class="stats-bar">
     <div class="stat-seg seg-bali"><strong>10</strong>días · Bali</div>
     <div class="stat-seg seg-thai"><strong>14</strong>días · Tailandia</div>
@@ -707,8 +710,13 @@
         <div class="aloj-item-date"><div class="aloj-item-date-lbl">Llegada</div><div class="aloj-item-date-val">19 Ene</div></div>
         <div class="aloj-item-date"><div class="aloj-item-date-lbl">Salida</div><div class="aloj-item-date-val">23 Ene</div></div>
       </div>
+      <div class="aloj-item">
+        <div class="aloj-item-name"><div class="aloj-dot aloj-dot-japan"></div><div><div>Laon Inn Gion Nawate</div><div class="aloj-item-sub">Kyoto · Gion · <a class="aloj-map" href="https://www.google.com/maps/search/?api=1&amp;query=35.0030,135.7730" target="_blank" rel="noopener">📍 Mapa</a></div><div class="aloj-item-sub" style="margin-top:.15rem;">Reserva 6094.717.253 · PIN 7232</div></div></div>
+        <div class="aloj-item-date"><div class="aloj-item-date-lbl">Llegada</div><div class="aloj-item-date-val">23 Ene</div></div>
+        <div class="aloj-item-date"><div class="aloj-item-date-lbl">Salida</div><div class="aloj-item-date-val">26 Ene</div></div>
+      </div>
     </div>
-    <div class="aloj-pending">Por reservar: Kyoto y Tokyo.</div>
+    <div class="aloj-pending">Por reservar: Tokyo.</div>
   </div>
 </div>
 
@@ -944,11 +952,16 @@
   </div>
 </div>
 
-<!-- Firebase SDKs -->
+<!-- Datos: Supabase (auto-alojado) -->
 <script defer src="js/vendor/supabase.js"></script>
 <script type="module" src="js/backend.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- Mapa: Leaflet cargado SIN bloquear el render.
+     El CSS entra como no-bloqueante y el JS con defer; initTravelMap() reintenta hasta
+     que exista L, así que si unpkg tarda o falla, el resto de la página carga igual
+     (evita pantalla en blanco en móvil por una CDN lenta/bloqueada). -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"></noscript>
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <!-- Leaflet CSS scope fix -->
 
@@ -983,6 +996,24 @@ function tick(){
   }
 }
 tick(); setInterval(tick,1000);
+
+// ── IMÁGENES: transformación on-the-fly de Supabase Storage ──
+// Las fotos del diario se suben grandes (~1 MB). Supabase puede redimensionarlas y
+// recomprimirlas por URL (endpoint /render/image), así el móvil descarga versiones
+// livianas SIN re-subir nada. imgTx() convierte una URL de Storage al ancho pedido;
+// imgFallback() vuelve al original si la transformación fallara (p. ej. cuota).
+function imgTx(url, width){
+  if(!url || url.indexOf('/storage/v1/object/public/')===-1) return url; // solo fotos de Supabase
+  return url.replace('/storage/v1/object/public/','/storage/v1/render/image/public/')
+       + (url.indexOf('?')>-1?'&':'?') + 'width=' + width + '&quality=75';
+}
+function imgFallback(el){
+  el.onerror = null;
+  if(el.src.indexOf('/render/image/public/')>-1){
+    el.src = el.src.replace('/render/image/public/','/object/public/').replace(/\?.*$/,'');
+  }
+}
+window.imgTx = imgTx; window.imgFallback = imgFallback;
 
 // ── COUNTRY SELECTOR ──
 function showCountry(id){
@@ -1301,13 +1332,14 @@ document.addEventListener('DOMContentLoaded',function(){
         var img=new Image();
         img.onload=function(){
           var canvas=document.createElement('canvas');
-          var maxW=2048,maxH=2048,w=img.width,h=img.height;
+          // 1600px basta para verse nítida en el lightbox de un teléfono (retina) y pesa
+          // ~250-350KB en vez de ~1MB. Además al mostrarse se transforma aún más (imgTx).
+          var maxW=1600,maxH=1600,w=img.width,h=img.height;
           if(w>maxW){h=Math.round(h*maxW/w);w=maxW;}
           if(h>maxH){w=Math.round(w*maxH/h);h=maxH;}
           canvas.width=w;canvas.height=h;
           canvas.getContext('2d').drawImage(img,0,0,w,h);
-          // Con Supabase Storage guardamos en buena calidad (sin el limite de Firestore)
-          var c=canvas.toDataURL('image/jpeg',0.92);
+          var c=canvas.toDataURL('image/jpeg',0.82);
           pendingPhotos.push(c);
           var prev=document.createElement('img');
           prev.className='diario-preview-img';prev.src=c;
@@ -1427,7 +1459,7 @@ function renderDiario(entries){
     if(e.photos&&e.photos.length>0){
       _lbPhotoMap[e.id] = e.photos;
       photosHTML='<div class="de-photos">'+e.photos.map(function(src,i){
-        return '<img class="de-photo" src="'+src+'" alt="foto" onclick="openLightbox(\''+e.id+'\','+i+')" style="cursor:zoom-in">';
+        return '<img class="de-photo" loading="lazy" src="'+imgTx(src,900)+'" onerror="imgFallback(this)" alt="foto" onclick="openLightbox(\''+e.id+'\','+i+')" style="cursor:zoom-in">';
       }).join('')+'</div>';
     }
     var loggedIn=!!window._currentUser;
@@ -1900,7 +1932,7 @@ function loadMsgCenterMembers(){
         var name = m.displayName || m.username || (m.email ? m.email.split('@')[0] : 'Usuario');
         name = name.charAt(0).toUpperCase() + name.slice(1);
         var avHtml = m.avatarUrl
-          ? '<img class="mc-member-av" src="'+m.avatarUrl+'" alt="'+escHtml(name)+'">'
+          ? '<img class="mc-member-av" src="'+imgTx(m.avatarUrl,128)+'" onerror="imgFallback(this)" alt="'+escHtml(name)+'">'
           : '<div class="mc-member-av">'+name.charAt(0)+'</div>';
         var uTag = m.username ? '<div class="mc-member-user">@'+escHtml(m.username)+'</div>' : '';
         var roleBadge = m.role === 'editor' ? '<span style="font-size:.6rem;background:rgba(212,168,83,.2);color:var(--gold);padding:.1rem .35rem;border-radius:6px;margin-left:.4rem;">Grupo</span>' : '';
@@ -1924,7 +1956,7 @@ function loadMsgCenterMembers(){
         var name = m.displayName || m.username || (m.email ? m.email.split('@')[0] : 'Viajero');
         name = name.charAt(0).toUpperCase() + name.slice(1);
         var avHtml = m.avatarUrl
-          ? '<img class="mc-member-av" src="'+m.avatarUrl+'" alt="'+escHtml(name)+'">'
+          ? '<img class="mc-member-av" src="'+imgTx(m.avatarUrl,128)+'" onerror="imgFallback(this)" alt="'+escHtml(name)+'">'
           : '<div class="mc-member-av">'+name.charAt(0)+'</div>';
         var uTag = m.username ? '<div class="mc-member-user">@'+escHtml(m.username)+'</div>' : '';
         return '<div class="mc-member" onclick="closeMsgCenter();openMsgModal(\''+m.uid+'\',\''+escHtml(name)+'\',\''+escHtml(m.username||'')+'\')">'+
@@ -2367,13 +2399,13 @@ var _leafletMap = null;
 
 var STOPS = [
   {name:'Bali',       label:'Bali',         country:'Indonesia',    dates:'28 Dic – 5 Ene',  lat:-8.40,  lng:115.19, color:'#d4783a', r:9,  num:1},
-  {name:'Phuket',     label:'Phuket',        country:'Tailandia',    dates:'5 – 9 Ene',       lat:7.90,   lng:98.30,  color:'#8b1a3a', r:7,  num:2},
-  {name:'Krabi',      label:'Krabi',         country:'Tailandia',    dates:'9 – 13 Ene',      lat:8.09,   lng:98.91,  color:'#8b1a3a', r:7,  num:3},
+  {name:'Phuket',     label:'Phuket',        country:'Tailandia',    dates:'5 – 8 Ene',       lat:7.90,   lng:98.30,  color:'#8b1a3a', r:7,  num:2},
+  {name:'Krabi',      label:'Krabi',         country:'Tailandia',    dates:'8 – 13 Ene',      lat:8.09,   lng:98.91,  color:'#8b1a3a', r:7,  num:3},
   {name:'Bangkok',    label:'Bangkok',       country:'Tailandia',    dates:'13 – 15 Ene',     lat:13.75,  lng:100.50, color:'#8b1a3a', r:7,  num:4},
-  {name:'Chiang Mai', label:'Chiang Mai',    country:'Tailandia',    dates:'15 – 19 Ene',     lat:18.79,  lng:98.98,  color:'#8b1a3a', r:7,  num:5},
-  {name:'Osaka',      label:'Osaka',         country:'Japón',        dates:'19 – 22 Ene',     lat:34.69,  lng:135.50, color:'#c8293a', r:7,  num:6},
-  {name:'Kyoto',      label:'Kyoto',         country:'Japón',        dates:'22 – 25 Ene',     lat:35.01,  lng:135.77, color:'#c8293a', r:6,  num:7},
-  {name:'Tokyo',      label:'Tokyo',         country:'Japón',        dates:'25 Ene – 1 Feb',  lat:35.68,  lng:139.69, color:'#c8293a', r:9,  num:8},
+  {name:'Chiang Mai', label:'Chiang Mai',    country:'Tailandia',    dates:'16 – 19 Ene',     lat:18.79,  lng:98.98,  color:'#8b1a3a', r:7,  num:5},
+  {name:'Osaka',      label:'Osaka',         country:'Japón',        dates:'19 – 23 Ene',     lat:34.69,  lng:135.50, color:'#c8293a', r:7,  num:6},
+  {name:'Kyoto',      label:'Kyoto',         country:'Japón',        dates:'23 – 26 Ene',     lat:35.01,  lng:135.77, color:'#c8293a', r:6,  num:7},
+  {name:'Tokyo',      label:'Tokyo',         country:'Japón',        dates:'26 Ene – 1 Feb',  lat:35.68,  lng:139.69, color:'#c8293a', r:9,  num:8},
 ];
 
 function initTravelMap(){
@@ -2699,7 +2731,7 @@ function loadMembers(){
       var name = m.displayName || (m.email ? m.email.split('@')[0] : 'Viajero');
       name = name.charAt(0).toUpperCase() + name.slice(1);
       var av = m.avatarUrl
-        ? '<img class="member-av" src="'+m.avatarUrl+'" alt="'+escHtml(name)+'">'
+        ? '<img class="member-av" src="'+imgTx(m.avatarUrl,128)+'" onerror="imgFallback(this)" alt="'+escHtml(name)+'">'
         : '<div class="member-av-ph">'+name.charAt(0)+'</div>';
       var usernameTag = m.username ? '<div style="font-size:.65rem;color:var(--ember);font-weight:600;letter-spacing:.04em;">@'+escHtml(m.username)+'</div>' : '';
       var bio = m.bio ? '<div style="font-size:.72rem;color:rgba(0,0,0,.4);margin-top:.1rem;max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+escHtml(m.bio)+'</div>' : '';
@@ -2733,7 +2765,9 @@ function closeLightbox(){
   document.removeEventListener('keydown', lightboxKey);
 }
 function updateLightbox(){
-  document.getElementById('lightbox-img').src = _lbPhotos[_lbIdx];
+  var _img = document.getElementById('lightbox-img');
+  _img.onerror = function(){ imgFallback(_img); };
+  _img.src = imgTx(_lbPhotos[_lbIdx], 1600);
   document.getElementById('lightbox-counter').textContent = _lbPhotos.length > 1 ? (_lbIdx+1) + ' / ' + _lbPhotos.length : '';
   document.getElementById('lightbox-prev').style.display = _lbPhotos.length > 1 ? 'flex' : 'none';
   document.getElementById('lightbox-next').style.display = _lbPhotos.length > 1 ? 'flex' : 'none';

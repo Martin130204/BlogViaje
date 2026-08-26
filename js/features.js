@@ -12,12 +12,12 @@
   var SCHEDULE = [
     { num: 1, city: "Bali",       flag: "🇮🇩", start: "2026-12-28", color: "#d4783a" },
     { num: 2, city: "Phuket",     flag: "🇹🇭", start: "2027-01-05", color: "#8b1a3a" },
-    { num: 3, city: "Krabi",      flag: "🇹🇭", start: "2027-01-09", color: "#8b1a3a" },
+    { num: 3, city: "Krabi",      flag: "🇹🇭", start: "2027-01-08", color: "#8b1a3a" },
     { num: 4, city: "Bangkok",    flag: "🇹🇭", start: "2027-01-13", color: "#8b1a3a" },
-    { num: 5, city: "Chiang Mai", flag: "🇹🇭", start: "2027-01-15", color: "#8b1a3a" },
+    { num: 5, city: "Chiang Mai", flag: "🇹🇭", start: "2027-01-16", color: "#8b1a3a" },
     { num: 6, city: "Osaka",      flag: "🇯🇵", start: "2027-01-19", color: "#c8293a" },
-    { num: 7, city: "Kyoto",      flag: "🇯🇵", start: "2027-01-22", color: "#c8293a" },
-    { num: 8, city: "Tokyo",      flag: "🇯🇵", start: "2027-01-25", color: "#c8293a" },
+    { num: 7, city: "Kyoto",      flag: "🇯🇵", start: "2027-01-23", color: "#c8293a" },
+    { num: 8, city: "Tokyo",      flag: "🇯🇵", start: "2027-01-26", color: "#c8293a" },
   ].map(function (s) { s.startDate = new Date(s.start + "T00:00:00"); return s; });
 
   var DAY = 86400000;
@@ -106,7 +106,7 @@
     window._galPhotos = shown.map(function (p) { return p.src; });
     grid.innerHTML = shown.map(function (p, i) {
       return '<div class="gal-item" onclick="openGalleryLightbox(' + i + ')">' +
-        '<img src="' + p.src + '" alt="' + (p.title || "foto") + '" loading="lazy">' +
+        '<img src="' + (window.imgTx ? window.imgTx(p.src, 800) : p.src) + '" onerror="imgFallback&&imgFallback(this)" alt="' + (p.title || "foto") + '" loading="lazy">' +
         '<div class="gal-cap">' + (p.place || "") + "</div></div>";
     }).join("");
   }

@@ -69,7 +69,7 @@ nav{position:sticky;top:0;z-index:200;background:rgba(26,20,16,.96);backdrop-fil
 .selector-header .sec-label{color:rgba(212,168,83,.7);}
 .selector-header .sec-title{color:#fff;margin-bottom:0;}
 .country-cards{display:grid;grid-template-columns:repeat(3,1fr);}
-.c-card{position:relative;height:520px;overflow:hidden;cursor:pointer;}
+.c-card{position:relative;height:520px;overflow:hidden;cursor:pointer;background:var(--ink);}
 .c-card::before{content:'';position:absolute;inset:0;transition:opacity .4s;z-index:1;}
 .card-bali::before{background:linear-gradient(to top,rgba(212,120,58,.95) 0%,rgba(26,20,16,.2) 60%,transparent 100%);}
 .card-thai::before{background:linear-gradient(to top,rgba(139,26,58,.95) 0%,rgba(26,20,16,.2) 60%,transparent 100%);}
@@ -341,7 +341,7 @@ footer span{color:var(--gold);}
 .diario-entry-wrap{position:relative;}
 .diario-entry:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(0,0,0,.12);}
 .de-photos{display:flex;gap:2px;max-height:180px;overflow:hidden;}
-.de-photo{flex:1;min-width:0;object-fit:cover;height:180px;cursor:pointer;transition:transform .3s;}
+.de-photo{flex:1;min-width:0;object-fit:cover;height:180px;cursor:pointer;transition:transform .3s;background:var(--warm);}
 .de-photo:hover{transform:scale(1.03);}
 .de-body{padding:1.1rem 1.2rem;}
 .de-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;flex-wrap:wrap;gap:.4rem;}
