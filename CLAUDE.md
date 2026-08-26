@@ -19,7 +19,10 @@ sincronizada con el repo; si se editó algo por la web de GitHub, hacer `git pul
 
 ## Estructura
 ```
-index.html            Toda la página (secciones + script principal inline)
+index.html            Todas las secciones (HTML). Los scripts se cargan con defer (no bloquean render).
+js/main.js            Script principal (countdown, países, diario, ratings, perfil, lightbox, mapa,
+                      helpers imgTx/imgFallback). Se extrajo del inline para no bloquear el primer
+                      pintado; sus funciones quedan globales (window) para los onclick del HTML.
 css/styles.css        Design system (paleta cálida, Playfair + DM Sans; japonés con fuente del sistema)
 js/config.js          Claves públicas de Supabase (URL + publishable key) + INVITE_CODE (viaje26)
 js/vendor/supabase.js Librería Supabase AUTO-ALOJADA (se carga antes de backend.js; NO usar esm.sh)
