@@ -33,7 +33,7 @@ body{font-family:'DM Sans',sans-serif,'Noto Color Emoji';background:var(--sand);
 .cd-sep{font-size:2rem;color:rgba(255,255,255,.25);margin-top:-.3rem;user-select:none;}
 #cd-status{margin-top:1rem;font-size:.78rem;color:rgba(255,255,255,.45);letter-spacing:.15em;text-transform:uppercase;opacity:0;animation:fadeUp 1s ease 1.3s forwards;}
 .hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:rgba(255,255,255,.28);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;opacity:0;animation:fadeUp 1s ease 1.6s forwards;}
-.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,.3),transparent);animation:scrollPulse 2s ease infinite;}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,.45),transparent);}
 @keyframes scrollPulse{0%,100%{opacity:.3;}50%{opacity:1;}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
 
@@ -665,7 +665,7 @@ footer span{color:var(--gold);}
 
 /* Parada actual/próxima pulsando en el mapa */
 .stop-current{position:relative;}
-.stop-current::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:2px solid var(--gold);animation:stopPulse 1.6s ease-out infinite;pointer-events:none;}
+.stop-current::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:2px solid var(--gold);pointer-events:none;}
 @keyframes stopPulse{0%{transform:scale(.9);opacity:1;}70%{transform:scale(1.7);opacity:0;}100%{opacity:0;}}
 
 /* ── GALERÍA ── */

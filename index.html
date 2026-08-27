@@ -978,6 +978,22 @@
       caches.keys().then(function (ks) { ks.forEach(function (k) { caches.delete(k); }); }).catch(function () {});
     }
   }
+
+  // iOS Safari a veces no PINTA el contenido debajo del hero hasta que tocas/scrolleas
+  // ("queda en blanco hasta que muevo el dedo"). Forzamos ese repintado nosotros, con un
+  // micro-scroll instantáneo (1px y vuelta) apenas carga, sin que se note.
+  (function(){
+    function nudge(){
+      var h = document.documentElement, prev = h.style.scrollBehavior;
+      h.style.scrollBehavior = 'auto';           // evita el smooth-scroll
+      window.scrollTo(0, 1); window.scrollTo(0, 0);
+      h.style.scrollBehavior = prev;
+      void document.body.offsetHeight;            // fuerza reflow (sin dejar estilos)
+    }
+    if (document.readyState !== 'loading') nudge();
+    else document.addEventListener('DOMContentLoaded', nudge);
+    window.addEventListener('load', function(){ nudge(); setTimeout(nudge, 300); });
+  })();
 </script>
 </body>
 </html>
