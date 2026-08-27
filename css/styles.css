@@ -386,10 +386,13 @@ footer span{color:var(--gold);}
   position:fixed;inset:0;z-index:9999;
   background:rgba(26,20,16,0.96);
   display:flex;align-items:center;justify-content:center;
-  backdrop-filter:blur(8px);
-  opacity:0;pointer-events:none;transition:opacity .3s;
+  /* IMPORTANTE: oculto = visibility:hidden (NO solo opacity), y el backdrop-filter
+     SOLO cuando .visible. Un overlay fijo de pantalla completa con backdrop-filter
+     siempre presente hace que iOS Safari re-desenfoque todo el viewport en cada
+     frame del scroll -> pantalla en blanco varios segundos al scrollear. */
+  opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s,visibility .3s;
 }
-#login-overlay.visible{opacity:1;pointer-events:all;}
+#login-overlay.visible{opacity:1;visibility:visible;pointer-events:all;backdrop-filter:blur(8px);}
 .login-box{
   background:#fff;border-radius:24px;padding:2.5rem 2.8rem;
   width:90%;max-width:420px;
@@ -442,7 +445,7 @@ footer span{color:var(--gold);}
 .requires-auth{position:relative;}
 .auth-lock{
   position:absolute;inset:0;z-index:10;
-  background:rgba(245,239,230,.85);backdrop-filter:blur(3px);
+  background:rgba(245,239,230,.92);
   border-radius:inherit;display:flex;flex-direction:column;
   align-items:center;justify-content:center;gap:.5rem;
   cursor:pointer;transition:opacity .2s;
