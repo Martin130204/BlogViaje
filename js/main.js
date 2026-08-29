@@ -1820,3 +1820,14 @@ function lightboxKey(e){
 
 // (nav-av listener merged into updateNavUser)
 
+// ── PUESTA AL DÍA SI EL BACKEND YA ESTABA LISTO ──
+// Este script se carga con defer, así que puede ejecutarse DESPUÉS de que backend.js
+// (js/backend.js) ya haya disparado 'auth-changed' y 'firebase-ready'. En ese caso, los
+// listeners de arriba se habrían registrado tarde y perdido esos eventos (el diario
+// quedaba en "Cargando…", el estado de login sin actualizar, etc.). Si ya está listo,
+// re-emitimos los eventos ahora para que todos los listeners se pongan al día.
+if (window._fbReady) {
+  document.dispatchEvent(new CustomEvent('auth-changed', { detail: window._currentUser || null }));
+  document.dispatchEvent(new Event('firebase-ready'));
+}
+
